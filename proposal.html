@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Почему нужен новый сайт — предложение | Centrum Bolotova</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="brand.css">
+  <style>
+    .lead-hero{background:linear-gradient(120deg,var(--wine-dark),var(--wine));color:#fff;padding:70px 0}
+    table.cmp{width:100%;border-collapse:collapse;margin-top:20px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px rgba(94,32,57,.08)}
+    table.cmp th,table.cmp td{padding:14px 18px;text-align:left;border-bottom:1px solid #f0e6ea;vertical-align:top;font-size:15px}
+    table.cmp th{font-family:'Montserrat';font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--wine)}
+    table.cmp td.now{color:#a23a4e}
+    table.cmp td.new{color:var(--brand-700,#24512e)}
+    .prob{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:18px 0;border-bottom:1px solid #efe4e8}
+    .sev{font-family:'Montserrat';font-weight:800;font-size:12px;color:#fff;border-radius:40px;padding:5px 12px;white-space:nowrap;height:fit-content}
+    .sev.c{background:#a23a4e}.sev.m{background:var(--gold);color:var(--wine-dark)}
+    .step{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid #efe4e8;align-items:start}
+    .step .dur{font-family:'Montserrat';font-weight:800;color:var(--magenta)}
+    .pill-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .pill-list li{background:var(--sage);color:var(--wine-dark);border-radius:40px;padding:6px 14px;font-size:13px;font-family:'Montserrat';font-weight:600}
+  </style>
+</head>
+<body>
+
+  <header class="site-header"><div class="container">
+    <a href="index.html" class="brand"><span class="mark">B</span>Centrum Bolotova</a>
+    <nav class="nav"><a href="index.html">Прототип: главная</a><a href="balzam-bolotova.html">Прототип: Balzam</a></nav>
+    <a class="btn btn-primary" href="index.html">← К прототипу</a>
+  </div></header>
+
+  <!-- HERO -->
+  <section class="lead-hero">
+    <div class="container">
+      <span class="tag" style="background:rgba(255,255,255,.15)">Предложение по сайту</span>
+      <h1 style="margin-top:16px;max-width:820px">Почему стоит сделать новый сайт — и как мы предлагаем это сделать</h1>
+      <p class="lead" style="margin-top:16px;color:#f3e3ea;max-width:760px">Краткая, основанная на фактах картина: что не так с текущим сайтом, почему «починить» дороже, чем построить заново, как мы предлагаем делать и сколько это примерно займёт.</p>
+      <p style="margin-top:18px"><a class="btn btn-gold" href="index.html">Посмотреть живой прототип →</a></p>
+    </div>
+  </section>
+
+  <!-- ПРОБЛЕМЫ -->
+  <section class="section">
+    <div class="container" style="max-width:920px">
+      <span class="kicker">Шаг 1 · Диагностика</span>
+      <h2 class="title" style="text-align:left;margin-top:8px">Что не так с текущим сайтом</h2>
+      <p class="muted" style="margin-top:8px">Проверено по факту в админке и публичной части. Каждый пункт — это реальный бизнес-риск или потерянные деньги.</p>
+
+      <div style="margin-top:24px">
+        <div class="prob"><span class="sev c">Критично</span><div><strong>Сайт невидим для Google.</strong> На всех страницах стоит запрет индексации (<code>noindex</code>). Поисковики его не показывают — органического трафика и новых клиентов из поиска фактически нет.</div></div>
+        <div class="prob"><span class="sev c">Критично</span><div><strong>Сайт работает на «сборке для разработки».</strong> Bitrix на каждой странице админки пишет, что эта установка не предназначена для боевого сайта — это лицензионный риск и риск стабильности.</div></div>
+        <div class="prob"><span class="sev c">Критично</span><div><strong>НДС не настроен вообще.</strong> Для продаж в PL/CZ/SK/DE налог должен считаться по странам (режим OSS). Сейчас этого нет — бухгалтерский и налоговый риск.</div></div>
+        <div class="prob"><span class="sev c">Критично</span><div><strong>Тексты нарушают нормы ЕС.</strong> Статьи и позиционирование обещают «лечение» болезней (рефлюкс, IBS, псориаз) — для БАДов это запрещено. Риск штрафов (в Польше — GIS/Sanepid, UOKiK).</div></div>
+        <div class="prob"><span class="sev c">Критично</span><div><strong>Нет согласия на cookie (GDPR/RODO).</strong> Трекеры (Google, TikTok, Yandex) грузятся без баннера согласия — нарушение и репутационный риск (особенно российский Yandex на сайте ЕС).</div></div>
+        <div class="prob"><span class="sev m">Средне</span><div><strong>SEO-фундамент сломан.</strong> robots.txt и карта сайта ведут на чужие домены; нет hreflang, нет микроразметки, дубли между языками. Даже после снятия noindex сайт будет плохо ранжироваться.</div></div>
+        <div class="prob"><span class="sev m">Средне</span><div><strong>Контент не локализован.</strong> На польском сайте — словацкие и чешские куски (описания, отзывы, текст на упаковках), устаревшие объявления 2024 года на странице доставки.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПОЧЕМУ НОВЫЙ -->
+  <section class="section" style="background:#fff">
+    <div class="container" style="max-width:920px">
+      <span class="kicker">Шаг 2 · Вывод</span>
+      <h2 class="title" style="text-align:left;margin-top:8px">Почему «новый» выгоднее, чем «латать старый»</h2>
+      <p style="margin-top:12px">Большинство проблем — не мелкие баги, а <strong>структурные</strong>: dev-сборка, мультисайт со скопированным контентом, отсутствие SEO- и налогового фундамента. Латать такое в Bitrix — это долго, дорого и оставляет вас привязанными к узкому Bitrix-специалисту. Чистая пересборка решает всё сразу и даёт платформу, которую легко вести и развивать.</p>
+      <table class="cmp">
+        <tr><th>Параметр</th><th>Сейчас</th><th>Станет</th></tr>
+        <tr><td>Видимость в Google</td><td class="now">Закрыт от индексации</td><td class="new">Индексируется, SEO с нуля правильно</td></tr>
+        <tr><td>Платформа</td><td class="now">Dev-сборка Bitrix</td><td class="new">Лицензионная, поддерживается любым разработчиком</td></tr>
+        <tr><td>Налоги (ЕС)</td><td class="now">НДС не настроен</td><td class="new">НДС по странам + OSS из коробки</td></tr>
+        <tr><td>Юр. соответствие</td><td class="now">Медзаявления, нет cookie-согласия</td><td class="new">Корректные тексты + баннер согласия (RODO)</td></tr>
+        <tr><td>Контент</td><td class="now">Смешанные языки, мусор 2024</td><td class="new">Полностью локализован под PL/CZ/SK/DE</td></tr>
+        <tr><td>Редактирование</td><td class="now">Только Bitrix-спец</td><td class="new">Владелец сам + разработчик по технике</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- КАК ДЕЛАЕМ -->
+  <section class="section">
+    <div class="container" style="max-width:920px">
+      <span class="kicker">Шаг 3 · Решение</span>
+      <h2 class="title" style="text-align:left;margin-top:8px">Как мы предлагаем делать</h2>
+      <p style="margin-top:12px">Рекомендация — <strong>WordPress + WooCommerce</strong>: проверенная платформа для интернет-магазина, которую владелец редактирует сам (как привычную админку), а технику ведёт разработчик. Никакой привязки к одному вендору. Дизайн — своя тема в фирменном стиле (вы его уже видите в прототипе).</p>
+      <p class="muted" style="margin-top:10px;font-size:15px">Что закрывается «из коробки» подходящими модулями:</p>
+      <ul class="pill-list">
+        <li>Мультиязык PL/CZ/SK/DE (WPML/Polylang)</li>
+        <li>НДС по странам + OSS</li>
+        <li>Оплаты PL (Przelewy24 / BLIK)</li>
+        <li>Доставка (GLS / DPD)</li>
+        <li>SEO: индексация, hreflang, schema, sitemap (RankMath)</li>
+        <li>Cookie-согласие (Complianz)</li>
+        <li>WhatsApp вместо открытого телефона</li>
+        <li>Скидки, варианты товара, корзина, заказы</li>
+      </ul>
+      <p style="margin-top:16px"><strong>Альтернатива — Shopify</strong>, если со временем захочется «совсем без техники»: налоги и мультистрана ещё проще, но это аренда платформы и меньше контроля. При наличии разработчика WooCommerce — оптимальный баланс контроля и стоимости.</p>
+    </div>
+  </section>
+
+  <!-- СРОКИ -->
+  <section class="section" style="background:#fff">
+    <div class="container" style="max-width:920px">
+      <span class="kicker">Шаг 4 · План и сроки</span>
+      <h2 class="title" style="text-align:left;margin-top:8px">Этапы и примерные сроки</h2>
+      <p class="muted" style="margin-top:8px">Оценки ориентировочные, зависят от готовности контента и материалов (логотип, фото, тексты, доступы).</p>
+      <div style="margin-top:20px">
+        <div class="step"><span class="dur">~1 нед</span><div><strong>Этап 0. Согласование.</strong> Утверждение дизайна, контент-план, доступы, фирменные материалы.</div></div>
+        <div class="step"><span class="dur">~1,5–2 нед</span><div><strong>Этап 1. Каркас и дизайн.</strong> WordPress + тема в фирменном стиле, главная и шаблоны страниц (как в прототипе).</div></div>
+        <div class="step"><span class="dur">~1 нед</span><div><strong>Этап 2. Каталог.</strong> Товары, варианты (объёмы), цены, ступенчатые скидки, корзина.</div></div>
+        <div class="step"><span class="dur">~1,5 нед</span><div><strong>Этап 3. Мультиязык.</strong> PL/CZ/SK/DE, hreflang, переключатель языков.</div></div>
+        <div class="step"><span class="dur">~1 нед</span><div><strong>Этап 4. Коммерция.</strong> НДС/OSS по странам, оплаты, доставка, заказы.</div></div>
+        <div class="step"><span class="dur">~1–2 нед</span><div><strong>Этап 5. Контент.</strong> Перенос текстов и фото, исправление формулировок под нормы ЕС, локализация.</div></div>
+        <div class="step"><span class="dur">~1 нед</span><div><strong>Этап 6. Запуск.</strong> SEO, cookie-согласие, тесты, перенос на боевой домен, снятие noindex.</div></div>
+      </div>
+      <div class="cta-band" style="margin-top:34px;background:linear-gradient(90deg,var(--wine-dark),var(--wine));color:#fff;border-radius:20px;padding:36px;text-align:center">
+        <h2 class="title" style="color:#fff">Итого: ориентировочно 6–9 недель</h2>
+        <p style="margin-top:8px;color:#f0dfe6">Точные сроки и смета — после согласования объёма и получения материалов. Этапы можно запускать параллельно, чтобы ускорить.</p>
+      </div>
+      <p class="fnote" style="margin-top:18px">Юридические пункты (медзаявления, GDPR, НДС/OSS) — обоснованные риски со ссылками на нормы; финальное заключение стоит подтвердить у юриста по польскому/ЕС праву.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container" style="padding:30px 20px">
+      <p class="fnote">Предложение по новому сайту Centrum Bolotova · подготовлено на основе аудита текущего сайта. Живой прототип: <a href="index.html" style="color:var(--gold-light)">главная</a> · <a href="balzam-bolotova.html" style="color:var(--gold-light)">страница Balzam</a>.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
