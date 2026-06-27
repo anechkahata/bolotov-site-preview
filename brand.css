@@ -226,7 +226,7 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .exp-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 8px}
 .exp-track::-webkit-scrollbar{height:8px}
 .exp-track::-webkit-scrollbar-thumb{background:#e0d3d9;border-radius:8px}
-.exp-card{flex:0 0 340px;max-width:340px;scroll-snap-align:center;padding:22px}
+.exp-card{flex:0 0 300px;max-width:300px;scroll-snap-align:center;padding:22px}
 @media(max-width:600px){.exp-card{flex-basis:280px}.exp-carousel .rev-nav{display:none}}
 
 /* Back-to-top button */
@@ -236,3 +236,13 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 
 /* Review images are zoomable */
 .rev-track img, .reviews-grid img{cursor:zoom-in}
+
+/* Certificates carousel (balzam landing) */
+.cert-carousel{position:relative}
+.cert-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 8px}
+.cert-track::-webkit-scrollbar{height:8px}
+.cert-track::-webkit-scrollbar-thumb{background:#e0d3d9;border-radius:8px}
+.cert-track a{flex:0 0 168px;scroll-snap-align:center;position:relative;display:block;cursor:zoom-in}
+.cert-track img{width:100%;height:224px;object-fit:contain;background:#fff;border:1px solid #efe5e9;border-radius:12px;padding:8px}
+.cert-track a::after{content:'🔍';position:absolute;right:8px;bottom:8px;background:var(--wine);color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:13px;opacity:.85}
+@media(max-width:600px){.cert-track a{flex-basis:140px}.cert-carousel .rev-nav{display:none}}
