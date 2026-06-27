@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Koszyk | Centrum Bolotova</title>
+  <meta name="description" content="Koszyk i finalizacja zamówienia — Centrum Bolotova.">
+  <meta name="robots" content="noindex, nofollow"><link rel="stylesheet" href="brand.css">
+  <style>.field{display:grid;gap:5px}.field label{font-size:13px;font-weight:600;color:var(--wine-dark)}.field input,.field select{border:1px solid #e0d3d9;border-radius:12px;padding:12px 14px;font-size:15px}</style>
+</head>
+<body>
+  <div class="topbar"><div class="container"><span>Suplementy diety jakości spożywczej · oparte na badaniach akademika Bołotowa</span><span>info@centerbolotova.eu</span></div></div>
+  <header class="site-header"><div class="container">
+    <a href="index.html" class="brand"><img class="logo" src="assets/img/logo.png" alt="Centrum Bolotova">Centrum Bolotova</a>
+    <nav class="nav"><a href="katalog.html">Katalog</a><a href="katalog.html#zestawy">Zestawy</a><a href="balzam-bolotova.html">Balzam Bolotova</a><a href="opinie.html">Opinie</a><a href="kontakt.html">Kontakt</a></nav>
+    <div class="header-actions"><a class="wa-ic" href="https://wa.me/421944623644?text=Dzie%C5%84%20dobry" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg></a></div>
+  </div></header>
+
+  <section class="section"><div class="container" style="max-width:980px">
+    <h2 class="title" style="text-align:left">Koszyk</h2>
+
+    <div class="card" style="padding:24px;margin-top:20px;text-align:center;background:var(--cream)">
+      <p class="muted">Twój koszyk jest pusty. Jeśli chcesz kontynuować zakupy, <a href="katalog.html" style="color:var(--magenta)">kliknij tutaj</a>.</p>
+    </div>
+
+    <h2 class="title" style="text-align:left;margin-top:40px;font-size:24px">Złóż zamówienie</h2>
+    <p class="muted" style="font-size:13px;margin-top:6px">Wersja demonstracyjna formularza. Płatność Stripe i wysyłka do CRM zostaną podłączone kluczami klienta.</p>
+
+    <form style="margin-top:22px;display:grid;gap:26px" onsubmit="return false">
+      <div class="card" style="padding:24px">
+        <h3 style="color:var(--wine);margin-bottom:14px">Klient</h3>
+        <div class="grid2" style="gap:16px">
+          <div class="field"><label>Imię i nazwisko *</label><input required></div>
+          <div class="field"><label>Telefon *</label><input type="tel" required></div>
+          <div class="field"><label>E-mail *</label><input type="email" required></div>
+          <div class="field"><label>Data urodzenia</label><input type="date"></div>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:10px">Podaj datę urodzenia, a wyślemy Ci rabat urodzinowy — obowiązuje w dniu urodzin oraz przez 7 dni po nich.</p>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <h3 style="color:var(--wine);margin-bottom:14px">Dostawa</h3>
+        <div style="display:grid;gap:10px;margin-bottom:14px">
+          <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;cursor:pointer"><span><input type="radio" name="dost" checked> GLS</span><strong>21 zł</strong></label>
+          <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;cursor:pointer"><span><input type="radio" name="dost"> PPL</span><strong>31 zł</strong></label>
+        </div>
+        <div class="grid2" style="gap:16px">
+          <div class="field"><label>Kod pocztowy *</label><input required></div>
+          <div class="field"><label>Miasto *</label><input required></div>
+          <div class="field"><label>Adres dostawy *</label><input required></div>
+          <div class="field"><label>Nr domu *</label><input required></div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <h3 style="color:var(--wine);margin-bottom:14px">Płatność</h3>
+        <div style="border:1px solid #e0d3d9;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px">
+          <strong>Płatność kartą online (Stripe)</strong>
+        </div>
+        <p class="muted" style="font-size:13px;margin-top:10px">Bezpieczna płatność przez sprawdzoną bramkę płatniczą. Obsługujemy Visa, Mastercard, Apple Pay i Google Pay. Nie przechowujemy danych kart płatniczych.</p>
+        <!-- TODO: Stripe Payment Element mounts here (needs publishable key) -->
+      </div>
+
+      <label style="display:flex;gap:8px;font-size:13px;color:#6b5b62"><input type="checkbox" required><span>Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z obowiązującymi przepisami o ochronie danych osobowych (<a href="polityka-prywatnosci.html" style="color:var(--magenta)">więcej informacji</a>).</span></label>
+      <button class="btn btn-gold" style="justify-self:start">Złóż zamówienie</button>
+    </form>
+  </div></section>
+
+  <footer class="site-footer"><div class="container" style="padding:40px 20px"><p class="fnote">HataVia s.r.o. | IČO: 23490551 | DIČ: CZ23490551 | Kaprova 42/14, 110 00 Praha 1, Česká republika · © 2010–2026 Bolotov Center.</p></div></footer>
+  <div class="disclaimer-bar">Suplementy diety nie są lekami i nie są przeznaczone do diagnozowania, leczenia ani zapobiegania chorobom. Przed zastosowaniem skonsultuj się z lekarzem.</div>
+  <a class="wa-float" href="https://wa.me/421944623644?text=Dzie%C5%84%20dobry" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg></a>
+</body>
+</html>
