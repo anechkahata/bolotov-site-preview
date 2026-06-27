@@ -79,7 +79,7 @@
       var row = items.filter(function (i) { return i.id === id; })[0];
       if (row) { row.qty += qty; } else { items.push({ id: id, qty: qty }); }
       write(items);
-      toast(CATALOG[id].name + ' — dodano do koszyka');
+      notify(id, qty);
     },
     setQty: function (id, qty) {
       var items = read().map(function (i) { return i.id === id ? { id: id, qty: qty } : i; })
@@ -109,18 +109,32 @@
     }
   }
 
-  /* Lightweight toast. */
-  var toastEl;
-  function toast(msg) {
-    if (!toastEl) {
-      toastEl = document.createElement('div');
-      toastEl.className = 'cart-toast';
-      document.body.appendChild(toastEl);
+  /* Add-to-cart popup with actions (go to cart / continue shopping). */
+  var popEl;
+  function notify(id, qty) {
+    var p = CATALOG[id]; if (!p) return;
+    if (!popEl) {
+      popEl = document.createElement('div');
+      popEl.className = 'cart-pop';
+      popEl.innerHTML =
+        '<div class="cart-pop-box" role="dialog" aria-live="polite">' +
+        '<button class="cart-pop-x" aria-label="Zamknij">&times;</button>' +
+        '<div class="cart-pop-head"><span class="cart-pop-tick">✓</span><span>Dodano do koszyka</span></div>' +
+        '<div class="cart-pop-prod"></div>' +
+        '<div class="cart-pop-actions">' +
+        '<a class="btn btn-gold" href="koszyk.html">Przejdź do koszyka</a>' +
+        '<button class="btn btn-ghost cart-pop-cont" type="button">Kontynuuj zakupy</button>' +
+        '</div></div>';
+      document.body.appendChild(popEl);
+      var close = function () { popEl.classList.remove('show'); };
+      popEl.querySelector('.cart-pop-x').addEventListener('click', close);
+      popEl.querySelector('.cart-pop-cont').addEventListener('click', close);
+      popEl.addEventListener('click', function (e) { if (e.target === popEl) close(); });
     }
-    toastEl.textContent = msg;
-    toastEl.classList.add('show');
-    clearTimeout(toast._t);
-    toast._t = setTimeout(function () { toastEl.classList.remove('show'); }, 2600);
+    var thumb = p.img ? '<img src="' + p.img + '" alt="">' : '';
+    popEl.querySelector('.cart-pop-prod').innerHTML =
+      thumb + '<div><strong>' + p.name + '</strong><div class="muted" style="font-size:13px">Ilość: ' + (qty || 1) + ' · w koszyku: ' + Cart.count() + '</div></div>';
+    popEl.classList.add('show');
   }
 
   if (document.readyState === 'loading') {
