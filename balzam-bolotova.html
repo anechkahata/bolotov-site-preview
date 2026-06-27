@@ -81,8 +81,13 @@
   <section class="section" style="background:#fff"><div class="container">
     <h2 class="title">Balzam Bolotova — nauka i dziesięciolecia doświadczeń</h2>
     <div class="grid2" style="margin-top:32px;align-items:stretch">
-      <div>
-        <img src="assets/img/balzam/img_1.jpg" alt="Produkcja w warunkach laboratoryjnych" style="border-radius:18px;width:100%;height:100%;min-height:300px;object-fit:cover;box-shadow:0 10px 30px rgba(94,32,57,.15)">
+      <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+        <img id="nauka-main" src="assets/img/balzam/img_1.jpg" alt="Produkcja w warunkach laboratoryjnych" style="border-radius:18px;width:100%;flex:1 1 auto;min-height:280px;object-fit:cover;box-shadow:0 10px 30px rgba(94,32,57,.15)">
+        <div style="display:flex;gap:10px">
+          <img src="assets/img/balzam/img_2.jpg" alt="Linia produkcyjna" onclick="document.getElementById('nauka-main').src=this.src" style="flex:1;width:100%;height:90px;object-fit:cover;border-radius:12px;cursor:pointer;border:1px solid #efe5e9">
+          <img src="assets/img/balzam/img_3.jpg" alt="Kontrola jakości w laboratorium" onclick="document.getElementById('nauka-main').src=this.src" style="flex:1;width:100%;height:90px;object-fit:cover;border-radius:12px;cursor:pointer;border:1px solid #efe5e9">
+          <img src="assets/img/balzam/img_4.jpg" alt="Urządzenia produkcyjne" onclick="document.getElementById('nauka-main').src=this.src" style="flex:1;width:100%;height:90px;object-fit:cover;border-radius:12px;cursor:pointer;border:1px solid #efe5e9">
+        </div>
       </div>
       <div style="min-width:0">
         <p>Receptura Balzamu Bolotova opiera się na wieloletnich badaniach akademika Borisa Bołotowa. Pochodzenie receptury oraz ochronę nazwy i marki potwierdzają dokumenty i certyfikaty.</p>
