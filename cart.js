@@ -3,13 +3,13 @@
    and an add-to-cart toast. Stripe charging is wired separately (needs keys). */
 (function () {
   var CATALOG = {
-    'balzam-250':            { name: 'Balzam Bolotova 250 ml', price: 141, img: 'assets/img/prod-balzam.jpg', url: 'produkt-balzam.html' },
+    'balzam-250':            { name: 'Balzam Bolotova 250 ml', price: 149, img: 'assets/img/prod-balzam.jpg', url: 'produkt-balzam.html' },
     'balzam-500':            { name: 'Balzam Bolotova 500 ml', price: 193, img: 'assets/img/prod-balzam.jpg', url: 'produkt-balzam.html',
                                tiers: [{ min: 6, price: 153 }, { min: 3, price: 163 }, { min: 1, price: 193 }] },
     'kolagen':               { name: 'Kolagen by Bolotov', price: 279, img: 'assets/img/prod-kolagen.png', url: 'kolagen-by-bolotov.html' },
     'l-glutamine':           { name: 'L-Glutamine Gastric Restore Complex', price: 116, img: 'assets/img/prod-lglutamine.png', url: 'l-glutamine.html' },
     'hyaluronic':            { name: 'Hyaluronic Acid + Vitamin C', price: 116, img: 'assets/img/prod-hyaluronic.png', url: 'hyaluronic-acid-vitamin-c.html' },
-    'biotin':                { name: 'Biotin Zinc Selenium', price: 71, img: 'assets/img/prod-biotin.png', url: 'biotin-zinc-selenium.html' },
+    'biotin':                { name: 'Biotin Zinc Selenium', price: 69, img: 'assets/img/prod-biotin.png', url: 'biotin-zinc-selenium.html' },
     'set-beauty-base':       { name: 'Set Beauty Base System', price: 326, orig: 391, url: 'set-beauty-base.html' },
     'set-refluks-zgaga':     { name: 'Set Program na Refluks i Zgagę', price: 281, orig: 354, url: 'set-refluks-zgaga.html' },
     'set-ciezkosc-wzdecia':  { name: 'Set Program na Uczucie Ciężkości i Wzdęcia', price: 209, orig: 233, url: 'set-ciezkosc-wzdecia.html' },
