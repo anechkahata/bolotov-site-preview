@@ -246,3 +246,14 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .cert-track img{width:100%;height:224px;object-fit:contain;background:#fff;border:1px solid #efe5e9;border-radius:12px;padding:8px}
 .cert-track a::after{content:'🔍';position:absolute;right:8px;bottom:8px;background:var(--wine);color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:13px;opacity:.85}
 @media(max-width:600px){.cert-track a{flex-basis:140px}.cert-carousel .rev-nav{display:none}}
+
+/* Artykuły accordion (kolagen) */
+.art-acc{border:1px solid #efe5e9;border-radius:12px;margin-bottom:12px;background:#fff;overflow:hidden}
+.art-acc>summary{cursor:pointer;list-style:none;padding:16px 20px;font-family:var(--font-head,'Montserrat',sans-serif);font-weight:700;color:var(--wine);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.art-acc>summary::-webkit-details-marker{display:none}
+.art-acc>summary::after{content:'+';font-size:22px;color:var(--gold,#b8893b);line-height:1;flex:0 0 auto}
+.art-acc[open]>summary::after{content:'–'}
+.art-acc[open]>summary{border-bottom:1px solid #efe5e9}
+.art-acc>p{padding:0 20px;margin:12px 0}
+.art-acc>p:first-of-type{margin-top:16px}
+.art-acc>p:last-child{margin-bottom:18px}
