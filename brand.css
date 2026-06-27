@@ -262,3 +262,6 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .grid3 article.card{display:flex;flex-direction:column}
 .grid3 article.card>div{display:flex;flex-direction:column;flex:1 1 auto}
 .grid3 article.card .btn{margin-top:auto;align-self:flex-start}
+
+/* Article author byline */
+.art-acc>p.art-by{margin:16px 20px 4px;font-style:italic;font-size:13.5px;color:#8a7a80}
