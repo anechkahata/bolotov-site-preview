@@ -141,3 +141,8 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
   .cart-row .cart-line{grid-area:line;text-align:right}
   .cart-row .cart-del{grid-area:del}
 }
+
+/* ===== Reviews grid (customer screenshots) ===== */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.reviews-grid img{width:100%;border-radius:14px;box-shadow:0 4px 14px rgba(94,32,57,.08);border:1px solid #efe5e9;background:#fff}
+.benefit-ico{height:54px;width:auto;margin-bottom:12px}
