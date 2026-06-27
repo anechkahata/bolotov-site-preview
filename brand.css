@@ -257,3 +257,8 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .art-acc>p{padding:0 20px;margin:12px 0}
 .art-acc>p:first-of-type{margin-top:16px}
 .art-acc>p:last-child{margin-bottom:18px}
+
+/* Product cards in 3-col grids: equal height + ZOBACZ button bottom-aligned */
+.grid3 article.card{display:flex;flex-direction:column}
+.grid3 article.card>div{display:flex;flex-direction:column;flex:1 1 auto}
+.grid3 article.card .btn{margin-top:auto;align-self:flex-start}
