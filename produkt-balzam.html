@@ -50,15 +50,15 @@
         <p style="margin-top:12px">Balzam Bolotova to suplement diety o unikalnym składzie, opracowany na podstawie receptury akademika Borisa Bołotowa (patent nr 16111 z dnia 17.07.2006). Stworzony z myślą o osobach, które chcą uzupełnić codzienną dietę o naturalny produkt jakości spożywczej.</p>
 
         <div style="margin:22px 0;display:flex;gap:10px;flex-wrap:wrap" id="variants">
-          <button class="btn btn-ghost" data-vol="250" data-price="141">250 ml — 141 zł</button>
-          <button class="btn btn-primary" data-vol="500" data-price="193">500 ml — 193 zł</button>
+          <button class="btn btn-ghost" data-id="balzam-250" data-vol="250" data-price="141">250 ml — 141 zł</button>
+          <button class="btn btn-primary" data-id="balzam-500" data-vol="500" data-price="193">500 ml — 193 zł</button>
         </div>
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
           <span class="mont" style="font-size:30px;font-weight:800;color:var(--wine)" id="price">193 zł</span>
           <span class="muted" style="font-size:14px" id="vol-label">Pojemność: 500 ml</span>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn btn-gold" href="koszyk.html">Dodaj do koszyka</a>
+          <button class="btn btn-gold" id="add-balzam">Dodaj do koszyka</button>
           <a class="btn btn-wa" href="https://wa.me/421944623644?text=Pytanie%20o%20Balzam%20Bolotova">Zapytaj na WhatsApp</a>
         </div>
 
@@ -184,14 +184,19 @@
       document.getElementById(b.dataset.tab).classList.add('active');
     }));
     // Variant price
+    var activeVariant='balzam-500';
     document.querySelectorAll('#variants button').forEach(b=>b.addEventListener('click',()=>{
       document.querySelectorAll('#variants button').forEach(x=>{x.classList.remove('btn-primary');x.classList.add('btn-ghost');});
       b.classList.remove('btn-ghost');b.classList.add('btn-primary');
+      activeVariant=b.dataset.id;
       document.getElementById('price').textContent=b.dataset.price+' zł';
       document.getElementById('vol-label').textContent='Pojemność: '+b.dataset.vol+' ml';
     }));
+    // Add selected variant to cart
+    document.getElementById('add-balzam').addEventListener('click',()=>Cart.add(activeVariant));
   </script>
 
+  <script src="cart.js"></script>
   <script src="cookies.js"></script>
 </body>
 </html>

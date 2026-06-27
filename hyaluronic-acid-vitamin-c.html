@@ -24,7 +24,7 @@
       <p class="accent" style="font-size:20px">Kwas hialuronowy z witaminą C.</p>
       <p style="margin-top:12px">Suplement diety łączący kwas hialuronowy z witaminą C w kapsułkach roślinnych — dla osób dbających o skórę od wewnątrz.</p>
       <div style="display:flex;align-items:center;gap:14px;margin:22px 0"><span class="mont" style="font-size:30px;font-weight:800;color:var(--wine)">116 zł</span><span class="muted" style="font-size:14px">60 kapsułek</span></div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-gold" href="koszyk.html">Dodaj do koszyka</a><a class="btn btn-wa" href="https://wa.me/421944623644?text=Pytanie%20o%20Hyaluronic%20Acid">Zapytaj na WhatsApp</a></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn btn-gold" onclick="Cart.add('hyaluronic')">Dodaj do koszyka</button><a class="btn btn-wa" href="https://wa.me/421944623644?text=Pytanie%20o%20Hyaluronic%20Acid">Zapytaj na WhatsApp</a></div>
     </div>
   </div></section>
 
@@ -59,6 +59,7 @@
   <div class="disclaimer-bar">Suplementy diety nie są lekami i nie są przeznaczone do diagnozowania, leczenia ani zapobiegania chorobom. Przed zastosowaniem skonsultuj się z lekarzem.</div>
   <a class="wa-float" href="https://wa.me/421944623644?text=Dzie%C5%84%20dobry" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg></a>
   <script>document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');}));</script>
+  <script src="cart.js"></script>
   <script src="cookies.js"></script>
 </body>
 </html>
