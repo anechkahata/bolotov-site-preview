@@ -58,6 +58,7 @@
           <span class="muted" style="font-size:14px" id="vol-label">Pojemność: 500 ml</span>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div class="qsel"><button type="button" aria-label="Mniej" onclick="var i=document.getElementById('qty');i.stepDown()">&minus;</button><input type="number" id="qty" min="1" value="1"><button type="button" aria-label="Więcej" onclick="var i=document.getElementById('qty');i.stepUp()">+</button></div>
           <button class="btn btn-gold" id="add-balzam">Dodaj do koszyka</button>
           <a class="btn btn-wa" href="https://wa.me/421944623644?text=Pytanie%20o%20Balzam%20Bolotova">Zapytaj na WhatsApp</a>
         </div>
@@ -193,7 +194,7 @@
       document.getElementById('vol-label').textContent='Pojemność: '+b.dataset.vol+' ml';
     }));
     // Add selected variant to cart
-    document.getElementById('add-balzam').addEventListener('click',()=>Cart.add(activeVariant));
+    document.getElementById('add-balzam').addEventListener('click',()=>Cart.add(activeVariant, Math.max(1,parseInt(document.getElementById('qty').value)||1)));
   </script>
 
   <script src="cart.js"></script>
