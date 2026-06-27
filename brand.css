@@ -217,3 +217,14 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .lightbox.show{display:flex}
 .lightbox img{max-width:95%;max-height:92vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);background:#fff}
 .lightbox .lb-x{position:absolute;top:18px;right:24px;font-size:38px;color:#fff;cursor:pointer;line-height:1;background:none;border:none}
+
+/* Footer visual separation from preceding section */
+.site-footer{border-top:4px solid var(--gold)}
+
+/* Experts carousel (balzam landing) */
+.exp-carousel{position:relative}
+.exp-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 8px}
+.exp-track::-webkit-scrollbar{height:8px}
+.exp-track::-webkit-scrollbar-thumb{background:#e0d3d9;border-radius:8px}
+.exp-card{flex:0 0 340px;max-width:340px;scroll-snap-align:center;padding:22px}
+@media(max-width:600px){.exp-card{flex-basis:280px}.exp-carousel .rev-nav{display:none}}
