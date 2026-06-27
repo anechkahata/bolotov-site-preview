@@ -11,7 +11,7 @@
     +'#cb-banner .cb-in{max-width:1140px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between}'
     +'#cb-banner a{color:#E6D4A8;text-decoration:underline}'
     +'#cb-banner .cb-btns{display:flex;gap:10px;flex-wrap:wrap}'
-    +'#cb-banner button{font-family:"Montserrat",sans-serif;font-weight:700;font-size:13px;border:none;border-radius:40px;'
+    +'#cb-banner button{font-family:"Montserrat",sans-serif;font-weight:700;font-size:13px;border:none;border-radius:12px;'
     +'padding:11px 20px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px}'
     +'#cb-banner .cb-all{background:linear-gradient(90deg,#C9A86A,#E6D4A8);color:#5E2039}'
     +'#cb-banner .cb-ess{background:rgba(255,255,255,.12);color:#fff}';
