@@ -228,3 +228,11 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .exp-track::-webkit-scrollbar-thumb{background:#e0d3d9;border-radius:8px}
 .exp-card{flex:0 0 340px;max-width:340px;scroll-snap-align:center;padding:22px}
 @media(max-width:600px){.exp-card{flex-basis:280px}.exp-carousel .rev-nav{display:none}}
+
+/* Back-to-top button */
+.to-top{position:fixed;right:20px;bottom:84px;width:46px;height:46px;border-radius:50%;border:none;background:var(--wine);color:#fff;font-size:22px;line-height:1;cursor:pointer;box-shadow:0 8px 22px rgba(94,32,57,.35);opacity:0;pointer-events:none;transition:.22s;z-index:120;display:grid;place-items:center}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{background:var(--wine-dark)}
+
+/* Review images are zoomable */
+.rev-track img, .reviews-grid img{cursor:zoom-in}

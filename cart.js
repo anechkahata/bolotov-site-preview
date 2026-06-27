@@ -143,3 +143,38 @@
     renderBadge();
   }
 })();
+
+/* Back-to-top button (global) */
+(function () {
+  function init() {
+    var b = document.createElement('button');
+    b.className = 'to-top'; b.setAttribute('aria-label', 'Do góry'); b.innerHTML = '↑';
+    b.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    document.body.appendChild(b);
+    var onScroll = function () { b.classList.toggle('show', window.scrollY > 500); };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+/* Global lightbox for review images (balzam carousel + opinie grid) */
+(function () {
+  function init() {
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = '<button class="lb-x" aria-label="Zamknij">&times;</button><img alt="Opinia">';
+    document.body.appendChild(lb);
+    var img = lb.querySelector('img');
+    function close() { lb.classList.remove('show'); img.src = ''; }
+    lb.querySelector('.lb-x').addEventListener('click', close);
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t && t.tagName === 'IMG' && t.closest('.rev-track, .reviews-grid')) {
+        img.src = t.currentSrc || t.src; lb.classList.add('show');
+      }
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
