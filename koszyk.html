@@ -66,6 +66,7 @@
       <div class="card" style="padding:24px;background:var(--cream)">
         <h3 style="color:var(--wine);margin-bottom:14px">Podsumowanie zamówienia</h3>
         <div class="sum-row"><span>Wartość produktów</span><span id="sum-products">0 zł</span></div>
+        <div class="sum-row" id="sum-save-row" style="display:none;color:var(--magenta)"><span>Oszczędzasz</span><span id="sum-save">0 zł</span></div>
         <div class="sum-row"><span>Dostawa</span><span id="sum-delivery">21 zł</span></div>
         <div class="sum-row total"><span>Razem</span><span id="sum-total">0 zł</span></div>
         <p class="fnote" style="margin-top:10px">Ceny zawierają podatek VAT 23%.</p>
@@ -107,13 +108,26 @@
         var p = Cart.CATALOG[it.id];
         if(!p) return;
         var unit = Cart.unitPrice(it.id, it.qty);
+        var reg = Cart.regularUnit(it.id);
         var thumb = p.img
           ? '<img class="cart-thumb" src="'+p.img+'" alt="">'
           : '<div class="cart-thumb ph">B</div>';
+        // unit price line — show struck regular price when discounted
+        var unitLine = unit < reg
+          ? '<span class="cart-old">'+fmt(reg)+'</span> <strong style="color:var(--magenta)">'+fmt(unit)+'</strong> / szt.'
+          : fmt(unit)+' / szt.';
+        // quantity-tier hint ("add more to save")
+        var nt = Cart.nextTier(it.id, it.qty);
+        var hint = nt
+          ? '<div class="cart-hint">+ Dodaj jeszcze '+nt.need+' szt. (od '+nt.min+' szt.), aby obniżyć cenę do '+fmt(nt.price)+' / szt.</div>'
+          : '';
+        // per-line savings
+        var sav = Cart.lineSavings(it.id, it.qty);
+        var savLine = sav > 0 ? '<div class="cart-save">Oszczędzasz '+fmt(sav)+'</div>' : '';
         html += '<div class="cart-row">'
           + thumb
           + '<div class="cart-info"><div class="cart-name"><a href="'+p.url+'" style="color:var(--wine-dark)">'+p.name+'</a></div>'
-          + '<div class="cart-unit">'+fmt(unit)+' / szt.</div></div>'
+          + '<div class="cart-unit">'+unitLine+'</div>'+savLine+hint+'</div>'
           + '<div class="qty"><button data-act="dec" data-id="'+it.id+'" aria-label="Mniej">−</button>'
           + '<span>'+it.qty+'</span>'
           + '<button data-act="inc" data-id="'+it.id+'" aria-label="Więcej">+</button></div>'
@@ -136,9 +150,13 @@
     function updateTotals(){
       var sub = Cart.subtotal();
       var del = deliveryCost();
+      var sav = Cart.savings();
       document.getElementById('sum-products').textContent = fmt(sub);
       document.getElementById('sum-delivery').textContent = fmt(del);
       document.getElementById('sum-total').textContent = fmt(sub + del);
+      var sr = document.getElementById('sum-save-row');
+      if(sav > 0){ document.getElementById('sum-save').textContent = '− ' + fmt(sav); sr.style.display = 'flex'; }
+      else { sr.style.display = 'none'; }
     }
     document.addEventListener('cart:change', render);
     document.querySelectorAll('input[name="dost"]').forEach(function(r){

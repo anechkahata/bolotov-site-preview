@@ -146,3 +146,8 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
 .reviews-grid img{width:100%;border-radius:14px;box-shadow:0 4px 14px rgba(94,32,57,.08);border:1px solid #efe5e9;background:#fff}
 .benefit-ico{height:54px;width:auto;margin-bottom:12px}
+
+/* Cart discount visibility */
+.cart-old{color:#9a8a90;text-decoration:line-through;font-size:13px;margin-right:4px}
+.cart-save{font-size:12.5px;color:var(--magenta);font-weight:700;margin-top:3px}
+.cart-hint{font-size:12.5px;color:var(--wine);background:var(--sage);border-radius:8px;padding:5px 9px;margin-top:6px;display:inline-block}

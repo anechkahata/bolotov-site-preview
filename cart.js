@@ -10,12 +10,12 @@
     'l-glutamine':           { name: 'L-Glutamine Gastric Restore Complex', price: 116, img: 'assets/img/prod-lglutamine.png', url: 'l-glutamine.html' },
     'hyaluronic':            { name: 'Hyaluronic Acid + Vitamin C', price: 116, img: 'assets/img/prod-hyaluronic.png', url: 'hyaluronic-acid-vitamin-c.html' },
     'biotin':                { name: 'Biotin Zinc Selenium', price: 71, img: 'assets/img/prod-biotin.png', url: 'biotin-zinc-selenium.html' },
-    'set-beauty-base':       { name: 'Set Beauty Base System', price: 326, url: 'set-beauty-base.html' },
-    'set-refluks-zgaga':     { name: 'Set Program na Refluks i Zgagę', price: 281, url: 'set-refluks-zgaga.html' },
-    'set-ciezkosc-wzdecia':  { name: 'Set Program na Uczucie Ciężkości i Wzdęcia', price: 209, url: 'set-ciezkosc-wzdecia.html' },
-    'set-trawienie-stawy':   { name: 'Set Trawienie & Stawy', price: 409, url: 'set-trawienie-stawy.html' },
-    'set-kuracja-kolagenowa':{ name: 'Set Intensywna Kuracja Kolagenowa', price: 687, url: 'set-kuracja-kolagenowa.html' },
-    'set-restart':           { name: 'Set Bolotov Restart Program', price: 856, url: 'set-restart.html' }
+    'set-beauty-base':       { name: 'Set Beauty Base System', price: 326, orig: 391, url: 'set-beauty-base.html' },
+    'set-refluks-zgaga':     { name: 'Set Program na Refluks i Zgagę', price: 281, orig: 354, url: 'set-refluks-zgaga.html' },
+    'set-ciezkosc-wzdecia':  { name: 'Set Program na Uczucie Ciężkości i Wzdęcia', price: 209, orig: 233, url: 'set-ciezkosc-wzdecia.html' },
+    'set-trawienie-stawy':   { name: 'Set Trawienie & Stawy', price: 409, orig: 470, url: 'set-trawienie-stawy.html' },
+    'set-kuracja-kolagenowa':{ name: 'Set Intensywna Kuracja Kolagenowa', price: 687, orig: 827, url: 'set-kuracja-kolagenowa.html' },
+    'set-restart':           { name: 'Set Bolotov Restart Program', price: 856, orig: 1018, url: 'set-restart.html' }
   };
 
   var KEY = 'bolotov_cart_v1';
@@ -39,10 +39,39 @@
     return p.price;
   }
 
+  // Regular (pre-discount) unit price: set "orig", or for tiered items the 1-unit tier price.
+  function regularUnit(id) {
+    var p = CATALOG[id];
+    if (!p) return 0;
+    if (p.orig) return p.orig;
+    if (p.tiers) return p.tiers[p.tiers.length - 1].price; // tier with min:1
+    return p.price;
+  }
+  // Next quantity tier that lowers the unit price: how many more units and the resulting price.
+  function nextTier(id, qty) {
+    var p = CATALOG[id];
+    if (!p || !p.tiers) return null;
+    var cur = unitPrice(id, qty);
+    var asc = p.tiers.slice().sort(function (a, b) { return a.min - b.min; });
+    for (var i = 0; i < asc.length; i++) {
+      if (asc[i].min > qty && asc[i].price < cur) {
+        return { need: asc[i].min - qty, min: asc[i].min, price: asc[i].price };
+      }
+    }
+    return null;
+  }
+  // Money saved on a line vs the regular price.
+  function lineSavings(id, qty) {
+    return Math.max(0, (regularUnit(id) - unitPrice(id, qty)) * qty);
+  }
+
   var Cart = {
     CATALOG: CATALOG,
     items: read,
     unitPrice: unitPrice,
+    regularUnit: regularUnit,
+    nextTier: nextTier,
+    lineSavings: lineSavings,
     add: function (id, qty) {
       if (!CATALOG[id]) { return; }
       qty = qty || 1;
@@ -64,6 +93,9 @@
     count: function () { return read().reduce(function (s, i) { return s + i.qty; }, 0); },
     subtotal: function () {
       return read().reduce(function (s, i) { return s + unitPrice(i.id, i.qty) * i.qty; }, 0);
+    },
+    savings: function () {
+      return read().reduce(function (s, i) { return s + lineSavings(i.id, i.qty); }, 0);
     }
   };
   window.Cart = Cart;
