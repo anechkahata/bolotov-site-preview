@@ -89,3 +89,10 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
 @media(max-width:820px){.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr;gap:28px}}
+
+/* nav dropdown */
+.nav-dd{position:relative}
+.nav-dd-menu{position:absolute;top:100%;left:0;background:#fff;border:1px solid #ecdfe4;border-radius:12px;box-shadow:0 8px 24px rgba(94,32,57,.14);padding:8px;display:none;flex-direction:column;min-width:230px;z-index:50}
+.nav-dd:hover .nav-dd-menu{display:flex}
+.nav-dd-menu a{padding:9px 14px;border-radius:8px;white-space:nowrap;color:var(--wine-dark)}
+.nav-dd-menu a:hover{background:var(--cream);color:var(--magenta)}
