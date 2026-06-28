@@ -17,6 +17,7 @@
 
   <section class="section"><div class="container" style="max-width:980px">
     <h2 class="title" style="text-align:left">Koszyk</h2>
+    <div id="pay-cancel" style="display:none;margin-top:16px;background:#f6e3e8;border:1px solid #e3b9c6;border-radius:12px;padding:14px 18px;color:#7a2540;font-size:14.5px">⚠️ Płatność nie została dokończona. Twój koszyk jest zachowany — możesz spróbować ponownie.</div>
 
     <div id="cart-empty" class="card" style="padding:24px;margin-top:20px;text-align:center;background:var(--cream)">
       <p style="font-size:17px;color:var(--wine-dark);font-weight:600">Twój koszyk czeka 🛒</p>
@@ -305,9 +306,17 @@
         promo: promo, promoCode: Cart.activePromo(), delivery: del, total: payable + del
       };
       try { sessionStorage.setItem('bolotov_last_order', JSON.stringify(order)); } catch(err){}
-      Cart.clear(); if (Cart.clearPromo) Cart.clearPromo();
-      window.location.href = 'dziekujemy.html';
+      /* PRODUCTION: create a Stripe Checkout Session on the server and redirect to it here.
+         Stripe then returns to dziekujemy.html?status=success (paid) or koszyk.html?status=cancel.
+         The cart is cleared on the success page — NOT here — so a cancelled payment keeps it. */
+      window.location.href = 'dziekujemy.html?status=success';
     });
+
+    /* Returned from a cancelled / failed Stripe payment — keep the cart, show a notice. */
+    if (/[?&]status=(cancel|failed)/.test(location.search)) {
+      var pc = document.getElementById('pay-cancel');
+      if (pc) pc.style.display = 'block';
+    }
     render();
   })();
   </script>
