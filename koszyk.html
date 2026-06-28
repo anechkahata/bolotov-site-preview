@@ -61,10 +61,10 @@
       <div class="card" style="padding:24px">
         <h3 style="color:var(--wine);margin-bottom:14px">Klient</h3>
         <div class="grid2" style="gap:16px">
-          <div class="field"><label>Imię i nazwisko *</label><input required></div>
-          <div class="field"><label>Telefon *</label><input type="tel" required></div>
-          <div class="field"><label>E-mail *</label><input type="email" required></div>
-          <div class="field"><label>Data urodzenia</label><input type="date"></div>
+          <div class="field"><label>Imię i nazwisko *</label><input id="f-name" required></div>
+          <div class="field"><label>Telefon *</label><input id="f-phone" type="tel" required></div>
+          <div class="field"><label>E-mail *</label><input id="f-email" type="email" required></div>
+          <div class="field"><label>Data urodzenia</label><input id="f-bday" type="date"></div>
         </div>
         <p class="muted" style="font-size:12px;margin-top:10px">Podaj datę urodzenia, a wyślemy Ci rabat urodzinowy — obowiązuje w dniu urodzin oraz przez 7 dni po nich.</p>
       </div>
@@ -72,14 +72,14 @@
       <div class="card" style="padding:24px">
         <h3 style="color:var(--wine);margin-bottom:14px">Dostawa</h3>
         <div style="display:grid;gap:10px;margin-bottom:14px">
-          <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;cursor:pointer"><span><input type="radio" name="dost" data-cost="21" checked> GLS</span><strong>21 zł</strong></label>
-          <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;cursor:pointer"><span><input type="radio" name="dost" data-cost="31"> PPL</span><strong>31 zł</strong></label>
+          <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;cursor:pointer"><span><input type="radio" name="dost" data-cost="21" data-kind="GLS" checked> GLS</span><strong>21 zł</strong></label>
+          <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;cursor:pointer"><span><input type="radio" name="dost" data-cost="31" data-kind="PPL"> PPL</span><strong>31 zł</strong></label>
         </div>
         <div class="grid2" style="gap:16px">
-          <div class="field"><label>Kod pocztowy *</label><input required></div>
-          <div class="field"><label>Miasto *</label><input required></div>
-          <div class="field"><label>Adres dostawy *</label><input required></div>
-          <div class="field"><label>Nr domu *</label><input required></div>
+          <div class="field"><label>Kod pocztowy *</label><input id="f-zip" required></div>
+          <div class="field"><label>Miasto *</label><input id="f-city" required></div>
+          <div class="field"><label>Adres dostawy *</label><input id="f-street" required></div>
+          <div class="field"><label>Nr domu *</label><input id="f-house" required></div>
         </div>
       </div>
 
@@ -103,6 +103,7 @@
       </div>
 
       <label style="display:flex;gap:8px;font-size:13px;color:#6b5b62"><input type="checkbox" required><span>Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z obowiązującymi przepisami o ochronie danych osobowych (<a href="polityka-prywatnosci.html" style="color:var(--magenta)">więcej informacji</a>).</span></label>
+      <div id="order-error" style="display:none;background:#f6e3e8;border:1px solid #e3b9c6;border-radius:12px;padding:14px 18px;color:#7a2540;font-size:14.5px">⚠️ Coś poszło nie tak przy składaniu zamówienia. Spróbuj ponownie lub napisz do nas na <a href="https://wa.me/421944623644" style="color:#7a2540;font-weight:600">WhatsApp</a>.</div>
       <button class="btn btn-gold" style="justify-self:start">Złóż zamówienie</button>
       <div class="buy-trust" style="margin-top:0"><span>🔒 Bezpieczna płatność (Stripe)</span><span>🚚 Darmowa dostawa od 500 zł</span><span>⏱ Wysyłka 5–7 dni roboczych</span><span>↩ 14 dni na zwrot</span></div>
     </form>
@@ -324,10 +325,38 @@
         (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
         window.dataLayer.push({ event:'begin_checkout', ecommerce:{ currency:'PLN', value: payable, coupon: Cart.activePromo() || undefined, items: ckItems } });
       } catch(err){}
-      /* PRODUCTION: create a Stripe Checkout Session on the server and redirect to it here.
-         Stripe then returns to dziekujemy.html?status=success (paid) or koszyk.html?status=cancel.
-         The cart is cleared on the success page — NOT here — so a cancelled payment keeps it. */
-      window.location.href = 'dziekujemy.html?status=success';
+      /* Send the order to our backend → creates the amoCRM deal (Paid=No).
+         Direct API POST (no iframe) so it works in in-app browsers (IG/FB).
+         Stripe payment will be inserted before the thank-you redirect in the next phase. */
+      var val = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+      var radio = document.querySelector('input[name="dost"]:checked');
+      var street = val('f-street'), house = val('f-house'), zip = val('f-zip'), city = val('f-city');
+      var payload = {
+        name: val('f-name'), phone: val('f-phone'), email: val('f-email'),
+        items: order.items.map(function(i){ return { title:i.name, qty:i.qty, price:i.line }; }),
+        order_info: order.items.map(function(i){ return i.name + ' ×' + i.qty + ' — ' + i.line + ' zł'; }).join('; '),
+        order_total: order.total,
+        delivery_kind: radio ? (radio.getAttribute('data-kind') || '') : '',
+        delivery_cost: String(del),
+        delivery_addr: 'ul. ' + street + ' ' + house + ', ' + zip + ' ' + city + ', Polska',
+        street: street, street_number: house, zipcode: zip, city: city, country: 'Polska',
+        payment_type: 'Stripe'
+      };
+      var btn = of.querySelector('button');
+      if (btn) { btn.disabled = true; btn.textContent = 'Przetwarzanie…'; }
+      document.getElementById('order-error').style.display = 'none';
+      fetch('/api/order.php', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+        .then(function(r){ return r.json().catch(function(){ return { ok:false }; }); })
+        .then(function(res){
+          if (res && res.ok) {
+            /* Stripe Checkout redirect will go here later; for now → thank-you page. */
+            window.location.href = 'dziekujemy.html?status=success';
+          } else { throw new Error('order_failed'); }
+        })
+        .catch(function(){
+          if (btn) { btn.disabled = false; btn.textContent = 'Złóż zamówienie'; }
+          document.getElementById('order-error').style.display = 'block';
+        });
     });
 
     /* Returned from a cancelled / failed Stripe payment — keep the cart, show a notice. */
