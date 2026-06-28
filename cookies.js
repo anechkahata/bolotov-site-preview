@@ -3,8 +3,18 @@
   var KEY='cb-consent';
   function set(v){try{localStorage.setItem(KEY,v);}catch(e){}}
   function get(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
-  function loadAnalytics(){ /* gated until consent; add GTM/analytics init here when ready */ }
-  if(get()){ if(get()==='all') loadAnalytics(); return; }
+  function gtag(){(window.dataLayer=window.dataLayer||[]).push(arguments);}
+  // Consent Mode v2: GTM stays loaded but analytics/ads tags are gated until the user opts in.
+  function grant(){
+    gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});
+    (window.dataLayer=window.dataLayer||[]).push({event:'cookie_consent_granted'});
+  }
+  function deny(){
+    gtag('consent','update',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied'});
+    (window.dataLayer=window.dataLayer||[]).push({event:'cookie_consent_denied'});
+  }
+  // The Consent Mode default ('denied') is set inline in <head>; here we only restore the explicit choice.
+  if(get()){ if(get()==='all') grant(); else deny(); return; }
 
   var css='#cb-banner{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#5E2039;color:#f0dfe6;'
     +'font-family:"Open Sans",system-ui,sans-serif;font-size:14px;padding:16px 20px;box-shadow:0 -4px 20px rgba(0,0,0,.25)}'
@@ -21,6 +31,6 @@
   b.innerHTML='<div class="cb-in"><span>Używamy plików cookie, aby zapewnić prawidłowe działanie strony oraz — za Twoją zgodą — analizować ruch i ulepszać ofertę. Szczegóły w <a href="polityka-prywatnosci.html">Polityce prywatności</a>.</span>'
     +'<span class="cb-btns"><button class="cb-ess" id="cb-ess">Tylko niezbędne</button><button class="cb-all" id="cb-all">Akceptuj wszystkie</button></span></div>';
   document.body.appendChild(b);
-  document.getElementById('cb-all').onclick=function(){set('all');loadAnalytics();b.remove();};
-  document.getElementById('cb-ess').onclick=function(){set('essential');b.remove();};
+  document.getElementById('cb-all').onclick=function(){set('all');grant();b.remove();};
+  document.getElementById('cb-ess').onclick=function(){set('essential');deny();b.remove();};
 })();
