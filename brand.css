@@ -101,6 +101,9 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .gthumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
 .gthumb{width:70px;height:70px;border-radius:10px;border:2px solid #ecdfe4;object-fit:contain;background:var(--cream);cursor:pointer}
 #gmain{cursor:zoom-in}
+/* Breadcrumb links — visibly clickable */
+.crumb a{color:var(--magenta);font-weight:600}
+.crumb a:hover{text-decoration:underline;text-underline-offset:2px}
 .gthumb:hover{border-color:var(--gold)}
 
 /* mobile menu */
