@@ -10,12 +10,12 @@
     'l-glutamine':           { name: 'L-Glutamine Gastric Restore Complex', price: 116, img: 'assets/img/prod-lglutamine.png', url: 'l-glutamine.html' },
     'hyaluronic':            { name: 'Hyaluronic Acid + Vitamin C', price: 116, img: 'assets/img/prod-hyaluronic.png', url: 'hyaluronic-acid-vitamin-c.html' },
     'biotin':                { name: 'Biotin Zinc Selenium', price: 69, img: 'assets/img/prod-biotin.png', url: 'biotin-zinc-selenium.html' },
-    'set-beauty-base':       { name: 'Set Beauty Base System', price: 326, orig: 391, url: 'set-beauty-base.html' },
-    'set-refluks-zgaga':     { name: 'Set Program na Refluks i Zgagę', price: 281, orig: 354, url: 'set-refluks-zgaga.html' },
-    'set-ciezkosc-wzdecia':  { name: 'Set Program na Uczucie Ciężkości i Wzdęcia', price: 209, orig: 233, url: 'set-ciezkosc-wzdecia.html' },
-    'set-trawienie-stawy':   { name: 'Set Trawienie & Stawy', price: 409, orig: 470, url: 'set-trawienie-stawy.html' },
-    'set-kuracja-kolagenowa':{ name: 'Set Intensywna Kuracja Kolagenowa', price: 687, orig: 827, url: 'set-kuracja-kolagenowa.html' },
-    'set-restart':           { name: 'Set Bolotov Restart Program', price: 856, orig: 1018, url: 'set-restart.html' }
+    'set-beauty-base':       { name: 'Set Beauty Base System', price: 326, orig: 391, img: 'assets/img/sets/beauty-1.png', url: 'set-beauty-base.html' },
+    'set-refluks-zgaga':     { name: 'Set Program na Refluks i Zgagę', price: 281, orig: 354, img: 'assets/img/sets/refluks-1.png', url: 'set-refluks-zgaga.html' },
+    'set-ciezkosc-wzdecia':  { name: 'Set Program na Uczucie Ciężkości i Wzdęcia', price: 209, orig: 233, img: 'assets/img/sets/ciezkosc-1.png', url: 'set-ciezkosc-wzdecia.html' },
+    'set-trawienie-stawy':   { name: 'Set Trawienie & Stawy', price: 409, orig: 470, img: 'assets/img/sets/trawienie-1.png', url: 'set-trawienie-stawy.html' },
+    'set-kuracja-kolagenowa':{ name: 'Set Intensywna Kuracja Kolagenowa', price: 687, orig: 827, img: 'assets/img/sets/kuracja-1.png', url: 'set-kuracja-kolagenowa.html' },
+    'set-restart':           { name: 'Set Bolotov Restart Program', price: 856, orig: 1018, img: 'assets/img/sets/restart-1.png', url: 'set-restart.html' }
   };
 
   var KEY = 'bolotov_cart_v1';
