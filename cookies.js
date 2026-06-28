@@ -34,7 +34,7 @@
     if(document.getElementById('cb-banner')) return;   // already visible
     injectCss();
     var b=document.createElement('div'); b.id='cb-banner';
-    b.innerHTML='<div class="cb-in"><span>Używamy plików cookie, aby zapewnić prawidłowe działanie strony oraz — za Twoją zgodą — analizować ruch i ulepszać ofertę. Szczegóły w <a href="polityka-prywatnosci.html">Polityce prywatności</a>.</span>'
+    b.innerHTML='<div class="cb-in"><span>Używamy plików cookie, aby zapewnić prawidłowe działanie strony oraz — za Twoją zgodą — analizować ruch i ulepszać ofertę. Szczegóły w <a href="polityka-prywatnosci.html">Polityce prywatności</a> i <a href="polityka-cookies.html">Polityce plików cookies</a>.</span>'
       +'<span class="cb-btns"><button class="cb-ess" id="cb-ess">Tylko niezbędne</button><button class="cb-all" id="cb-all">Akceptuj wszystkie</button></span></div>';
     document.body.appendChild(b);
     document.getElementById('cb-all').onclick=function(){set('all');grant();b.remove();};
