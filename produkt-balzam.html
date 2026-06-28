@@ -42,8 +42,8 @@
   <!-- PRODUCT HERO -->
   <section class="section" style="padding-top:28px">
     <div class="container grid2" style="align-items:start">
-      <div><div class="card" style="background:var(--cream);display:grid;place-items:center;padding:20px;min-height:300px"><img id="gmain" src="assets/img/g/balzam-1.png" alt="Balzam Bolotova" style="width:100%;max-width:340px;aspect-ratio:1;object-fit:cover;border-radius:10px"></div><div class="gthumbs"><img class="gthumb" src="assets/img/g/balzam-1.png" alt="Balzam Bolotova" onclick="document.getElementById('gmain').src=this.src"><img class="gthumb" src="assets/img/g/balzam-2.png" alt="Balzam Bolotova" onclick="document.getElementById('gmain').src=this.src"><img class="gthumb" src="assets/img/g/balzam-3.png" alt="Balzam Bolotova" onclick="document.getElementById('gmain').src=this.src"><img class="gthumb" src="assets/img/g/balzam-4.png" alt="Balzam Bolotova" onclick="document.getElementById('gmain').src=this.src"><img class="gthumb" src="assets/img/g/balzam-5.png" alt="Balzam Bolotova" onclick="document.getElementById('gmain').src=this.src"></div>
-        <div class="card" style="margin-top:14px;padding:16px 20px;background:var(--cream)">
+      <div><div class="card" style="background:var(--cream);display:grid;place-items:center;padding:20px;min-height:300px"><img id="gmain" src="assets/img/g/balzam-1.png" alt="Balzam Bolotova" style="width:100%;max-width:340px;aspect-ratio:1;object-fit:cover;border-radius:10px"></div><div class="gthumbs"><img class="gthumb" src="assets/img/g/balzam-1.png" alt="Balzam Bolotova" onclick="document.getElementById('gmain').src=this.src"><img class="gthumb" src="assets/img/g/balzam-2.png" alt="Balzam Bolotova" onclick="document.getElementById('gmain').src=this.src"><img class="gthumb" src="assets/img/g/bb500-1.jpg" alt="Balzam Bolotova 500 ml" onclick="document.getElementById('gmain').src=this.src"><img class="gthumb" src="assets/img/g/bb500-2.jpg" alt="Balzam Bolotova 500 ml" onclick="document.getElementById('gmain').src=this.src"><img class="gthumb" src="assets/img/g/bb500-3.jpg" alt="Balzam Bolotova 500 ml" onclick="document.getElementById('gmain').src=this.src"></div>
+        <div class="card" id="oferta500" style="margin-top:14px;padding:16px 20px;background:var(--cream)">
           <strong class="mont" style="color:var(--wine)">Oferta ilościowa — 500 ml</strong>
           <table class="info-table" style="margin-top:6px">
             <tr><td>1–2 szt.</td><td>193 zł / szt.</td></tr>
@@ -189,15 +189,30 @@
       b.classList.add('active');
       document.getElementById(b.dataset.tab).classList.add('active');
     }));
-    // Variant price
+    // Variant price + gallery (250 / 500 ml switch their own photo set)
     var activeVariant='balzam-500';
+    var GALLERY={
+      'balzam-500':['assets/img/g/balzam-1.png','assets/img/g/balzam-2.png','assets/img/g/bb500-1.jpg','assets/img/g/bb500-2.jpg','assets/img/g/bb500-3.jpg'],
+      'balzam-250':['assets/img/g/bb250-1.jpg','assets/img/g/bb250-2.jpg','assets/img/g/bb250-3.jpg','assets/img/g/bb250-4.jpg','assets/img/g/bb250-5.jpg']
+    };
+    function renderGallery(v){
+      var imgs=GALLERY[v]||GALLERY['balzam-500'];
+      document.getElementById('gmain').src=imgs[0];
+      document.querySelector('.gthumbs').innerHTML=imgs.map(function(s){
+        return '<img class="gthumb" src="'+s+'" alt="Balzam Bolotova" onclick="document.getElementById(\'gmain\').src=this.src">';
+      }).join('');
+      var of=document.getElementById('oferta500');
+      if(of) of.style.display=(v==='balzam-500')?'':'none';   // qty tiers only for 500 ml
+    }
     document.querySelectorAll('#variants button').forEach(b=>b.addEventListener('click',()=>{
       document.querySelectorAll('#variants button').forEach(x=>{x.classList.remove('btn-primary');x.classList.add('btn-ghost');});
       b.classList.remove('btn-ghost');b.classList.add('btn-primary');
       activeVariant=b.dataset.id;
       document.getElementById('price').textContent=b.dataset.price+' zł';
       document.getElementById('vol-label').textContent='Pojemność: '+b.dataset.vol+' ml';
+      renderGallery(activeVariant);
     }));
+    renderGallery(activeVariant);
     // Add selected variant to cart
     document.getElementById('add-balzam').addEventListener('click',()=>Cart.add(activeVariant, Math.max(1,parseInt(document.getElementById('qty').value)||1)));
   </script>
