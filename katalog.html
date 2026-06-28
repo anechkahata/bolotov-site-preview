@@ -61,11 +61,14 @@
       zest.style.display = tab==='zestawy' ? '' : 'none';
       btns.forEach(function(b){ b.classList.toggle('active', b.dataset.tab===tab); });
     }
+    function toTop(){ window.scrollTo(0,0); }
     btns.forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.tab); if(b.dataset.tab==='zestawy') history.replaceState(null,'','#zestawy'); else history.replaceState(null,'','katalog.html'); }); });
-    // Clicking the nav "Zestawy" link while already on this page only changes the hash
-    // (no reload) — react to it so the toggle always switches.
-    window.addEventListener('hashchange', function(){ show(location.hash === '#zestawy' ? 'zestawy' : 'produkty'); });
-    show(location.hash === '#zestawy' ? 'zestawy' : 'produkty');
+    // Nav "Zestawy" (from here or another page) opens the sets tab and lands at the TOP of the page —
+    // not jumping to the #zestawy section under the sticky header.
+    window.addEventListener('hashchange', function(){ var z=location.hash==='#zestawy'; show(z?'zestawy':'produkty'); if(z) toTop(); });
+    var startZ = location.hash==='#zestawy';
+    show(startZ ? 'zestawy' : 'produkty');
+    if(startZ){ toTop(); requestAnimationFrame(toTop); window.addEventListener('load', toTop); }
   })();
   </script>
   <script src="cart.js"></script>
