@@ -139,9 +139,13 @@
         // promo-code discount on this line (e.g. Balzam only)
         var pd = Cart.promoLineDiscount(it.id, it.qty);
         var promoLine = pd > 0 ? '<div class="cart-save">Kod '+Cart.activePromo().toUpperCase()+': − '+fmt(pd)+'</div>' : '';
+        // short composition for sets, so the customer sees what a bundle contains
+        var contents = Cart.setContents(it.id);
+        var contentsLine = contents ? '<div class="cart-contents">Zawiera: '+contents+'</div>' : '';
         html += '<div class="cart-row">'
           + thumb
           + '<div class="cart-info"><div class="cart-name"><a href="'+p.url+'" style="color:var(--wine-dark)">'+p.name+'</a></div>'
+          + contentsLine
           + '<div class="cart-unit">'+unitLine+'</div>'+savLine+promoLine+hint+'</div>'
           + '<div class="qty"><button data-act="dec" data-id="'+it.id+'" aria-label="Mniej">−</button>'
           + '<span>'+it.qty+'</span>'
@@ -196,7 +200,8 @@
     function renderSuggest(){
       var el = document.getElementById('set-suggest');
       if(!el) return;
-      var s = Cart.suggestSet();
+      // Don't cross-sell a set while a promo code is active — mixing offers confuses the customer.
+      var s = Cart.activePromo() ? null : Cart.suggestSet();
       if(!s || dismissed === s.setId){ el.style.display = 'none'; el.innerHTML = ''; return; }
       var msg, btn;
       if(s.complete){

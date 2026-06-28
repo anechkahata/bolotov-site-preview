@@ -131,6 +131,17 @@
     return best;
   }
 
+  /* Short composition of a set, e.g. "Kolagen by Bolotov + Hyaluronic Acid + Vitamin C".
+     Used in the cart so the customer can see what a bundle contains. Null for non-sets. */
+  function setContents(id) {
+    var comp = SETS[id];
+    if (!comp) return null;
+    return Object.keys(comp).map(function (pid) {
+      var p = CATALOG[pid]; if (!p) return '';
+      return comp[pid] > 1 ? p.name + ' ×' + comp[pid] : p.name;
+    }).filter(Boolean).join(' + ');
+  }
+
   /* Replace a set's constituent products in the cart with the set SKU itself.
      Decrements each component by the quantity the set needs (keeping any surplus) and adds 1 set. */
   function convertToSet(setId) {
@@ -195,6 +206,7 @@
     lineSavings: lineSavings,
     suggestSet: suggestSet,
     convertToSet: convertToSet,
+    setContents: setContents,
     activePromo: activePromo,
     applyPromo: applyPromo,
     clearPromo: clearPromo,
