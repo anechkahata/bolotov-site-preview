@@ -1,0 +1,9 @@
+# Centrum Bolotova — robots.txt
+# NOTE (go-live): pages currently carry <meta name="robots" content="noindex,nofollow"> for the
+# preview. At launch on the production domain, remove that meta so the pages can be indexed.
+User-agent: *
+Allow: /
+Disallow: /koszyk.html
+Disallow: /dziekujemy.html
+
+Sitemap: https://centrumbolotova.pl/sitemap.xml

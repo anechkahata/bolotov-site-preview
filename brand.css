@@ -185,6 +185,7 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 /* Cart discount visibility */
 .cart-old{color:#9a8a90;text-decoration:line-through;font-size:13px;margin-right:4px}
 .cart-save{font-size:12.5px;color:var(--magenta);font-weight:700;margin-top:3px}
+.cart-omnibus{font-size:11.5px;color:#9a8a90;margin-top:2px}
 .cart-hint{font-size:12.5px;color:var(--wine);background:var(--sage);border-radius:8px;padding:5px 9px;margin-top:6px;display:inline-block}
 
 /* Quantity stepper on product/set pages */
