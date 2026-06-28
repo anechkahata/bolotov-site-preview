@@ -23,6 +23,7 @@
     </div>
 
     <div id="cart-items" class="card" style="padding:6px 24px;margin-top:20px;display:none"></div>
+    <div id="set-suggest" style="margin-top:14px;display:none"></div>
     <div id="free-deliv" style="margin-top:14px;display:none;background:var(--sage);border-radius:12px;padding:14px 18px;font-size:14.5px;color:var(--wine-dark)"></div>
 
     <div id="order-block" style="display:none">
@@ -146,7 +147,41 @@
           else if(act==='del') Cart.remove(id);
         });
       });
+      renderSuggest();
       updateTotals();
+    }
+
+    /* Cross-sell: when cart products form (or nearly form) a set, suggest the cheaper bundle. */
+    var dismissed = null;
+    function renderSuggest(){
+      var el = document.getElementById('set-suggest');
+      if(!el) return;
+      var s = Cart.suggestSet();
+      if(!s || dismissed === s.setId){ el.style.display = 'none'; el.innerHTML = ''; return; }
+      var msg, btn;
+      if(s.complete){
+        msg = 'Te produkty tworzą zestaw <strong>'+s.name+'</strong>. Zamień je na zestaw i zapłać '
+            + '<strong>'+fmt(s.setPrice)+'</strong> zamiast <span style="text-decoration:line-through">'+fmt(s.partsPrice)+'</span> '
+            + '— oszczędzasz <strong>'+fmt(s.saving)+'</strong>.';
+        btn = 'Zamień na zestaw';
+      } else {
+        var names = s.missing.map(function(m){
+          var p = Cart.CATALOG[m.id]; return p.name + (m.qty > 1 ? ' (×'+m.qty+')' : '');
+        }).join(', ');
+        msg = 'Dodaj jeszcze <strong>'+names+'</strong>, aby skompletować zestaw <strong>'+s.name+'</strong> '
+            + '— zapłacisz <strong>'+fmt(s.setPrice)+'</strong> zamiast <span style="text-decoration:line-through">'+fmt(s.partsPrice)+'</span> '
+            + '(oszczędzasz <strong>'+fmt(s.saving)+'</strong>).';
+        btn = 'Weź cały zestaw';
+      }
+      el.style.display = 'block';
+      el.innerHTML = '<div class="set-suggest-box">'
+        + '<div class="ss-ico">💡</div>'
+        + '<div class="ss-txt">'+msg+'</div>'
+        + '<div class="ss-act"><button type="button" class="btn btn-gold" data-ss-go>'+btn+'</button></div>'
+        + '<button type="button" class="ss-x" aria-label="Zamknij">×</button>'
+        + '</div>';
+      el.querySelector('[data-ss-go]').addEventListener('click', function(){ Cart.convertToSet(s.setId); });
+      el.querySelector('.ss-x').addEventListener('click', function(){ dismissed = s.setId; el.style.display = 'none'; });
     }
     var FREE_DELIVERY = 500;
     function updateTotals(){

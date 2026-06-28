@@ -275,3 +275,16 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 
 /* Article author byline */
 .art-acc>p.art-by{margin:16px 20px 4px;font-style:italic;font-size:13.5px;color:#8a7a80}
+
+/* Cart set cross-sell banner */
+.set-suggest-box{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,#fff,var(--sage));border:1px solid var(--gold);border-radius:14px;padding:14px 40px 14px 18px;position:relative;box-shadow:0 4px 16px rgba(94,32,57,.08)}
+.set-suggest-box .ss-ico{font-size:24px;flex:0 0 auto;line-height:1}
+.set-suggest-box .ss-txt{font-size:14.5px;color:var(--wine-dark);flex:1 1 auto;line-height:1.5}
+.set-suggest-box .ss-act{flex:0 0 auto}
+.set-suggest-box .ss-x{position:absolute;top:6px;right:12px;border:none;background:none;font-size:20px;line-height:1;color:#9a8a90;cursor:pointer}
+.set-suggest-box .ss-x:hover{color:var(--wine)}
+@media(max-width:600px){
+  .set-suggest-box{flex-wrap:wrap;gap:10px}
+  .set-suggest-box .ss-act{width:100%}
+  .set-suggest-box .ss-act .btn{width:100%;justify-content:center}
+}

@@ -18,6 +18,18 @@
     'set-restart':           { name: 'Set Bolotov Restart Program', price: 856, orig: 1018, img: 'assets/img/sets/restart-1.png', url: 'set-restart.html' }
   };
 
+  /* Set compositions — which single products (and how many) make up each set.
+     Used to cross-sell: when the cart holds products that form a set, offer the cheaper bundle.
+     (Verified against each set's "Skład zestawu" and its struck-through regular price.) */
+  var SETS = {
+    'set-beauty-base':        { 'kolagen': 1, 'hyaluronic': 1 },
+    'set-refluks-zgaga':      { 'balzam-500': 1, 'l-glutamine': 1 },
+    'set-ciezkosc-wzdecia':   { 'balzam-500': 1 },
+    'set-trawienie-stawy':    { 'balzam-500': 1, 'kolagen': 1 },
+    'set-kuracja-kolagenowa': { 'kolagen': 3 },
+    'set-restart':            { 'balzam-500': 1, 'kolagen': 3 }
+  };
+
   var KEY = 'bolotov_cart_v1';
 
   function read() {
@@ -65,13 +77,87 @@
     return Math.max(0, (regularUnit(id) - unitPrice(id, qty)) * qty);
   }
 
+  // Map of product id -> total quantity currently in the cart.
+  function qtyMap() {
+    var m = {};
+    read().forEach(function (i) { m[i.id] = (m[i.id] || 0) + i.qty; });
+    return m;
+  }
+
+  /* Cross-sell: inspect the cart and return the single best set worth suggesting, or null.
+     Two cases are covered:
+       - complete  -> the cart already holds every product the set needs (offer a swap to save);
+       - partial   -> the cart holds part of a set (offer to complete it as the cheaper bundle).
+     A suggestion is returned only when the set is genuinely cheaper than buying the parts, and
+     (for partials) only when the cart already covers at least half of the set's distinct products,
+     so a single common product can't trigger spammy, far-fetched offers. */
+  function suggestSet() {
+    var q = qtyMap();
+    if (!Object.keys(q).length) return null;
+    var best = null;
+    Object.keys(SETS).forEach(function (setId) {
+      if (q[setId]) return;                       // this set is already in the cart
+      var comp = SETS[setId];
+      var prods = Object.keys(comp);
+      var presentTypes = 0, partsPrice = 0, addCost = 0, missing = [];
+      prods.forEach(function (pid) {
+        var need = comp[pid];
+        var have = q[pid] || 0;
+        if (have > 0) presentTypes++;
+        var used = Math.min(have, need);
+        if (used > 0) partsPrice += unitPrice(pid, have) * used;   // what they pay for these now
+        var lack = need - used;
+        if (lack > 0) {
+          var extra = regularUnit(pid) * lack;
+          partsPrice += extra; addCost += extra;                  // cost to complete the set
+          missing.push({ id: pid, qty: lack });
+        }
+      });
+      if (presentTypes === 0) return;             // cart holds nothing from this set
+      var setPrice = CATALOG[setId].price;
+      var saving = partsPrice - setPrice;
+      if (saving <= 0) return;                     // set isn't actually cheaper -> skip
+      var complete = missing.length === 0;
+      if (!complete && presentTypes < Math.ceil(prods.length / 2)) return;  // too little overlap
+      var cand = {
+        setId: setId, name: CATALOG[setId].name, url: CATALOG[setId].url,
+        complete: complete, missing: missing,
+        saving: saving, setPrice: setPrice, partsPrice: partsPrice,
+        addCost: addCost                          // 0 for complete sets -> they rank first
+      };
+      // Prefer the easiest set to complete (smallest extra spend); tie-break by larger saving.
+      if (!best || cand.addCost < best.addCost || (cand.addCost === best.addCost && cand.saving > best.saving)) best = cand;
+    });
+    return best;
+  }
+
+  /* Replace a set's constituent products in the cart with the set SKU itself.
+     Decrements each component by the quantity the set needs (keeping any surplus) and adds 1 set. */
+  function convertToSet(setId) {
+    if (!CATALOG[setId] || !SETS[setId]) return;
+    var q = qtyMap();
+    var comp = SETS[setId];
+    var items = read();
+    Object.keys(comp).forEach(function (pid) {
+      var keep = Math.max(0, (q[pid] || 0) - comp[pid]);
+      items = items.filter(function (i) { return i.id !== pid; });
+      if (keep > 0) items.push({ id: pid, qty: keep });
+    });
+    var row = items.filter(function (i) { return i.id === setId; })[0];
+    if (row) { row.qty += 1; } else { items.push({ id: setId, qty: 1 }); }
+    write(items);
+  }
+
   var Cart = {
     CATALOG: CATALOG,
+    SETS: SETS,
     items: read,
     unitPrice: unitPrice,
     regularUnit: regularUnit,
     nextTier: nextTier,
     lineSavings: lineSavings,
+    suggestSet: suggestSet,
+    convertToSet: convertToSet,
     add: function (id, qty) {
       if (!CATALOG[id]) { return; }
       qty = qty || 1;
