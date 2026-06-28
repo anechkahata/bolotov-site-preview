@@ -312,10 +312,16 @@
       var d = new Date();
       var order = {
         no: 'CB-' + (''+d.getFullYear()).slice(2) + pad(d.getMonth()+1) + pad(d.getDate()) + '-' + Math.floor(1000 + Math.random()*9000),
-        items: Cart.items().map(function(i){ var p = Cart.CATALOG[i.id]; return { name: p.name, qty: i.qty, line: Cart.unitPrice(i.id, i.qty) * i.qty }; }),
+        items: Cart.items().map(function(i){ var p = Cart.CATALOG[i.id]; return { id: i.id, name: p.name, qty: i.qty, line: Cart.unitPrice(i.id, i.qty) * i.qty }; }),
         promo: promo, promoCode: Cart.activePromo(), delivery: del, total: payable + del
       };
       try { sessionStorage.setItem('bolotov_last_order', JSON.stringify(order)); } catch(err){}
+      /* begin_checkout — fires when the customer submits the order to proceed to payment. */
+      try {
+        var ckItems = Cart.items().map(function(i){ var p = Cart.CATALOG[i.id]; return { item_id:i.id, item_name:p.name, price:Cart.unitPrice(i.id,i.qty), quantity:i.qty }; });
+        (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
+        window.dataLayer.push({ event:'begin_checkout', ecommerce:{ currency:'PLN', value: payable, coupon: Cart.activePromo() || undefined, items: ckItems } });
+      } catch(err){}
       /* PRODUCTION: create a Stripe Checkout Session on the server and redirect to it here.
          Stripe then returns to dziekujemy.html?status=success (paid) or koszyk.html?status=cancel.
          The cart is cleared on the success page — NOT here — so a cancelled payment keeps it. */
@@ -331,5 +337,6 @@
   })();
   </script>
   <script src="cookies.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>

@@ -32,6 +32,13 @@
 
   var KEY = 'bolotov_cart_v1';
 
+  /* GTM dataLayer push (GA4 e-commerce). Safe pre-consent — tags are gated by Consent Mode. */
+  function dl(o) { try { (window.dataLayer = window.dataLayer || []).push(o); } catch (e) {} }
+  function ecomItem(id, qty) {
+    var p = CATALOG[id]; if (!p) return null;
+    return { item_id: id, item_name: p.name, price: unitPrice(id, qty || 1), quantity: qty || 1 };
+  }
+
   function read() {
     try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
   }
@@ -157,6 +164,8 @@
     var row = items.filter(function (i) { return i.id === setId; })[0];
     if (row) { row.qty += 1; } else { items.push({ id: setId, qty: 1 }); }
     write(items);
+    dl({ ecommerce: null });
+    dl({ event: 'select_set', ecommerce: { currency: 'PLN', value: CATALOG[setId].price, items: [ecomItem(setId, 1)] } });
   }
 
   /* Promo codes — a percentage discount limited to a product scope (case-insensitive).
@@ -177,6 +186,7 @@
     code = normPromo(code);
     if (!PROMOS[code]) return false;
     try { localStorage.setItem(PROMO_KEY, code); } catch (e) {}
+    dl({ event: 'select_promotion', promotion_id: code, discount_percent: PROMOS[code].percent });
     document.dispatchEvent(new CustomEvent('cart:change'));
     return true;
   }
@@ -219,6 +229,8 @@
       var row = items.filter(function (i) { return i.id === id; })[0];
       if (row) { row.qty += qty; } else { items.push({ id: id, qty: qty }); }
       write(items);
+      dl({ ecommerce: null });
+      dl({ event: 'add_to_cart', ecommerce: { currency: 'PLN', value: unitPrice(id, qty) * qty, items: [ecomItem(id, qty)] } });
       notify(id, qty);
     },
     setQty: function (id, qty) {
@@ -227,6 +239,11 @@
       write(items);
     },
     remove: function (id) {
+      var cur = read().filter(function (i) { return i.id === id; })[0];
+      if (cur) {
+        dl({ ecommerce: null });
+        dl({ event: 'remove_from_cart', ecommerce: { currency: 'PLN', value: unitPrice(id, cur.qty) * cur.qty, items: [ecomItem(id, cur.qty)] } });
+      }
       write(read().filter(function (i) { return i.id !== id; }));
     },
     clear: function () { write([]); },

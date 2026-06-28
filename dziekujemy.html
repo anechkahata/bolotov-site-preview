@@ -69,6 +69,15 @@
       extra += '<div class="sum-row total"><span>Razem</span><span>' + fmt(o.total) + '</span></div>';
       sumEl.innerHTML = '<h3 style="color:var(--wine);margin-bottom:10px">Twoje zamówienie</h3>' + rows + extra;
       sumEl.style.display = 'block';
+      /* purchase — the source of truth at go-live is the Stripe webhook server-side; this
+         client-side push covers GA4 conversion attribution. Deduped by transaction_id in GA4. */
+      try {
+        (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
+        window.dataLayer.push({ event:'purchase', ecommerce:{
+          transaction_id: o.no, currency:'PLN', value: o.total, shipping: o.delivery, coupon: o.promoCode || undefined,
+          items: o.items.map(function(it){ return { item_id: it.id, item_name: it.name, quantity: it.qty, price: it.qty ? Math.round(it.line / it.qty * 100) / 100 : it.line }; })
+        }});
+      } catch(e){}
       /* Order succeeded -> clear the cart now (it is kept until success, so a cancelled
          payment never loses the basket). Done on localStorage directly so it works before
          cart.js loads; cart.js then renders the header counter as empty. */
@@ -81,5 +90,6 @@
   </script>
   <script src="cart.js"></script>
   <script src="cookies.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>
