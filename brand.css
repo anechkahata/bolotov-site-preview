@@ -111,6 +111,17 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
  .nav-dd{width:100%}.nav-dd-menu{position:static;display:flex;box-shadow:none;border:none;padding:4px 0 4px 14px;min-width:0}
  .nav-dd:hover .nav-dd-menu{display:flex}
 }
+/* mobile header / topbar fit (phones) */
+@media(max-width:600px){
+ .topbar{font-size:11.5px}
+ .topbar .container{height:auto;min-height:32px;padding:5px 16px;justify-content:center;text-align:center}
+ .topbar span:nth-child(2){display:none}           /* hide email here; it's in footer/Kontakt */
+ .brand{font-size:13.5px;gap:8px;line-height:1.1}
+ .brand img.logo{width:42px;height:42px}
+ .header-actions{gap:8px}
+ .header-actions .wa-ic{display:none}              /* redundant with floating WhatsApp button */
+ .header-actions .btn{padding:11px 16px;font-size:12px;letter-spacing:.5px}
+}
 /* ===== Cart ===== */
 .cart-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
   background:var(--wine-dark);color:#fff;font-family:'Montserrat';font-weight:700;font-size:14px;
