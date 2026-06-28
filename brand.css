@@ -381,4 +381,12 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
   /* prevent flex/grid children from forcing the page wider than the screen */
   .grid2>*,.grid3>*{min-width:0}
   .gthumbs{max-width:100%}
+  /* price row: keep numbers intact, drop the description to its own line */
+  .price-row{flex-wrap:wrap;column-gap:12px}
+  .price-row .muted{flex-basis:100%;margin-top:2px}
+  /* founder card: stack photo over text (no narrow text column) */
+  .founder-card{grid-template-columns:1fr!important;gap:16px;padding:24px!important}
+  .founder-card>img{justify-self:center}
 }
+/* price numbers never split "281" / "zł" (any width) */
+.price-row .cart-old,.price-row .mont{white-space:nowrap}
