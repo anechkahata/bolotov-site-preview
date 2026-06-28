@@ -264,3 +264,48 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
+
+/* Recently viewed products (localStorage).
+   A page records its product by setting <body data-recent="<catalog-id>">.
+   The row is rendered (above the footer) on any page marked data-recent or
+   data-recent-show, excluding the current product. Uses Cart.CATALOG for data. */
+(function () {
+  var KEY = 'bolotov_recent_v1', MAX = 10, SHOWN = 6;
+  function read() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+  function save(a) { try { localStorage.setItem(KEY, JSON.stringify(a)); } catch (e) {} }
+  function record(id) {
+    if (!id || !window.Cart || !Cart.CATALOG[id]) return;
+    var a = read().filter(function (x) { return x !== id; });
+    a.unshift(id);
+    save(a.slice(0, MAX));
+  }
+  function fmt(n) { return n + ' zł'; }
+  function render(excludeId) {
+    var foot = document.querySelector('footer.site-footer');
+    if (!foot || !window.Cart) return;
+    var ids = read().filter(function (x) { return x !== excludeId && Cart.CATALOG[x]; }).slice(0, SHOWN);
+    if (!ids.length) return;
+    var cards = ids.map(function (id) {
+      var p = Cart.CATALOG[id];
+      var price = p.orig
+        ? '<span class="recent-old">' + fmt(p.orig) + '</span><strong>' + fmt(p.price) + '</strong>'
+        : '<strong>' + fmt(p.price) + '</strong>';
+      return '<a class="recent-card" href="' + p.url + '">'
+        + '<div class="recent-img"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>'
+        + '<div class="recent-name">' + p.name + '</div>'
+        + '<div class="recent-price">' + price + '</div></a>';
+    }).join('');
+    var sec = document.createElement('section');
+    sec.className = 'section recent-sec';
+    sec.innerHTML = '<div class="container">'
+      + '<h2 class="title" style="text-align:left;font-size:24px;margin-bottom:20px">Ostatnio oglądane</h2>'
+      + '<div class="recent-row">' + cards + '</div></div>';
+    foot.parentNode.insertBefore(sec, foot);
+  }
+  function init() {
+    var b = document.body, cur = b.getAttribute('data-recent');
+    if (cur) record(cur);
+    if (cur != null || b.hasAttribute('data-recent-show')) render(cur);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
