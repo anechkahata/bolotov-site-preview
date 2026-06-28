@@ -309,3 +309,75 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
+
+/* Exit-intent popup (non-intrusive). Opt-in per page via <body data-exit="guide|cart">.
+   Desktop: fires when the cursor leaves through the top edge. Mobile/no-mouse: a soft
+   fallback (a decisive scroll back to the top after the user has scrolled down).
+   Shown at most once per ~7 days (localStorage), never in the first few seconds,
+   and the cart variant downgrades to the guide when the cart is empty. */
+(function () {
+  function start() {
+    var b = document.body, mode = b && b.getAttribute('data-exit');
+    if (!mode) return;
+    var KEY = 'bolotov_exit_v1', COOLDOWN = 7 * 24 * 60 * 60 * 1000;
+    function seen() { try { var t = +localStorage.getItem(KEY); return t && (Date.now() - t) < COOLDOWN; } catch (e) { return false; } }
+    function mark() { try { localStorage.setItem(KEY, Date.now()); } catch (e) {} }
+    if (seen()) return;
+    if (mode === 'cart') { try { if (!window.Cart || !Cart.items().length) mode = 'guide'; } catch (e) { mode = 'guide'; } }
+
+    var shown = false, armed = false, el;
+    setTimeout(function () { armed = true; }, 4000);   // never in the first 4s
+
+    var WA = 'https://wa.me/421944623644?text=Dzie%C5%84%20dobry';
+    function build() {
+      el = document.createElement('div');
+      el.className = 'exit-pop';
+      if (mode === 'cart') {
+        el.innerHTML = '<div class="exit-box">'
+          + '<button class="exit-x" aria-label="Zamknij">&times;</button>'
+          + '<h3 class="exit-h">Nie zgub swojego koszyka 🛒</h3>'
+          + '<p class="exit-p">Twoje produkty czekają. Dokończ zamówienie teraz albo napisz do nas — pomożemy dobrać produkty i odpowiemy na pytania.</p>'
+          + '<div class="exit-actions"><a class="btn btn-gold" href="koszyk.html">Wróć do koszyka</a>'
+          + '<a class="btn btn-wa" href="' + WA + '">Napisz na WhatsApp</a></div></div>';
+      } else {
+        el.innerHTML = '<div class="exit-box exit-box-guide">'
+          + '<button class="exit-x" aria-label="Zamknij">&times;</button>'
+          + '<div class="exit-cover"><img src="assets/img/guide-cover.png" alt="Bezpłatny przewodnik po metodzie Bolotova"></div>'
+          + '<div class="exit-body"><h3 class="exit-h">Zaczekaj — odbierz darmowy przewodnik</h3>'
+          + '<p class="exit-p">Zostaw e-mail, a wyślemy Ci BEZPŁATNY przewodnik po systemie Bolotova — proste zasady odżywiania i stylu życia.</p>'
+          + '<form class="exit-form" onsubmit="return false">'
+          + '<input type="email" required placeholder="Twój e-mail *">'
+          + '<label class="exit-consent"><input type="checkbox" required><span>Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z RODO.</span></label>'
+          + '<button class="btn btn-gold" type="submit">Odbierz przewodnik</button></form>'
+          + '<p class="exit-mini">Bez spamu. W każdej chwili możesz zrezygnować.</p></div></div>';
+      }
+      document.body.appendChild(el);
+      el.querySelector('.exit-x').addEventListener('click', close);
+      el.addEventListener('click', function (e) { if (e.target === el) close(); });
+      var form = el.querySelector('.exit-form');
+      if (form) form.addEventListener('submit', function () {
+        /* TODO: wire to AmoCRM (funnel Польша-неразобранное) via API when keys arrive. */
+        el.querySelector('.exit-body').innerHTML =
+          '<h3 class="exit-h">Dziękujemy! ✓</h3><p class="exit-p">Sprawdź skrzynkę — przewodnik jest w drodze.</p>';
+        setTimeout(close, 2600);
+      });
+    }
+    function show() {
+      if (shown || !armed) return;
+      shown = true; mark(); build();
+      setTimeout(function () { el.classList.add('show'); }, 20);   // next tick -> opacity transition (robust vs throttled rAF)
+    }
+    function close() { if (el) el.classList.remove('show'); }
+
+    document.addEventListener('mouseout', function (e) {
+      if (!e.relatedTarget && e.clientY <= 0) show();   // cursor left through the top
+    });
+    var lastY = window.scrollY, maxY = 0;
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY; if (y > maxY) maxY = y;
+      if (maxY > 600 && lastY - y > 240 && y < 200) show();   // fast snap back to top
+      lastY = y;
+    }, { passive: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();

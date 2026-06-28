@@ -302,3 +302,30 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .recent-price{padding:4px 12px 12px;color:var(--wine);font-size:14px}
 .recent-old{color:#9a8a90;text-decoration:line-through;font-size:12.5px;margin-right:5px}
 @media(max-width:600px){.recent-card{flex-basis:150px}.recent-img{height:120px}}
+
+/* Exit-intent popup */
+.exit-pop{position:fixed;inset:0;background:rgba(43,12,28,.55);display:none;align-items:center;justify-content:center;z-index:350;padding:20px;opacity:0;transition:opacity .22s}
+.exit-pop.show{display:flex;opacity:1}
+.exit-box{background:#fff;border-radius:18px;max-width:440px;width:100%;padding:30px 26px 26px;position:relative;box-shadow:0 24px 60px rgba(43,12,28,.45);animation:cartpop .25s ease}
+.exit-box-guide{max-width:640px;padding:0;display:flex;overflow:hidden}
+.exit-cover{flex:0 0 42%;background:var(--wine-dark);display:grid;place-items:center;padding:22px}
+.exit-cover img{max-width:100%;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.exit-body{flex:1 1 auto;padding:30px 26px 26px}
+.exit-x{position:absolute;top:10px;right:14px;border:none;background:none;font-size:28px;line-height:1;color:#9a8a90;cursor:pointer;z-index:2}
+.exit-x:hover{color:var(--wine)}
+.exit-h{font-family:'Montserrat';font-weight:800;color:var(--wine);font-size:21px;line-height:1.2}
+.exit-p{margin-top:10px;color:var(--ink);font-size:14.5px;line-height:1.55}
+.exit-form{margin-top:16px;display:grid;gap:10px}
+.exit-form input[type=email]{border:1px solid #e0d3d9;border-radius:40px;padding:13px 18px;font-size:15px}
+.exit-consent{display:flex;gap:8px;font-size:12px;color:#6b5b62;line-height:1.4}
+.exit-form .btn{justify-content:center}
+.exit-mini{margin-top:10px;font-size:11.5px;color:#9a8a90}
+.exit-actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.exit-actions .btn{flex:1 1 auto;justify-content:center}
+@media(max-width:600px){
+  .exit-box-guide{flex-direction:column;max-width:420px}
+  .exit-cover{flex-basis:auto;padding:18px}
+  .exit-cover img{max-width:150px}
+  .exit-body{padding:22px 20px}
+  .exit-box-guide .exit-x{color:#fff}
+}
