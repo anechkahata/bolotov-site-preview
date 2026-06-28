@@ -8,7 +8,7 @@
   <style>.field{display:grid;gap:5px}.field label{font-size:13px;font-weight:600;color:var(--wine-dark)}.field input,.field select{border:1px solid #e0d3d9;border-radius:12px;padding:12px 14px;font-size:15px}</style>
 </head>
 <body>
-  <div class="topbar"><div class="container"><span>Suplementy diety jakości spożywczej · oparte na badaniach akademika Bołotowa</span><span>info@centerbolotova.eu</span></div></div>
+  <div class="topbar"><div class="container"><span>🚚 Darmowa dostawa od 500 zł · suplementy diety jakości spożywczej</span><span>info@centerbolotova.eu</span></div></div>
   <header class="site-header"><div class="container">
     <a href="index.html" class="brand"><img class="logo" src="assets/img/logo.png" alt="Centrum Bolotova">Centrum Bolotova</a>
     <nav class="nav"><a href="katalog.html">Katalog</a><a href="katalog.html#zestawy">Zestawy</a><a href="balzam-bolotova.html">Balzam</a><div class="nav-dd"><a href="#" onclick="return false">Informacje ▾</a><div class="nav-dd-menu"><a href="sposob-uzycia.html">Sposób użycia</a><a href="faq.html">Pytania i odpowiedzi</a><a href="zapraszamy-lekarzy.html">Zapraszamy lekarzy</a><a href="certyfikaty.html">Certyfikaty</a><a href="zostan-partnerem.html">Zostań partnerem</a></div></div><a href="opinie.html">Opinie</a><a href="o-centrum.html">O Centrum</a><a href="kontakt.html">Kontakt</a></nav>
@@ -69,6 +69,7 @@
         <div class="sum-row" id="sum-save-row" style="display:none;color:var(--magenta)"><span>Oszczędzasz</span><span id="sum-save">0 zł</span></div>
         <div class="sum-row"><span>Dostawa</span><span id="sum-delivery">21 zł</span></div>
         <div class="sum-row total"><span>Razem</span><span id="sum-total">0 zł</span></div>
+        <div id="free-deliv" class="cart-hint" style="margin-top:10px;display:none"></div>
         <p class="fnote" style="margin-top:10px">Ceny zawierają podatek VAT 23%.</p>
       </div>
 
@@ -147,13 +148,22 @@
       });
       updateTotals();
     }
+    var FREE_DELIVERY = 500;
     function updateTotals(){
       var sub = Cart.subtotal();
-      var del = deliveryCost();
+      var free = sub >= FREE_DELIVERY;
+      var del = free ? 0 : deliveryCost();
       var sav = Cart.savings();
       document.getElementById('sum-products').textContent = fmt(sub);
-      document.getElementById('sum-delivery').textContent = fmt(del);
+      document.getElementById('sum-delivery').textContent = free ? 'Gratis' : fmt(del);
       document.getElementById('sum-total').textContent = fmt(sub + del);
+      var fd = document.getElementById('free-deliv');
+      if(fd){
+        fd.style.display = 'block';
+        fd.innerHTML = free
+          ? '✓ Masz <strong>darmową dostawę</strong>!'
+          : 'Brakuje <strong>'+fmt(FREE_DELIVERY - sub)+'</strong> do darmowej dostawy (od '+FREE_DELIVERY+' zł).';
+      }
       var sr = document.getElementById('sum-save-row');
       if(sav > 0){ document.getElementById('sum-save').textContent = '− ' + fmt(sav); sr.style.display = 'flex'; }
       else { sr.style.display = 'none'; }
