@@ -319,7 +319,7 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     document.addEventListener('click', function (e) {
       var t = e.target;
-      if (t && t.tagName === 'IMG' && t.closest('.rev-track, .reviews-grid')) {
+      if (t && t.tagName === 'IMG' && (t.closest('.rev-track, .reviews-grid') || t.id === 'gmain')) {
         img.src = t.currentSrc || t.src; lb.classList.add('show');
       }
     });
