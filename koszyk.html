@@ -26,6 +26,15 @@
     <div id="set-suggest" style="margin-top:14px;display:none"></div>
     <div id="free-deliv" style="margin-top:14px;display:none;background:var(--sage);border-radius:12px;padding:14px 18px;font-size:14.5px;color:var(--wine-dark)"></div>
 
+    <div id="promo-box" class="card" style="padding:16px 18px;margin-top:14px;display:none">
+      <form id="promo-form" onsubmit="return false" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <label for="promo-input" style="font-weight:700;color:var(--wine-dark);font-size:14px">Kod rabatowy</label>
+        <input id="promo-input" placeholder="np. BALSAM" autocomplete="off" style="flex:1 1 160px;min-width:140px;border:1px solid #e0d3d9;border-radius:40px;padding:11px 18px;font-size:15px;text-transform:uppercase">
+        <button class="btn btn-ghost" type="submit" style="padding:11px 22px">Zastosuj</button>
+      </form>
+      <div id="promo-msg" style="margin-top:10px;font-size:13.5px;color:var(--wine-dark)"></div>
+    </div>
+
     <div id="order-block" style="display:none">
     <h2 class="title" style="text-align:left;margin-top:40px;font-size:24px">Złóż zamówienie</h2>
     <p class="muted" style="font-size:13px;margin-top:6px">Wersja demonstracyjna formularza. Płatność Stripe i wysyłka do CRM zostaną podłączone kluczami klienta.</p>
@@ -69,6 +78,7 @@
         <h3 style="color:var(--wine);margin-bottom:14px">Podsumowanie zamówienia</h3>
         <div class="sum-row"><span>Wartość produktów</span><span id="sum-products">0 zł</span></div>
         <div class="sum-row" id="sum-save-row" style="display:none;color:var(--magenta)"><span>Oszczędzasz</span><span id="sum-save">0 zł</span></div>
+        <div class="sum-row" id="sum-promo-row" style="display:none;color:var(--magenta)"><span id="sum-promo-label">Kod rabatowy</span><span id="sum-promo">0 zł</span></div>
         <div class="sum-row"><span>Dostawa</span><span id="sum-delivery">21 zł</span></div>
         <div class="sum-row total"><span>Razem</span><span id="sum-total">0 zł</span></div>
         <p class="fnote" style="margin-top:10px">Ceny zawierają podatek VAT 23%.</p>
@@ -86,7 +96,7 @@
   <script src="cart.js"></script>
   <script>
   (function(){
-    var fmt = function(n){ return n + ' zł'; };
+    var fmt = function(n){ return (Math.round(n * 100) / 100).toString().replace('.', ',') + ' zł'; };
     var deliveryCost = function(){
       var r = document.querySelector('input[name="dost"]:checked');
       return r ? parseInt(r.dataset.cost, 10) : 0;
@@ -126,10 +136,13 @@
         // per-line savings
         var sav = Cart.lineSavings(it.id, it.qty);
         var savLine = sav > 0 ? '<div class="cart-save">Oszczędzasz '+fmt(sav)+'</div>' : '';
+        // promo-code discount on this line (e.g. Balzam only)
+        var pd = Cart.promoLineDiscount(it.id, it.qty);
+        var promoLine = pd > 0 ? '<div class="cart-save">Kod '+Cart.activePromo().toUpperCase()+': − '+fmt(pd)+'</div>' : '';
         html += '<div class="cart-row">'
           + thumb
           + '<div class="cart-info"><div class="cart-name"><a href="'+p.url+'" style="color:var(--wine-dark)">'+p.name+'</a></div>'
-          + '<div class="cart-unit">'+unitLine+'</div>'+savLine+hint+'</div>'
+          + '<div class="cart-unit">'+unitLine+'</div>'+savLine+promoLine+hint+'</div>'
           + '<div class="qty"><button data-act="dec" data-id="'+it.id+'" aria-label="Mniej">−</button>'
           + '<span>'+it.qty+'</span>'
           + '<button data-act="inc" data-id="'+it.id+'" aria-label="Więcej">+</button></div>'
@@ -148,7 +161,34 @@
         });
       });
       renderSuggest();
+      renderPromo();
       updateTotals();
+    }
+
+    /* Promo code: enter in the cart or arrive via ?promo=CODE link. Discount is scoped (Balzam only). */
+    function renderPromo(){
+      var box = document.getElementById('promo-box');
+      if(!box) return;
+      box.style.display = Cart.items().length ? 'block' : 'none';
+      var msg = document.getElementById('promo-msg');
+      var input = document.getElementById('promo-input');
+      var active = Cart.activePromo();
+      if(active){
+        var label = Cart.PROMOS[active].label;
+        var sav = Cart.promoSavings();
+        if(sav > 0){
+          msg.innerHTML = '✓ Kod <strong>'+active.toUpperCase()+'</strong> aktywny ('+label+'). Rabat: <strong>'+fmt(sav)
+            + '</strong>. <button type="button" id="promo-clear" style="border:none;background:none;color:var(--magenta);cursor:pointer;text-decoration:underline;font-size:13px">Usuń</button>';
+        } else {
+          msg.innerHTML = 'ℹ️ Kod <strong>'+active.toUpperCase()+'</strong> jest aktywny, ale obejmuje tylko Balzam — dodaj Balzam do koszyka, aby zobaczyć rabat. '
+            + '<button type="button" id="promo-clear" style="border:none;background:none;color:var(--magenta);cursor:pointer;text-decoration:underline;font-size:13px">Usuń</button>';
+        }
+        if(input) input.value = '';
+        var clr = document.getElementById('promo-clear');
+        if(clr) clr.addEventListener('click', function(){ Cart.clearPromo(); });
+      } else {
+        msg.innerHTML = '';
+      }
     }
 
     /* Cross-sell: when cart products form (or nearly form) a set, suggest the cheaper bundle. */
@@ -186,26 +226,40 @@
     var FREE_DELIVERY = 500;
     function updateTotals(){
       var sub = Cart.subtotal();
-      var free = sub >= FREE_DELIVERY;
+      var promo = Cart.promoSavings();
+      var payable = sub - promo;                 // products value after the promo code
+      var free = payable >= FREE_DELIVERY;
       var del = free ? 0 : deliveryCost();
       var sav = Cart.savings();
       document.getElementById('sum-products').textContent = fmt(sub);
       document.getElementById('sum-delivery').textContent = free ? 'Gratis' : fmt(del);
-      document.getElementById('sum-total').textContent = fmt(sub + del);
+      document.getElementById('sum-total').textContent = fmt(payable + del);
       var fd = document.getElementById('free-deliv');
       if(fd){
         fd.style.display = 'block';
         fd.innerHTML = free
           ? '✓ Masz <strong>darmową dostawę</strong>!'
-          : '🚚 Brakuje <strong>'+fmt(FREE_DELIVERY - sub)+'</strong> do <strong>darmowej dostawy</strong> (od '+FREE_DELIVERY+' zł). <a href="katalog.html" style="color:var(--magenta);font-weight:700;white-space:nowrap">Przejdź do katalogu →</a>';
+          : '🚚 Brakuje <strong>'+fmt(FREE_DELIVERY - payable)+'</strong> do <strong>darmowej dostawy</strong> (od '+FREE_DELIVERY+' zł). <a href="katalog.html" style="color:var(--magenta);font-weight:700;white-space:nowrap">Przejdź do katalogu →</a>';
       }
       var sr = document.getElementById('sum-save-row');
       if(sav > 0){ document.getElementById('sum-save').textContent = '− ' + fmt(sav); sr.style.display = 'flex'; }
       else { sr.style.display = 'none'; }
+      var pr = document.getElementById('sum-promo-row');
+      if(promo > 0){
+        document.getElementById('sum-promo-label').textContent = 'Kod ' + Cart.activePromo().toUpperCase();
+        document.getElementById('sum-promo').textContent = '− ' + fmt(promo);
+        pr.style.display = 'flex';
+      } else { pr.style.display = 'none'; }
     }
     document.addEventListener('cart:change', render);
     document.querySelectorAll('input[name="dost"]').forEach(function(r){
       r.addEventListener('change', updateTotals);
+    });
+    var pf = document.getElementById('promo-form');
+    if(pf) pf.addEventListener('submit', function(){
+      var code = document.getElementById('promo-input').value;
+      if(Cart.applyPromo(code)){ /* cart:change -> render() repaints everything */ }
+      else { document.getElementById('promo-msg').innerHTML = '✕ Nieprawidłowy kod rabatowy.'; }
     });
     render();
   })();

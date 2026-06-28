@@ -148,9 +148,46 @@
     write(items);
   }
 
+  /* Promo codes — a percentage discount limited to a product scope (case-insensitive).
+     Can be entered in the cart or auto-applied via a link (?promo=CODE). Only ONE code is
+     active at a time, stored in localStorage. The discount applies only to the listed product
+     ids; everything else stays full price. NOTE: this is the visible/cart-side discount — the
+     final charge must ALSO be enforced server-side at payment (Stripe) once keys are wired. */
+  var PROMOS = {
+    'balsam':   { percent: 10, scope: ['balzam-250', 'balzam-500'], label: '−10% na Balzam' },
+    'balsam15': { percent: 15, scope: ['balzam-250', 'balzam-500'], label: '−15% na Balzam' }
+  };
+  var PROMO_KEY = 'bolotov_promo_v1';
+  function normPromo(code) { return (code || '').trim().toLowerCase(); }
+  function activePromo() {
+    try { var c = localStorage.getItem(PROMO_KEY); return c && PROMOS[c] ? c : null; } catch (e) { return null; }
+  }
+  function applyPromo(code) {
+    code = normPromo(code);
+    if (!PROMOS[code]) return false;
+    try { localStorage.setItem(PROMO_KEY, code); } catch (e) {}
+    document.dispatchEvent(new CustomEvent('cart:change'));
+    return true;
+  }
+  function clearPromo() {
+    try { localStorage.removeItem(PROMO_KEY); } catch (e) {}
+    document.dispatchEvent(new CustomEvent('cart:change'));
+  }
+  // Money taken off one line by the active promo (0 if no code / product out of scope).
+  function promoLineDiscount(id, qty) {
+    var c = activePromo(); if (!c) return 0;
+    var p = PROMOS[c];
+    if (p.scope.indexOf(id) < 0) return 0;
+    return Math.round(unitPrice(id, qty) * qty * p.percent) / 100;   // 2-dp, avoids float artifacts
+  }
+  function promoSavings() {
+    return read().reduce(function (s, i) { return s + promoLineDiscount(i.id, i.qty); }, 0);
+  }
+
   var Cart = {
     CATALOG: CATALOG,
     SETS: SETS,
+    PROMOS: PROMOS,
     items: read,
     unitPrice: unitPrice,
     regularUnit: regularUnit,
@@ -158,6 +195,11 @@
     lineSavings: lineSavings,
     suggestSet: suggestSet,
     convertToSet: convertToSet,
+    activePromo: activePromo,
+    applyPromo: applyPromo,
+    clearPromo: clearPromo,
+    promoLineDiscount: promoLineDiscount,
+    promoSavings: promoSavings,
     add: function (id, qty) {
       if (!CATALOG[id]) { return; }
       qty = qty || 1;
@@ -185,6 +227,14 @@
     }
   };
   window.Cart = Cart;
+
+  /* Auto-apply a promo from a link, e.g. ...?promo=balsam15 — works site-wide and persists. */
+  (function () {
+    try {
+      var m = /[?&]promo=([^&#]+)/i.exec(location.search);
+      if (m) applyPromo(decodeURIComponent(m[1]));
+    } catch (e) {}
+  })();
 
   /* Header counter badge — updates the "Koszyk" link on every page. */
   function renderBadge() {
