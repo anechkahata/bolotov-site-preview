@@ -354,3 +354,31 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
   .exit-body{padding:22px 20px}
   .exit-box-guide .exit-x{color:#fff}
 }
+
+/* ===== Mobile reading & layout pass (phones ≤600px) =====
+   Goal: comfortable reading, less scrolling, bigger tap targets, no horizontal overflow.
+   Use class="mobile-hide" on bulky/decorative images or icons to drop them on phones. */
+@media(max-width:600px){
+  .mobile-hide{display:none!important}
+  .container{padding:0 16px}
+  .section{padding:40px 0}
+  /* hero: shorter and readable, CTAs stack full-width */
+  .hero .inner{padding:54px 0;max-width:none}
+  .hero .inner .btn{width:100%;justify-content:center}
+  h1{font-size:clamp(25px,7.4vw,31px)}
+  h2.title{font-size:clamp(21px,6.2vw,26px)}
+  /* readability */
+  body{line-height:1.7}
+  .lead{font-size:16.5px;line-height:1.7}
+  p,li{line-height:1.72}
+  /* product tabs: scroll on one line instead of wrapping into many rows */
+  .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{white-space:nowrap;font-size:14px}
+  /* comfortable tap targets + tidy trust strip */
+  .btn{padding:13px 22px}
+  .buy-trust{font-size:12.5px;gap:6px 14px}
+  /* prevent flex/grid children from forcing the page wider than the screen */
+  .grid2>*,.grid3>*{min-width:0}
+  .gthumbs{max-width:100%}
+}
