@@ -46,7 +46,7 @@
     <h2 class="title" style="text-align:left;margin-top:40px;font-size:24px">Złóż zamówienie</h2>
     <p class="muted" style="font-size:13px;margin-top:6px">Wersja demonstracyjna formularza. Płatność Stripe i wysyłka do CRM zostaną podłączone kluczami klienta.</p>
 
-    <form style="margin-top:22px;display:grid;gap:26px" onsubmit="return false">
+    <form id="order-form" style="margin-top:22px;display:grid;gap:26px">
       <div class="card" style="padding:24px">
         <h3 style="color:var(--wine);margin-bottom:14px">Klient</h3>
         <div class="grid2" style="gap:16px">
@@ -287,6 +287,26 @@
       var code = document.getElementById('promo-input').value;
       if(Cart.applyPromo(code)){ /* cart:change -> render() repaints everything */ }
       else { document.getElementById('promo-msg').innerHTML = '✕ Nieprawidłowy kod rabatowy.'; }
+    });
+
+    /* Place order (demo): snapshot the order, clear the cart, go to the thank-you page.
+       The submit event only fires after the browser validates required fields + consent.
+       NOTE: real Stripe payment + AmoCRM send hook in here once keys are wired. */
+    var of = document.getElementById('order-form');
+    if(of) of.addEventListener('submit', function(e){
+      e.preventDefault();
+      var sub = Cart.subtotal(), promo = Cart.promoSavings(), payable = sub - promo;
+      var del = payable >= FREE_DELIVERY ? 0 : deliveryCost();
+      var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+      var d = new Date();
+      var order = {
+        no: 'CB-' + (''+d.getFullYear()).slice(2) + pad(d.getMonth()+1) + pad(d.getDate()) + '-' + Math.floor(1000 + Math.random()*9000),
+        items: Cart.items().map(function(i){ var p = Cart.CATALOG[i.id]; return { name: p.name, qty: i.qty, line: Cart.unitPrice(i.id, i.qty) * i.qty }; }),
+        promo: promo, promoCode: Cart.activePromo(), delivery: del, total: payable + del
+      };
+      try { sessionStorage.setItem('bolotov_last_order', JSON.stringify(order)); } catch(err){}
+      Cart.clear(); if (Cart.clearPromo) Cart.clearPromo();
+      window.location.href = 'dziekujemy.html';
     });
     render();
   })();
