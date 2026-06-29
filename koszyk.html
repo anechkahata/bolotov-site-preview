@@ -14,7 +14,10 @@
   <title>Koszyk | Centrum Bolotova</title>
   <meta name="description" content="Koszyk i finalizacja zamówienia — Centrum Bolotova.">
   <meta name="robots" content="noindex, nofollow"><link rel="stylesheet" href="brand.css"><link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png"><link rel="manifest" href="site.webmanifest">
-  <style>.field{display:grid;gap:5px}.field label{font-size:13px;font-weight:600;color:var(--wine-dark)}.field input,.field select{border:1px solid #e0d3d9;border-radius:12px;padding:12px 14px;font-size:15px}</style>
+  <style>.field{display:grid;gap:5px}.field label{font-size:13px;font-weight:600;color:var(--wine-dark)}.field input,.field select{border:1px solid #e0d3d9;border-radius:12px;padding:12px 14px;font-size:15px}
+  .field input.invalid,.field select.invalid{border-color:#d23b5e;background:#fdf2f5}
+  .field-err{color:#c0264a;font-size:12px;font-weight:600;margin-top:3px}
+  #consent-label.consent-invalid{color:#c0264a}#consent-label.consent-invalid input{outline:2px solid #d23b5e;outline-offset:2px}</style>
 </head>
 <body data-recent-show data-exit="cart">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZP5LLR4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -57,7 +60,7 @@
     <h2 class="title" style="text-align:left;margin-top:40px;font-size:24px">Złóż zamówienie</h2>
     <p class="muted" style="font-size:13px;margin-top:6px">Wersja demonstracyjna formularza. Płatność Stripe i wysyłka do CRM zostaną podłączone kluczami klienta.</p>
 
-    <form id="order-form" style="margin-top:22px;display:grid;gap:26px">
+    <form id="order-form" novalidate style="margin-top:22px;display:grid;gap:26px">
       <div class="card" style="padding:24px">
         <h3 style="color:var(--wine);margin-bottom:14px">Klient</h3>
         <div class="grid2" style="gap:16px">
@@ -110,7 +113,7 @@
         <p class="fnote" style="margin-top:10px">Ceny zawierają podatek VAT 23%.</p>
       </div>
 
-      <label style="display:flex;gap:8px;font-size:13px;color:#6b5b62"><input type="checkbox" required><span>Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z obowiązującymi przepisami o ochronie danych osobowych (<a href="polityka-prywatnosci.html" style="color:var(--magenta)">więcej informacji</a>).</span></label>
+      <label id="consent-label" style="display:flex;gap:8px;font-size:13px;color:#6b5b62"><input type="checkbox" id="f-consent" required><span>Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z obowiązującymi przepisami o ochronie danych osobowych (<a href="polityka-prywatnosci.html" style="color:var(--magenta)">więcej informacji</a>).</span></label>
       <div id="order-error" style="display:none;background:#f6e3e8;border:1px solid #e3b9c6;border-radius:12px;padding:14px 18px;color:#7a2540;font-size:14.5px">⚠️ Coś poszło nie tak przy składaniu zamówienia. Spróbuj ponownie lub napisz do nas na <a href="https://wa.me/421944623644" style="color:#7a2540;font-weight:600">WhatsApp</a>.</div>
       <button class="btn btn-gold" style="justify-self:start">Złóż zamówienie</button>
       <div class="buy-trust" style="margin-top:0"><span>🔒 Bezpieczna płatność (Stripe)</span><span>🚚 Darmowa dostawa od 500 zł</span><span>⏱ Wysyłka 5–7 dni roboczych</span><span>↩ 14 dni na zwrot</span></div>
@@ -318,12 +321,82 @@
       else { document.getElementById('promo-msg').innerHTML = '✕ Nieprawidłowy kod rabatowy.'; }
     });
 
-    /* Place order (demo): snapshot the order, clear the cart, go to the thank-you page.
-       The submit event only fires after the browser validates required fields + consent.
-       NOTE: real Stripe payment + AmoCRM send hook in here once keys are wired. */
+    /* ── Client-side validation ───────────────────────────────────────────────
+       We use novalidate and drive validation ourselves so we can: highlight the
+       exact field in red, show a Polish hint under it, and scroll/focus the first
+       problem. Errors clear as soon as the customer edits the field. */
     var of = document.getElementById('order-form');
+    function clearErrors(){
+      of.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+      of.querySelectorAll('.field-err').forEach(function(el){ el.remove(); });
+      var cl = document.getElementById('consent-label'); if(cl) cl.classList.remove('consent-invalid');
+    }
+    function showError(el, msg, isConsent){
+      if(isConsent){
+        var lab = document.getElementById('consent-label');
+        if(lab){ lab.classList.add('consent-invalid'); var h=document.createElement('div'); h.className='field-err'; h.textContent=msg; lab.parentNode.insertBefore(h, lab.nextSibling); }
+        return;
+      }
+      el.classList.add('invalid');
+      var box = el.closest('.field') || el.parentNode;
+      var hint = document.createElement('div'); hint.className='field-err'; hint.textContent = msg;
+      box.appendChild(hint);
+    }
+    function validateOrderForm(){
+      var errs = [];
+      var g = function(id){ var e=document.getElementById(id); return { el:e, v: e ? e.value.trim() : '' }; };
+      var n=g('f-name');  if(!n.v) errs.push({el:n.el,msg:'Podaj imię i nazwisko.'});
+      var ph=g('f-phone'); var phd=ph.v.replace(/\D/g,'');
+        if(!ph.v) errs.push({el:ph.el,msg:'Podaj numer telefonu.'});
+        else if(phd.length < 9) errs.push({el:ph.el,msg:'Numer telefonu jest za krótki.'});
+      var em=g('f-email');
+        if(!em.v) errs.push({el:em.el,msg:'Podaj adres e-mail.'});
+        else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.v)) errs.push({el:em.el,msg:'Nieprawidłowy adres e-mail (np. jan@example.com).'});
+      var zip=g('f-zip');
+        if(!zip.v) errs.push({el:zip.el,msg:'Podaj kod pocztowy.'});
+        else if(!/^\d{2}-?\d{3}$/.test(zip.v)) errs.push({el:zip.el,msg:'Kod pocztowy w formacie 00-000.'});
+      var city=g('f-city');   if(!city.v) errs.push({el:city.el,msg:'Podaj miasto.'});
+      var st=g('f-street');   if(!st.v) errs.push({el:st.el,msg:'Podaj adres dostawy.'});
+      var ho=g('f-house');    if(!ho.v) errs.push({el:ho.el,msg:'Podaj numer domu.'});
+      var diffR = document.getElementById('f-diff-recipient');
+      if(diffR && diffR.checked){
+        var rn=g('f-rec-name'); if(!rn.v) errs.push({el:rn.el,msg:'Podaj imię i nazwisko odbiorcy.'});
+        var rp=g('f-rec-phone'); var rpd=rp.v.replace(/\D/g,'');
+          if(!rp.v) errs.push({el:rp.el,msg:'Podaj telefon odbiorcy.'});
+          else if(rpd.length < 9) errs.push({el:rp.el,msg:'Numer telefonu odbiorcy jest za krótki.'});
+      }
+      var consent=document.getElementById('f-consent');
+      if(consent && !consent.checked) errs.push({el:consent,msg:'Zaznacz zgodę, aby kontynuować.',consent:true});
+      return errs;
+    }
+    /* Clear a field's error as soon as it's edited / consent ticked. */
+    if(of){
+      of.addEventListener('input', function(e){
+        var t=e.target; if(t && t.classList && t.classList.contains('invalid')){
+          t.classList.remove('invalid'); var box=t.closest('.field'); if(box){ var h=box.querySelector('.field-err'); if(h) h.remove(); }
+        }
+      });
+      of.addEventListener('change', function(e){
+        if(e.target && e.target.id==='f-consent' && e.target.checked){
+          var lab=document.getElementById('consent-label');
+          if(lab){ lab.classList.remove('consent-invalid'); var h=lab.nextSibling; if(h && h.className==='field-err') h.remove(); }
+        }
+      });
+    }
+
+    /* Place order: validate → snapshot → POST to backend → redirect to Stripe / thank-you. */
     if(of) of.addEventListener('submit', function(e){
       e.preventDefault();
+      /* Validate first: on any problem, highlight + hint + jump to the first field. */
+      clearErrors();
+      var problems = validateOrderForm();
+      if(problems.length){
+        problems.forEach(function(p){ showError(p.el, p.msg, p.consent); });
+        var first = problems[0].el;
+        try { first.scrollIntoView({behavior:'smooth', block:'center'}); } catch(err){ first.scrollIntoView(); }
+        setTimeout(function(){ try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); } }, 250);
+        return;
+      }
       var sub = Cart.subtotal(), promo = Cart.promoSavings(), payable = sub - promo;
       var del = payable >= FREE_DELIVERY ? 0 : deliveryCost();
       var pad = function(n){ return (n < 10 ? '0' : '') + n; };
@@ -346,17 +419,10 @@
       var val = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
       var radio = document.querySelector('input[name="dost"]:checked');
       var street = val('f-street'), house = val('f-house'), zip = val('f-zip'), city = val('f-city');
-      /* Recipient (only when "different person" is ticked); name + phone are then required. */
+      /* Recipient values (already validated above); empty unless "different person" is ticked. */
       var diffR = document.getElementById('f-diff-recipient');
-      var recName = '', recPhone = '';
-      if (diffR && diffR.checked) {
-        recName = val('f-rec-name'); recPhone = val('f-rec-phone');
-        if (!recName || !recPhone) {
-          document.getElementById('order-error').style.display = 'block';
-          (recName ? document.getElementById('f-rec-phone') : document.getElementById('f-rec-name')).focus();
-          return;
-        }
-      }
+      var recName = (diffR && diffR.checked) ? val('f-rec-name') : '';
+      var recPhone = (diffR && diffR.checked) ? val('f-rec-phone') : '';
       var payload = {
         name: val('f-name'), phone: val('f-phone'), email: val('f-email'),
         recipient_name: recName, recipient_phone: recPhone,
