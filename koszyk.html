@@ -333,16 +333,9 @@
       var street = val('f-street'), house = val('f-house'), zip = val('f-zip'), city = val('f-city');
       var payload = {
         name: val('f-name'), phone: val('f-phone'), email: val('f-email'),
-        items: order.items.map(function(i){ return { title:i.name, qty:i.qty, price:i.line }; }),
-        order_info: order.items.map(function(i){
-          var line = i.name + ' ×' + i.qty + ' — ' + i.line + ' zł';
-          var comp = Cart.SETS && Cart.SETS[i.id];   /* a set → list its components for the warehouse */
-          if (comp) {
-            var parts = Object.keys(comp).map(function(cid){ var p = Cart.CATALOG[cid]; return (p ? p.name : cid) + ' ×' + (comp[cid] * i.qty); });
-            line += ' [skład: ' + parts.join(', ') + ']';
-          }
-          return line;
-        }).join('; '),
+        /* send item ids — the backend expands sets (discounted component prices)
+           and builds the order description + SKU list for the warehouse. */
+        items: order.items.map(function(i){ return { id:i.id, title:i.name, qty:i.qty, price:i.line }; }),
         order_total: order.total,
         delivery_kind: radio ? (radio.getAttribute('data-kind') || '') : '',
         delivery_cost: String(del),
