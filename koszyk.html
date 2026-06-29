@@ -14,9 +14,13 @@
   <title>Koszyk | Centrum Bolotova</title>
   <meta name="description" content="Koszyk i finalizacja zamówienia — Centrum Bolotova.">
   <meta name="robots" content="noindex, nofollow"><link rel="stylesheet" href="brand.css"><link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png"><link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
   <style>.field{display:grid;gap:5px}.field label{font-size:13px;font-weight:600;color:var(--wine-dark)}.field input,.field select{border:1px solid #e0d3d9;border-radius:12px;padding:12px 14px;font-size:15px}
   .field input.invalid,.field select.invalid{border-color:#d23b5e;background:#fdf2f5}
   .field-err{color:#c0264a;font-size:12px;font-weight:600;margin-top:3px}
+  .field input::placeholder{color:#bca9b0}
+  .field .iti{width:100%}.field .iti input{width:100%}
+  .iti__country-list{text-align:left}
   #consent-label.consent-invalid{color:#c0264a}#consent-label.consent-invalid input{outline:2px solid #d23b5e;outline-offset:2px}</style>
 </head>
 <body data-recent-show data-exit="cart">
@@ -64,12 +68,17 @@
       <div class="card" style="padding:24px">
         <h3 style="color:var(--wine);margin-bottom:14px">Klient</h3>
         <div class="grid2" style="gap:16px">
-          <div class="field"><label>Imię i nazwisko *</label><input id="f-name" required></div>
-          <div class="field"><label>Telefon *</label><input id="f-phone" type="tel" required></div>
-          <div class="field"><label>E-mail *</label><input id="f-email" type="email" required></div>
-          <div class="field"><label>Data urodzenia</label><input id="f-bday" type="date"></div>
+          <div class="field"><label>Imię i nazwisko *</label><input id="f-name" autocomplete="name" placeholder="np. Jan Kowalski" required></div>
+          <div class="field"><label>Telefon *</label><input id="f-phone" type="tel" autocomplete="tel" required></div>
+          <div class="field"><label>E-mail *</label><input id="f-email" type="email" autocomplete="email" placeholder="np. jan@example.com" required></div>
+          <div class="field"><label>Data urodzenia (opcjonalnie)</label>
+            <div style="display:flex;gap:8px">
+              <select id="f-bday-d" style="flex:1"><option value="">Dzień</option></select>
+              <select id="f-bday-m" style="flex:1.6"><option value="">Miesiąc</option></select>
+            </div>
+          </div>
         </div>
-        <p class="muted" style="font-size:12px;margin-top:10px">Podaj datę urodzenia, a wyślemy Ci rabat urodzinowy — obowiązuje w dniu urodzin oraz przez 7 dni po nich.</p>
+        <p class="muted" style="font-size:12px;margin-top:10px">Podaj dzień i miesiąc urodzin (bez roku) — wyślemy Ci rabat urodzinowy w dniu urodzin oraz przez 7 dni po nich.</p>
       </div>
 
       <div class="card" style="padding:24px">
@@ -79,15 +88,16 @@
           <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;cursor:pointer"><span><input type="radio" name="dost" data-cost="31" data-kind="PPL"> PPL</span><strong>31 zł</strong></label>
         </div>
         <div class="grid2" style="gap:16px">
-          <div class="field"><label>Kod pocztowy *</label><input id="f-zip" required></div>
-          <div class="field"><label>Miasto *</label><input id="f-city" required></div>
-          <div class="field"><label>Adres dostawy *</label><input id="f-street" required></div>
-          <div class="field"><label>Nr domu *</label><input id="f-house" required></div>
+          <div class="field"><label>Kod pocztowy *</label><input id="f-zip" autocomplete="postal-code" inputmode="numeric" placeholder="np. 00-001" required></div>
+          <div class="field"><label>Miasto *</label><input id="f-city" autocomplete="address-level2" placeholder="np. Warszawa" required></div>
+          <div class="field"><label>Ulica *</label><input id="f-street" autocomplete="address-line1" placeholder="np. Marszałkowska" required></div>
+          <div class="field"><label>Nr domu / mieszkania *</label><input id="f-house" placeholder="np. 12/34" required></div>
         </div>
+        <p class="muted" style="font-size:12px;margin-top:10px">Wysyłka na terenie Polski (kurier GLS / PPL). Wysyłka do innych krajów Europy — <a href="https://wa.me/421944623644?text=Dzie%C5%84%20dobry%2C%20chc%C4%99%20zam%C3%B3wi%C4%87%20z%20dostaw%C4%85%20poza%20Polsk%C4%99" style="color:var(--magenta);font-weight:600">napisz na WhatsApp</a>.</p>
         <label style="display:flex;gap:8px;font-size:14px;color:#6b5b62;margin-top:16px;cursor:pointer"><input type="checkbox" id="f-diff-recipient"><span>Odbiorca przesyłki jest inną osobą</span></label>
         <div id="recipient-fields" style="display:none;margin-top:14px">
           <div class="grid2" style="gap:16px">
-            <div class="field"><label>Imię i nazwisko odbiorcy *</label><input id="f-rec-name"></div>
+            <div class="field"><label>Imię i nazwisko odbiorcy *</label><input id="f-rec-name" placeholder="np. Anna Nowak"></div>
             <div class="field"><label>Telefon odbiorcy *</label><input id="f-rec-phone" type="tel"></div>
           </div>
           <p class="muted" style="font-size:12px;margin-top:10px">Dane odbiorcy przekażemy kurierowi. Potwierdzenie zamówienia wyślemy na Twój e-mail.</p>
@@ -125,6 +135,7 @@
   <div class="disclaimer-bar">Suplementy diety nie są lekami i nie są przeznaczone do diagnozowania, leczenia ani zapobiegania chorobom. Przed zastosowaniem skonsultuj się z lekarzem.</div>
   <a class="wa-float" href="https://wa.me/421944623644?text=Dzie%C5%84%20dobry" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg></a>
   <script src="cart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
   <script>
   (function(){
     var fmt = function(n){ return (Math.round(n * 100) / 100).toString().replace('.', ',') + ' zł'; };
@@ -326,6 +337,37 @@
        exact field in red, show a Polish hint under it, and scroll/focus the first
        problem. Errors clear as soon as the customer edits the field. */
     var of = document.getElementById('order-form');
+
+    /* Birthday: day + month only (no year — people are shy about the year). */
+    (function(){
+      var dSel = document.getElementById('f-bday-d'), mSel = document.getElementById('f-bday-m');
+      if(dSel) for(var d=1; d<=31; d++){ var o=document.createElement('option'); o.value=d; o.textContent=d; dSel.appendChild(o); }
+      var months = ['styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień'];
+      if(mSel) months.forEach(function(name,i){ var o=document.createElement('option'); o.value=i+1; o.textContent=name; mSel.appendChild(o); });
+    })();
+
+    /* Phone: international input with flag + per-country validation (intl-tel-input).
+       Default Poland, popular EU countries pinned on top; the full list is searchable. */
+    var POP = ['pl','ua','sk','cz','de','at','ch','nl','gb','ie','be','it','fr','no','se','lt'];
+    var itiOpts = { initialCountry:'pl', preferredCountries:POP, separateDialCode:true, autoPlaceholder:'aggressive',
+                    utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js' };
+    var itiPhone = null, itiRec = null;
+    if(window.intlTelInput){
+      var pEl = document.getElementById('f-phone'); if(pEl) itiPhone = window.intlTelInput(pEl, itiOpts);
+      var rEl = document.getElementById('f-rec-phone'); if(rEl) itiRec = window.intlTelInput(rEl, itiOpts);
+    }
+    /* valid only when utils loaded; otherwise fall back to a loose digit check. */
+    function phoneValid(iti, raw){
+      if(iti && window.intlTelInputUtils && typeof iti.isValidNumber==='function'){
+        var r = iti.isValidNumber(); if(r===true) return true; if(r===false) return false;
+      }
+      return raw.replace(/\D/g,'').length >= 8;
+    }
+    function phoneE164(iti, raw){
+      try{ if(iti && window.intlTelInputUtils){ var n = iti.getNumber(); if(n) return n; } }catch(e){}
+      return raw;
+    }
+
     function clearErrors(){
       of.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
       of.querySelectorAll('.field-err').forEach(function(el){ el.remove(); });
@@ -345,10 +387,12 @@
     function validateOrderForm(){
       var errs = [];
       var g = function(id){ var e=document.getElementById(id); return { el:e, v: e ? e.value.trim() : '' }; };
-      var n=g('f-name');  if(!n.v) errs.push({el:n.el,msg:'Podaj imię i nazwisko.'});
-      var ph=g('f-phone'); var phd=ph.v.replace(/\D/g,'');
+      var n=g('f-name');
+        if(!n.v) errs.push({el:n.el,msg:'Podaj imię i nazwisko.'});
+        else if(!/\s\S/.test(n.v)) errs.push({el:n.el,msg:'Podaj imię i nazwisko (np. Jan Kowalski).'});
+      var ph=g('f-phone');
         if(!ph.v) errs.push({el:ph.el,msg:'Podaj numer telefonu.'});
-        else if(phd.length < 9) errs.push({el:ph.el,msg:'Numer telefonu jest za krótki.'});
+        else if(!phoneValid(itiPhone, ph.v)) errs.push({el:ph.el,msg:'Nieprawidłowy numer telefonu dla wybranego kraju.'});
       var em=g('f-email');
         if(!em.v) errs.push({el:em.el,msg:'Podaj adres e-mail.'});
         else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.v)) errs.push({el:em.el,msg:'Nieprawidłowy adres e-mail (np. jan@example.com).'});
@@ -361,9 +405,9 @@
       var diffR = document.getElementById('f-diff-recipient');
       if(diffR && diffR.checked){
         var rn=g('f-rec-name'); if(!rn.v) errs.push({el:rn.el,msg:'Podaj imię i nazwisko odbiorcy.'});
-        var rp=g('f-rec-phone'); var rpd=rp.v.replace(/\D/g,'');
+        var rp=g('f-rec-phone');
           if(!rp.v) errs.push({el:rp.el,msg:'Podaj telefon odbiorcy.'});
-          else if(rpd.length < 9) errs.push({el:rp.el,msg:'Numer telefonu odbiorcy jest za krótki.'});
+          else if(!phoneValid(itiRec, rp.v)) errs.push({el:rp.el,msg:'Nieprawidłowy numer telefonu odbiorcy.'});
       }
       var consent=document.getElementById('f-consent');
       if(consent && !consent.checked) errs.push({el:consent,msg:'Zaznacz zgodę, aby kontynuować.',consent:true});
@@ -422,9 +466,13 @@
       /* Recipient values (already validated above); empty unless "different person" is ticked. */
       var diffR = document.getElementById('f-diff-recipient');
       var recName = (diffR && diffR.checked) ? val('f-rec-name') : '';
-      var recPhone = (diffR && diffR.checked) ? val('f-rec-phone') : '';
+      var recPhone = (diffR && diffR.checked) ? phoneE164(itiRec, val('f-rec-phone')) : '';
+      /* Birthday as "DD.MM" (day+month, no year), or '' if not filled. */
+      var bd = (document.getElementById('f-bday-d')||{}).value, bm = (document.getElementById('f-bday-m')||{}).value;
+      var birthday = (bd && bm) ? (pad(parseInt(bd,10)) + '.' + pad(parseInt(bm,10))) : '';
       var payload = {
-        name: val('f-name'), phone: val('f-phone'), email: val('f-email'),
+        name: val('f-name'), phone: phoneE164(itiPhone, val('f-phone')), email: val('f-email'),
+        birthday: birthday,
         recipient_name: recName, recipient_phone: recPhone,
         /* send item ids — the backend expands sets (discounted component prices)
            and builds the order description + SKU list for the warehouse. */
