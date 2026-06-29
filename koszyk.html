@@ -380,8 +380,12 @@
             /* Use the server's authoritative order number so the thank-you page
                and the CRM deal show the same number. */
             try { if (res.order_no) { order.no = res.order_no; sessionStorage.setItem('bolotov_last_order', JSON.stringify(order)); } } catch(e){}
-            /* Stripe Checkout redirect will go here later; for now → thank-you page. */
-            window.location.href = 'dziekujemy.html?status=success';
+            /* If Stripe is configured, the backend returns a hosted-checkout URL
+               → full-page redirect to pay (no iframe; in-app browser safe).
+               Stripe then redirects to dziekujemy.html on success / koszyk.html on cancel.
+               If no URL (Stripe not wired yet), fall back to the thank-you page. */
+            if (res.checkout_url) { window.location.href = res.checkout_url; }
+            else { window.location.href = 'dziekujemy.html?status=success'; }
           } else { throw new Error('order_failed'); }
         })
         .catch(function(){
