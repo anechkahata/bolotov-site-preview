@@ -4,11 +4,25 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Clean API URLs: /api/<name>  ->  /api/<name>.php  (e.g. /api/order, /api/stripe-webhook).
-  # Only rewrites when the request isn't a real file/dir AND the .php target exists,
-  # so static files and non-existent paths are untouched. The .php URLs still work directly.
+  # ── Clean API URLs: /api/<name> -> /api/<name>.php  (e.g. /api/order, /api/stripe-webhook).
+  # Only when the request isn't a real file/dir AND the .php target exists.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{DOCUMENT_ROOT}/api/$1.php -f
   RewriteRule ^api/([a-z0-9_-]+)/?$ api/$1.php [L]
+
+  # ── Clean page URLs (hide the .html) ─────────────────────────────────────────
+  # 1) /index.html (or /index) -> the root.
+  RewriteCond %{THE_REQUEST} \s/+index(\.html)?[\s?] [NC]
+  RewriteRule ^ / [R=301,L]
+
+  # 2) /page.html -> /page  (301, so the address bar shows the clean URL).
+  RewriteCond %{THE_REQUEST} \s/+([^.\s?]+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # 3) Serve /page internally from page.html (no redirect, no .html shown).
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([^.]+?)/?$ $1.html [L]
 </IfModule>
