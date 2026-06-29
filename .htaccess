@@ -1,0 +1,12 @@
+# Centrum Bolotova — production rewrite rules (Apache / LiteSpeed on HostCreators).
+# GitHub Pages ignores this file; it only takes effect on the SFTP-deployed host.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Clean API URL: POST /api/order  ->  /api/order.php
+  # The .php endpoint still works directly; this just exposes the tidy path the
+  # checkout form fetches (site/koszyk.html posts to /api/order).
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^api/order/?$ api/order.php [L]
+</IfModule>

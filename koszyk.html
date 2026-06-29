@@ -81,6 +81,14 @@
           <div class="field"><label>Adres dostawy *</label><input id="f-street" required></div>
           <div class="field"><label>Nr domu *</label><input id="f-house" required></div>
         </div>
+        <label style="display:flex;gap:8px;font-size:14px;color:#6b5b62;margin-top:16px;cursor:pointer"><input type="checkbox" id="f-diff-recipient"><span>Odbiorca przesyłki jest inną osobą</span></label>
+        <div id="recipient-fields" style="display:none;margin-top:14px">
+          <div class="grid2" style="gap:16px">
+            <div class="field"><label>Imię i nazwisko odbiorcy *</label><input id="f-rec-name"></div>
+            <div class="field"><label>Telefon odbiorcy *</label><input id="f-rec-phone" type="tel"></div>
+          </div>
+          <p class="muted" style="font-size:12px;margin-top:10px">Dane odbiorcy przekażemy kurierowi. Potwierdzenie zamówienia wyślemy na Twój e-mail.</p>
+        </div>
       </div>
 
       <div class="card" style="padding:24px">
@@ -289,6 +297,13 @@
     document.querySelectorAll('input[name="dost"]').forEach(function(r){
       r.addEventListener('change', updateTotals);
     });
+
+    /* Ship-to-another-person: reveal recipient fields on demand. */
+    var diffRec = document.getElementById('f-diff-recipient');
+    if(diffRec) diffRec.addEventListener('change', function(){
+      var box = document.getElementById('recipient-fields');
+      if(box) box.style.display = diffRec.checked ? 'block' : 'none';
+    });
     var pt = document.getElementById('promo-toggle');
     if(pt) pt.addEventListener('click', function(){
       var c = document.getElementById('promo-collapse');
@@ -331,8 +346,20 @@
       var val = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
       var radio = document.querySelector('input[name="dost"]:checked');
       var street = val('f-street'), house = val('f-house'), zip = val('f-zip'), city = val('f-city');
+      /* Recipient (only when "different person" is ticked); name + phone are then required. */
+      var diffR = document.getElementById('f-diff-recipient');
+      var recName = '', recPhone = '';
+      if (diffR && diffR.checked) {
+        recName = val('f-rec-name'); recPhone = val('f-rec-phone');
+        if (!recName || !recPhone) {
+          document.getElementById('order-error').style.display = 'block';
+          (recName ? document.getElementById('f-rec-phone') : document.getElementById('f-rec-name')).focus();
+          return;
+        }
+      }
       var payload = {
         name: val('f-name'), phone: val('f-phone'), email: val('f-email'),
+        recipient_name: recName, recipient_phone: recPhone,
         /* send item ids — the backend expands sets (discounted component prices)
            and builds the order description + SKU list for the warehouse. */
         items: order.items.map(function(i){ return { id:i.id, title:i.name, qty:i.qty, price:i.line }; }),
@@ -346,7 +373,7 @@
       var btn = of.querySelector('button');
       if (btn) { btn.disabled = true; btn.textContent = 'Przetwarzanie…'; }
       document.getElementById('order-error').style.display = 'none';
-      fetch('/api/order.php', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+      fetch('/api/order', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
         .then(function(r){ return r.json().catch(function(){ return { ok:false }; }); })
         .then(function(res){
           if (res && res.ok) {
