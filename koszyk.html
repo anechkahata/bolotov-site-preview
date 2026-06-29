@@ -397,7 +397,7 @@
         else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.v)) errs.push({el:em.el,msg:'Nieprawidłowy adres e-mail (np. jan@example.com).'});
       var zip=g('f-zip');
         if(!zip.v) errs.push({el:zip.el,msg:'Podaj kod pocztowy.'});
-        else if(!/^\d{2}-?\d{3}$/.test(zip.v)) errs.push({el:zip.el,msg:'Kod pocztowy w formacie 00-000.'});
+        else if(!/^\d{2}-\d{3}$/.test(zip.v)) errs.push({el:zip.el,msg:'Polski kod pocztowy w formacie 00-000 (z myślnikiem). Wysyłka tylko na terenie Polski.'});
       var city=g('f-city');   if(!city.v) errs.push({el:city.el,msg:'Podaj miasto.'});
       var st=g('f-street');   if(!st.v) errs.push({el:st.el,msg:'Podaj adres dostawy.'});
       var ho=g('f-house');    if(!ho.v) errs.push({el:ho.el,msg:'Podaj numer domu.'});
