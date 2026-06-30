@@ -434,8 +434,21 @@
       el.querySelector('.exit-x').addEventListener('click', close);
       el.addEventListener('click', function (e) { if (e.target === el) close(); });
       var form = el.querySelector('.exit-form');
-      if (form) form.addEventListener('submit', function () {
-        /* TODO: wire to AmoCRM (funnel Польша-неразобранное) via API when keys arrive. */
+      if (form) form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (typeof form.reportValidity === 'function' && !form.reportValidity()) return;
+        var inp = form.querySelector('input[type="email"]');
+        var email = inp ? String(inp.value || '').trim() : '';
+        /* POST to the backend → amoCRM (neразобранное, tag Exit-intent) + SendPulse
+           guide address book. Always resolves; the thank-you shows regardless. */
+        try {
+          fetch('/api/lead', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: 'exit-intent' })
+          }).catch(function () {});
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'generate_lead', lead_source: 'exit-intent' });
+        } catch (err) {}
         el.querySelector('.exit-body').innerHTML =
           '<h3 class="exit-h">Dziękujemy! ✓</h3><p class="exit-p">Sprawdź skrzynkę — przewodnik jest w drodze.</p>';
         setTimeout(close, 2600);

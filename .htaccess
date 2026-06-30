@@ -1,6 +1,13 @@
 # Centrum Bolotova — production rewrite rules (Apache / LiteSpeed on HostCreators).
 # GitHub Pages ignores this file; it only takes effect on the SFTP-deployed host.
 
+# ── Custom error page ────────────────────────────────────────────────────────
+ErrorDocument 404 /404.html
+
+# ── Hardening ────────────────────────────────────────────────────────────────
+# Don't expose directory contents when there's no index file.
+Options -Indexes
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

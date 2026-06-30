@@ -107,7 +107,7 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .gthumb:hover{border-color:var(--gold)}
 
 /* mobile menu */
-.burger{display:none;background:none;border:none;cursor:pointer;font-size:24px;color:var(--wine);line-height:1}
+.burger{display:none;background:none;border:none;cursor:pointer;font-size:24px;color:var(--wine);line-height:1;padding:10px;margin:-10px;-webkit-tap-highlight-color:transparent}
 @media(max-width:900px){
  .burger{display:block}
  .nav{display:none;position:fixed;top:72px;left:0;right:0;background:#fff;flex-direction:column;align-items:flex-start;padding:16px 22px;box-shadow:0 10px 24px rgba(0,0,0,.15);gap:10px;z-index:45;max-height:80vh;overflow:auto}
@@ -372,8 +372,12 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
   .lead{font-size:16.5px;line-height:1.7}
   p,li{line-height:1.72}
   /* product tabs: scroll on one line instead of wrapping into many rows */
-  .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative}
   .tabs::-webkit-scrollbar{display:none}
+  /* right-edge fade hinting there are more tabs to scroll to (sticky pseudo
+     pins to the visible right edge; negative margin keeps it out of layout) */
+  .tabs::after{content:'';position:sticky;right:0;flex:0 0 30px;align-self:stretch;
+   margin-left:-30px;background:linear-gradient(to right,rgba(255,255,255,0),#fff);pointer-events:none}
   .tabs button{white-space:nowrap;font-size:14px}
   /* comfortable tap targets + tidy trust strip */
   .btn{padding:13px 22px}
