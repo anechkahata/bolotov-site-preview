@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бальзам Болотова — натуральная поддержка комфортного пищеварения</title>
+<meta name="description" content="Бальзам Болотова — натуральная пищевая добавка по системе академика Болотова. Комплект: бальзам, гайд и меню. Оплата при получении.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#7B2D4E; --wine-dark:#5E2039; --magenta:#9C2A6E;
+  --gold:#C9A86A; --gold-light:#E6D4A8; --sage:#DCE6C8; --sage-deep:#C4D3A3;
+  --cream:#FAF7F2; --ink:#2B2B2B; --red:#D32F2F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+/* compliance text-mode toggle: show only the active variant */
+body.mode-bal .c-min{display:none!important}
+body.mode-min .c-bal{display:none!important}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;color:var(--ink);background:var(--cream);line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.mont{font-family:'Montserrat',sans-serif}
+.serif{font-family:'PT Serif',serif}
+h2.sec{font-family:'Montserrat';font-weight:900;text-transform:uppercase;color:var(--wine);
+  font-size:clamp(24px,4vw,38px);line-height:1.08;margin-bottom:10px;letter-spacing:.5px}
+.kicker{font-family:'Montserrat';font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--magenta);font-size:13px;margin-bottom:10px}
+.lead{font-family:'PT Serif';font-size:clamp(17px,2.2vw,21px);color:var(--wine-dark)}
+.btn{font-family:'Montserrat';font-weight:800;text-transform:uppercase;letter-spacing:1px;
+  border:none;border-radius:40px;padding:17px 38px;font-size:16px;cursor:pointer;
+  display:inline-block;text-decoration:none;transition:transform .08s,box-shadow .2s,background .2s}
+.btn-gold{background:linear-gradient(90deg,var(--gold-light),var(--gold));color:var(--wine-dark);
+  box-shadow:0 10px 26px rgba(201,168,106,.45)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(201,168,106,.55)}
+.btn-wine{background:var(--wine);color:#fff;box-shadow:0 10px 26px rgba(94,32,57,.3)}
+.btn-wine:hover{background:var(--wine-dark);transform:translateY(-2px)}
+section{padding:64px 0}
+.pattern-dots{background-image:radial-gradient(var(--gold-light) 1.6px,transparent 1.6px);
+  background-size:22px 22px}
+
+/* ============ HERO SWITCHER (для сравнения) ============ */
+.hswitch{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;
+  background:rgba(255,255,255,.95);border:1px solid #ecdfe6;border-radius:40px;
+  padding:5px;display:flex;gap:4px;box-shadow:0 8px 22px rgba(94,32,57,.18)}
+.hswitch button{font-family:'Montserrat';font-weight:700;font-size:12px;border:none;cursor:pointer;
+  border-radius:30px;padding:8px 14px;background:transparent;color:var(--wine)}
+.hswitch button.on{background:var(--wine);color:#fff}
+.hswitch .lbl{font-family:'Montserrat';font-weight:700;font-size:11px;color:#999;
+  align-self:center;padding:0 8px 0 6px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ============ HERO A — интрига ============ */
+.heroA{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;
+  background:linear-gradient(135deg,var(--wine) 0%,var(--wine-dark) 60%,#4a1830 100%);color:#fff}
+.heroA .dots{position:absolute;inset:0;opacity:.08;
+  background-image:radial-gradient(#fff 1.5px,transparent 1.5px);background-size:26px 26px}
+.heroA .glow{position:absolute;width:60vw;height:60vw;right:-15%;top:-20%;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,106,.28),transparent 60%)}
+.heroA .inner{position:relative;text-align:center;max-width:880px;margin:0 auto;padding:90px 22px 70px}
+.heroA .kicker{color:var(--gold-light);justify-content:center}
+.heroA h1{font-family:'Montserrat';font-weight:900;text-transform:uppercase;
+  font-size:clamp(30px,5.5vw,58px);line-height:1.05;margin:14px 0 18px}
+.heroA h1 .hl{color:var(--gold)}
+.heroA .q{font-family:'PT Serif';font-style:italic;font-size:clamp(18px,2.6vw,24px);
+  color:var(--gold-light);max-width:680px;margin:0 auto 26px}
+.heroA .sub{font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 30px;opacity:.92}
+.heroA .hero-cta{justify-content:center}
+.heroA .symptoms{justify-content:center}
+.heroA .symptoms span{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff}
+.heroA .scroll-hint{margin-top:38px;font-family:'Montserrat';font-weight:600;font-size:12px;
+  letter-spacing:1px;text-transform:uppercase;opacity:.7}
+
+/* story two-col */
+.story-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:center;margin-top:24px}
+.story-photo img{border-radius:24px;box-shadow:0 16px 40px rgba(94,32,57,.2);width:100%}
+.story-photo .cap{font-family:'Montserrat';font-weight:700;font-size:13px;color:var(--magenta);
+  text-align:center;margin-top:10px;text-transform:uppercase;letter-spacing:1px}
+@media(max-width:860px){.story-wrap{grid-template-columns:1fr}.story-card:before{display:none}}
+
+/* ============ HERO C — видео (VSL) ============ */
+.heroC{position:relative;overflow:hidden;background:
+  radial-gradient(900px 500px at 12% -10%,rgba(156,42,110,.16),transparent 60%),
+  linear-gradient(135deg,#fff 0%,var(--cream) 55%,#F2E9DD 100%);padding:54px 0 46px}
+.heroC .ribbon{position:absolute;left:-10%;bottom:-40px;width:120%;height:120px;
+  background:linear-gradient(90deg,var(--gold-light),var(--gold),var(--wine));
+  transform:rotate(-3deg);opacity:.12;filter:blur(2px)}
+.heroC-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;position:relative}
+.heroC h1{font-family:'Montserrat';font-weight:900;text-transform:uppercase;color:var(--wine);
+  font-size:clamp(26px,4.4vw,46px);line-height:1.05;margin:8px 0 14px}
+.heroC h1 .hl{color:var(--magenta)}
+.heroC p.sub{font-size:clamp(16px,2.2vw,19px);max-width:540px;margin-bottom:22px}
+.video-wrap{position:relative;display:flex;justify-content:center}
+.video-frame{position:relative;width:100%;max-width:310px;aspect-ratio:9/16;border-radius:30px;
+  overflow:hidden;background:#000;border:7px solid #fff;
+  box-shadow:0 26px 56px rgba(94,32,57,.32)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);z-index:3;
+  background:var(--magenta);color:#fff;font-family:'Montserrat';font-weight:800;font-size:11px;
+  letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;border-radius:30px;
+  box-shadow:0 8px 18px rgba(156,42,110,.4);white-space:nowrap}
+@media(max-width:860px){.heroC-grid{grid-template-columns:1fr}.video-wrap{order:-1}}
+
+/* ============ HERO ============ */
+.hero{position:relative;background:
+  radial-gradient(900px 500px at 85% -10%,rgba(156,42,110,.18),transparent 60%),
+  linear-gradient(135deg,#fff 0%,var(--cream) 55%,#F2E9DD 100%);
+  padding:54px 0 40px;overflow:hidden}
+.hero .ribbon{position:absolute;left:-10%;bottom:-40px;width:120%;height:120px;
+  background:linear-gradient(90deg,var(--gold-light),var(--gold),var(--wine));
+  transform:rotate(-3deg);opacity:.12;filter:blur(2px)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center}
+.hero h1{font-family:'Montserrat';font-weight:900;text-transform:uppercase;color:var(--wine);
+  font-size:clamp(28px,5vw,52px);line-height:1.04;margin:8px 0 16px}
+.hero h1 .hl{color:var(--magenta)}
+.hero p.sub{font-size:clamp(16px,2.2vw,20px);max-width:560px;margin-bottom:24px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hero-img{position:relative;text-align:center}
+.hero-img img{margin:0 auto;filter:drop-shadow(0 24px 40px rgba(94,32,57,.28))}
+.hero-badge{position:absolute;top:6px;right:6px;background:var(--wine);color:#fff;
+  width:104px;height:104px;border-radius:50%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  font-family:'Montserrat';box-shadow:0 10px 24px rgba(94,32,57,.35);transform:rotate(8deg)}
+.hero-badge b{font-size:26px;font-weight:900;line-height:1}
+.hero-badge small{font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+.symptoms{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.symptoms span{font-family:'Montserrat';font-weight:600;font-size:13px;background:#fff;
+  border:1px solid #ecdfe6;color:var(--wine);border-radius:40px;padding:8px 16px}
+
+/* ============ PAIN ============ */
+.pain{background:var(--cream)}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.pain-card{background:#fff;border-radius:22px;padding:26px 24px;
+  box-shadow:0 6px 24px rgba(94,32,57,.07);border-top:4px solid var(--magenta)}
+.pain-card .ic{font-size:30px;margin-bottom:10px}
+.pain-card h3{font-family:'Montserrat';font-weight:800;color:var(--wine);font-size:17px;margin-bottom:6px}
+.pain-card p{font-size:15px;color:#555}
+.loop{margin-top:30px;background:var(--wine);color:#fff;border-radius:24px;padding:30px 32px;
+  text-align:center}
+.loop p{font-family:'PT Serif';font-size:clamp(17px,2.3vw,22px);max-width:760px;margin:0 auto;font-style:italic}
+
+/* ============ MECHANISM ============ */
+.mech{background:linear-gradient(180deg,#fff,var(--cream))}
+.mech-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:26px}
+.mech-steps{counter-reset:step}
+.mech-step{display:flex;gap:16px;margin-bottom:22px}
+.mech-step .num{flex-shrink:0;width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--wine-dark);
+  font-family:'Montserrat';font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center}
+.mech-step h4{font-family:'Montserrat';font-weight:800;color:var(--wine);font-size:17px;margin-bottom:3px}
+.mech-step p{font-size:15px;color:#555}
+.mech-quote{background:var(--sage);border-radius:24px;padding:34px;border-left:6px solid var(--gold)}
+.mech-quote .big{font-family:'Montserrat';font-weight:900;text-transform:uppercase;color:var(--wine);
+  font-size:clamp(20px,3vw,28px);line-height:1.1;margin-bottom:14px}
+.mech-quote p{font-family:'PT Serif';font-size:17px;color:var(--wine-dark)}
+
+/* ============ FOUNDER ============ */
+.founder{background:var(--wine);color:#fff;position:relative;overflow:hidden}
+.founder .ribbon2{position:absolute;right:-6%;top:-30px;width:50%;height:200%;
+  background:radial-gradient(circle,rgba(201,168,106,.18),transparent 65%)}
+.founder-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:34px;align-items:center;position:relative}
+.founder .who{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  border-radius:24px;padding:30px;text-align:center}
+.founder .who .av{width:120px;height:120px;border-radius:50%;overflow:hidden;
+  margin:0 auto 14px;border:3px solid var(--gold);box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.founder .who .av img{width:100%;height:100%;object-fit:cover}
+.founder .who h4{font-family:'Montserrat';font-weight:800;font-size:20px}
+.founder .who small{opacity:.8;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+.founder h2.sec{color:#fff}
+.founder p{font-size:16px;margin-bottom:14px;opacity:.95}
+.founder .stat{display:flex;gap:26px;margin-top:18px;flex-wrap:wrap}
+.founder .stat div b{font-family:'Montserrat';font-weight:900;font-size:30px;color:var(--gold)}
+.founder .stat div span{display:block;font-size:13px;opacity:.85}
+
+/* ============ STORY ============ */
+.story-card{background:#fff;border-radius:26px;padding:clamp(26px,4vw,46px);
+  box-shadow:0 14px 44px rgba(94,32,57,.1);max-width:840px;margin:24px auto 0;position:relative}
+.story-card:before{content:"“";position:absolute;top:-26px;left:24px;font-family:'PT Serif';
+  font-size:120px;color:var(--gold);line-height:1}
+.story-card p{font-family:'PT Serif';font-size:clamp(16px,2.1vw,19px);color:#3a3a3a;margin-bottom:14px}
+.story-card .sign{font-family:'Montserrat';font-weight:800;color:var(--magenta);margin-top:8px}
+
+/* ============ SOLUTION ============ */
+.sol{background:linear-gradient(180deg,var(--cream),#fff)}
+.sol-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:38px;align-items:center;margin-top:26px}
+.sol-img{position:relative;text-align:center;background:
+  radial-gradient(420px 300px at 50% 40%,rgba(156,42,110,.12),transparent 70%);border-radius:24px;padding:14px}
+.benefits{display:grid;gap:14px;margin-top:8px}
+.benefit{display:flex;gap:14px;background:#fff;border:1px solid #eee2da;border-radius:18px;padding:16px 18px;
+  box-shadow:0 4px 16px rgba(94,32,57,.05)}
+.benefit .tick{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--sage-deep);
+  color:var(--wine-dark);display:flex;align-items:center;justify-content:center;font-weight:900}
+.benefit b{font-family:'Montserrat';color:var(--wine);font-size:15.5px}
+.benefit p{font-size:14.5px;color:#555}
+
+/* ============ HOWTO ============ */
+.howto{background:var(--sage)}
+.howto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.howto-card{background:#fff;border-radius:22px;padding:26px;text-align:center;box-shadow:0 6px 22px rgba(94,32,57,.07)}
+.howto-card .n{font-family:'Montserrat';font-weight:900;font-size:34px;color:var(--gold);line-height:1}
+.howto-card h4{font-family:'Montserrat';font-weight:800;color:var(--wine);font-size:16px;margin:8px 0 6px}
+.howto-card p{font-size:14.5px;color:#555}
+
+/* ============ BUNDLE / BROCHURE ============ */
+.bundle-sec{background:var(--cream)}
+.bundle-head{text-align:center;max-width:720px;margin:0 auto}
+.bundle-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+.bundle-item{background:#fff;border-radius:24px;padding:22px;text-align:center;
+  box-shadow:0 8px 28px rgba(94,32,57,.08);position:relative;display:flex;flex-direction:column}
+.bundle-item .tag{position:absolute;top:14px;left:14px;font-family:'Montserrat';font-weight:700;
+  font-size:11px;letter-spacing:1px;text-transform:uppercase;background:var(--sage);color:var(--wine-dark);
+  padding:5px 12px;border-radius:30px}
+.bundle-item .free{position:absolute;top:14px;right:14px;font-family:'Montserrat';font-weight:800;
+  font-size:11px;letter-spacing:1px;text-transform:uppercase;background:var(--magenta);color:#fff;
+  padding:5px 12px;border-radius:30px}
+.bundle-item img{border-radius:14px;margin:18px auto 14px;box-shadow:0 8px 22px rgba(0,0,0,.14)}
+.bundle-item h4{font-family:'Montserrat';font-weight:800;color:var(--wine);font-size:18px;margin-bottom:6px}
+.bundle-item p{font-size:14.5px;color:#555}
+.bundle-item .pages{margin-top:auto;padding-top:14px}
+.bundle-item .pages b{font-family:'Montserrat';color:var(--magenta);font-size:13px;letter-spacing:.5px}
+
+/* brochure strip */
+.flip{margin-top:40px}
+.flip h3{font-family:'Montserrat';font-weight:800;text-transform:uppercase;color:var(--wine);
+  text-align:center;font-size:18px;letter-spacing:1px;margin-bottom:6px}
+.flip .hint{text-align:center;font-size:13px;color:#999;margin-bottom:16px}
+.strip{display:flex;gap:14px;overflow-x:auto;padding:14px 4px 22px;scroll-snap-type:x mandatory}
+.strip::-webkit-scrollbar{height:8px}
+.strip::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}
+.strip img{flex:0 0 auto;width:200px;border-radius:12px;scroll-snap-align:center;
+  box-shadow:0 10px 26px rgba(94,32,57,.16);border:1px solid #eaded3;transition:transform .25s}
+.strip img:hover{transform:translateY(-6px) scale(1.03)}
+
+/* ============ REVIEWS ============ */
+.reviews{background:linear-gradient(180deg,#fff,var(--cream))}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.rev-grid img{border-radius:18px;box-shadow:0 8px 26px rgba(94,32,57,.1);border:1px solid #efe5db}
+.rev-note{text-align:center;font-size:13px;color:#999;margin-top:18px;font-style:italic}
+
+/* ============ OFFER / FORM ============ */
+.offer{background:linear-gradient(135deg,var(--wine),var(--wine-dark));color:#fff;position:relative;overflow:hidden}
+.offer .dots{position:absolute;inset:0;opacity:.07;
+  background-image:radial-gradient(#fff 1.5px,transparent 1.5px);background-size:26px 26px}
+.offer-grid{display:grid;grid-template-columns:1fr .9fr;gap:40px;align-items:center;position:relative}
+.offer h2.sec{color:#fff}
+.offer .lead{color:var(--gold-light)}
+.offer ul{list-style:none;margin:20px 0}
+.offer ul li{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;font-size:16px}
+.offer ul li .c{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);
+  color:var(--wine-dark);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px}
+.price-box{display:flex;align-items:baseline;gap:16px;margin:24px 0 6px}
+.price-box .old{font-family:'Montserrat';font-weight:700;font-size:22px;opacity:.6;text-decoration:line-through}
+.price-box .new{font-family:'Montserrat';font-weight:900;font-size:54px;color:var(--gold)}
+.price-box .new small{font-size:24px}
+.save{display:inline-block;background:var(--magenta);color:#fff;font-family:'Montserrat';font-weight:800;
+  font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:30px}
+
+/* order card */
+.order-card{background:#fff;color:var(--ink);border-radius:24px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.order-card .ohead{background:var(--sage);padding:20px 26px}
+.order-card .ohead .bdg{display:inline-block;background:var(--wine);color:#fff;font-family:'Montserrat';
+  font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:30px;margin-bottom:8px}
+.order-card .ohead h3{font-family:'Montserrat';font-weight:900;text-transform:uppercase;color:var(--wine);font-size:20px}
+.order-card .obundle{padding:14px 26px;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;
+  font-family:'Montserrat';font-weight:700;font-size:13px;color:var(--wine-dark);border-bottom:1px solid #f0e7de}
+.order-card .obundle .plus{color:var(--magenta)}
+.order-card .oprice{padding:14px 26px 4px;display:flex;align-items:baseline;gap:12px}
+.order-card .oprice .old{font-family:'Montserrat';font-weight:700;font-size:18px;color:#999;text-decoration:line-through;font-style:italic}
+.order-card .oprice .new{font-family:'Montserrat';font-weight:900;font-size:30px;color:var(--red);font-style:italic}
+form{padding:6px 26px 26px}
+.amo-embed{padding:4px 16px 0;min-height:360px}
+.amo-embed iframe{width:100% !important}
+label{display:block;font-family:'Montserrat';font-weight:600;font-size:12px;text-transform:uppercase;
+  letter-spacing:.5px;color:var(--wine);margin:13px 0 5px}
+input[type=text],input[type=tel],input[type=email]{width:100%;border:1.5px solid #e3dcd5;border-radius:12px;
+  padding:13px 15px;font-family:'Open Sans';font-size:15px;background:#fdfcfa}
+input:focus{outline:none;border-color:var(--magenta);background:#fff}
+.cod{display:flex;align-items:flex-start;gap:10px;margin-top:16px;background:var(--cream);
+  border:1.5px solid #ece4dc;border-radius:12px;padding:13px 15px;cursor:pointer}
+.cod input{width:20px;height:20px;margin-top:1px;accent-color:var(--magenta);flex-shrink:0}
+.cod span{font-size:14px}
+button.submit{width:100%;margin-top:20px;border:none;border-radius:40px;background:var(--wine);color:#fff;
+  font-family:'Montserrat';font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:16px;
+  padding:16px;cursor:pointer;transition:transform .08s,background .2s}
+button.submit:hover{background:var(--wine-dark)}
+button.submit:active{transform:scale(.985)}
+.trust{text-align:center;font-size:12px;color:#888;margin-top:12px}
+.err{color:var(--red);font-size:13px;margin-top:8px;display:none}
+.ok{display:none;padding:44px 26px;text-align:center}
+.ok .tick{width:64px;height:64px;border-radius:50%;background:var(--sage);display:flex;align-items:center;
+  justify-content:center;margin:0 auto 16px;font-size:32px;color:var(--wine)}
+.ok h3{font-family:'Montserrat';font-weight:800;color:var(--wine);font-size:20px;margin-bottom:8px}
+
+/* guarantee */
+.guarantee{background:var(--cream);text-align:center}
+.guarantee .g-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px}
+.guarantee .g{background:#fff;border-radius:20px;padding:24px 18px;box-shadow:0 6px 20px rgba(94,32,57,.06)}
+.guarantee .g .ic{font-size:30px;margin-bottom:8px}
+.guarantee .g h4{font-family:'Montserrat';font-weight:800;color:var(--wine);font-size:15px;margin-bottom:4px}
+.guarantee .g p{font-size:13.5px;color:#666}
+
+/* footer */
+footer{background:var(--wine-dark);color:#fff;padding:36px 0;text-align:center}
+footer .fl{font-family:'Montserrat';font-weight:900;text-transform:uppercase;letter-spacing:1px;font-size:18px;margin-bottom:6px}
+footer p{font-size:13px;opacity:.7;max-width:680px;margin:6px auto}
+
+/* sticky cta */
+.sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(123,45,78,.97);backdrop-filter:blur(6px);
+  color:#fff;padding:12px 18px;display:none;align-items:center;justify-content:space-between;gap:14px;z-index:50;
+  box-shadow:0 -6px 24px rgba(0,0,0,.2)}
+.sticky .sp{font-family:'Montserrat';font-weight:800}
+.sticky .sp small{display:block;font-weight:400;font-size:11px;opacity:.8;text-decoration:line-through}
+.sticky .btn{padding:12px 24px;font-size:14px}
+
+@media(max-width:860px){
+  .hero-grid,.mech-grid,.founder-grid,.sol-grid,.offer-grid{grid-template-columns:1fr}
+  .hero-img{order:-1}
+  .pain-grid,.howto-grid,.bundle-row,.rev-grid{grid-template-columns:1fr}
+  .guarantee .g-grid{grid-template-columns:1fr 1fr}
+  .founder .stat{justify-content:center}
+  section{padding:48px 0}
+  .strip img{width:150px}
+}
+/* YouTube consent overlay */
+.yt-consent{position:absolute;inset:0;z-index:4;background:rgba(94,32,57,.92);color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
+.yt-consent p{font-size:14px;max-width:240px;margin:0}
+.yt-consent button{font-family:'Montserrat';font-weight:800;text-transform:uppercase;letter-spacing:.5px;
+  border:none;border-radius:40px;padding:12px 22px;font-size:13px;cursor:pointer;
+  background:linear-gradient(90deg,var(--gold-light),var(--gold));color:var(--wine-dark)}
+/* consent near form */
+.form-consent{padding:4px 26px 0;font-size:12px;color:#777;line-height:1.5}
+.form-consent a{color:var(--magenta);font-weight:600}
+/* footer legal */
+.legal-links{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;margin:18px 0 18px}
+.legal-links a{color:#fff;opacity:.85;font-size:13px;text-decoration:underline}
+.legal-links a:hover{opacity:1;color:var(--gold-light)}
+.impressum{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;margin-top:6px}
+.impressum p{font-size:12px;opacity:.72;margin:4px auto;max-width:760px}
+footer .disclaimer{font-size:11.5px;opacity:.6;max-width:760px;margin:16px auto 6px;line-height:1.5}
+footer .copy{font-size:12px;opacity:.6;margin-top:6px}
+/* cookie bar */
+.cookie-bar{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;color:var(--ink);
+  box-shadow:0 -8px 30px rgba(94,32,57,.18);padding:16px 22px;display:flex;align-items:center;
+  justify-content:space-between;gap:18px;flex-wrap:wrap}
+.cookie-bar .cookie-text{font-size:13px;max-width:720px;line-height:1.5}
+.cookie-bar .cookie-text a{color:var(--magenta);font-weight:600}
+.cookie-btns{display:flex;gap:10px;flex-shrink:0}
+.cookie-btns button{font-family:'Montserrat';font-weight:700;font-size:13px;border-radius:40px;
+  padding:11px 20px;cursor:pointer;border:1.5px solid var(--wine)}
+.cookie-btns .ck-nec{background:#fff;color:var(--wine)}
+.cookie-btns .ck-all{background:var(--wine);color:#fff;border-color:var(--wine)}
+@media(max-width:600px){.cookie-bar{flex-direction:column;align-items:stretch}.cookie-btns{justify-content:center}}
+/* WhatsApp */
+.wa-float{position:fixed;right:18px;bottom:92px;z-index:60;display:flex;align-items:center;gap:10px;
+  background:#25D366;color:#fff;text-decoration:none;border-radius:40px;padding:12px 18px 12px 14px;
+  font-family:'Montserrat';font-weight:700;font-size:14px;box-shadow:0 10px 26px rgba(37,211,102,.45)}
+.wa-float svg{width:24px;height:24px;flex-shrink:0;fill:#fff}
+.wa-float .wa-txt{white-space:nowrap}
+.wa-float:hover{filter:brightness(1.05)}
+.wa-note{margin:0 26px 18px;text-align:center;font-size:13.5px;color:#555}
+.wa-note a{color:#1aa64b;font-weight:700;text-decoration:none}
+.wa-note a:hover{text-decoration:underline}
+@media(max-width:600px){.wa-float{bottom:86px;padding:13px}.wa-float .wa-txt{display:none}}
+.wa-inline{display:inline-flex;align-items:center;gap:7px;margin-top:10px;background:#25D366;color:#fff;
+  text-decoration:none;border-radius:40px;padding:8px 16px;font-family:'Montserrat';font-weight:700;font-size:12.5px}
+.wa-inline svg{width:15px;height:15px;fill:#fff}
+.wa-inline:hover{filter:brightness(1.05)}
+</style>
+</head>
+<body class="mode-bal">
+
+<!-- compliance text-mode switch (preview/comparison only — remove on the production page) -->
+<div class="hswitch">
+  <span class="lbl">Тексты:</span>
+  <button id="mBal" class="on" onclick="setMode('bal')">Сбалансированно</button>
+  <button id="mMin" onclick="setMode('min')">Минимально</button>
+</div>
+
+<!-- ===== HERO — видео (VSL) ===== -->
+<header class="heroC" id="heroC">
+  <div class="ribbon"></div>
+  <div class="wrap heroC-grid">
+    <div>
+      <div class="kicker">Система академика Болотова</div>
+      <h1 class="c-bal">Посмотрите, <span class="hl">как поддержать комфортное пищеварение</span> — естественно, по системе Болотова</h1>
+      <h1 class="c-min">Посмотрите, <span class="hl">почему изжога и тяжесть возвращаются</span> — и как поддержать желудок естественно</h1>
+      <p class="sub c-bal">Короткое видео от основателя Центра Болотова: как наладить спокойное, комфортное пищеварение естественным образом — с бальзамом Болотова как частью ежедневного рациона.</p>
+      <p class="sub c-min">Короткое видео от основателя Центра Болотова: о тяжести и дискомфорте после еды — и как поддержать работу желудка естественно, как часть ежедневного рациона.</p>
+      <div class="hero-cta">
+        <a href="#order" class="btn btn-gold">Заказать со скидкой</a>
+        <a href="#mechanism" class="btn btn-wine">Как это работает</a>
+      </div>
+      <div class="symptoms c-bal">
+        <span>🪨 Тяжесть после еды</span><span>🎈 Вздутие живота</span><span>😴 Сонливость после еды</span>
+      </div>
+      <div class="symptoms c-min">
+        <span>🔥 Изжога</span><span>🪨 Тяжесть после еды</span><span>🎈 Вздутие</span>
+        <span>↩️ Отрыжка после еды</span>
+      </div>
+    </div>
+    <div class="video-wrap">
+      <div class="video-frame">
+        <div class="video-tag">▶ Смотреть видео</div>
+        <iframe class="yt-iframe" src="about:blank" data-src="https://www.youtube.com/embed/mpbTdxulmXc?rel=0&playsinline=1&modestbranding=1"
+          title="Видео — Система Болотова" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+        <div class="yt-consent" data-ytc>
+          <p>Видео загружается с YouTube и может ставить cookies.</p>
+          <button type="button" onclick="acceptCookies(true)">Разрешить и смотреть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== PAIN ===== -->
+<section class="pain">
+  <div class="wrap">
+    <div class="kicker">Знакомая ситуация?</div>
+    <h2 class="sec c-bal">Поели — и снова тяжесть, дискомфорт и сонливость после еды</h2>
+    <h2 class="sec c-min">Поели — и снова жжение, тяжесть и дискомфорт по всему животу</h2>
+    <p class="lead c-bal">Вы что-то съели — и через время появляется тяжесть, дискомфорт, сонливость. Хочется прилечь прямо после еды.</p>
+    <p class="lead c-min">Вы что-то съели, и через время начинается: жжение, тяжесть, отрыжка, вздутие. Хочется прилечь сразу после еды.</p>
+    <div class="pain-grid">
+      <div class="pain-card"><div class="ic">🍽️</div><h3>Убрали жареное и мучное</h3><p>Перешли на «правильную» еду — стало чуть легче, но потом всё вернулось.</p></div>
+      <div class="pain-card">
+        <div class="ic">🌿</div>
+        <h3 class="c-bal">Пробовали разные добавки</h3>
+        <h3 class="c-min">Пробовали ферменты и пробиотики</h3>
+        <p class="c-bal">Добавки, чаи, диеты… Помогает ненадолго — и всё возвращается.</p>
+        <p class="c-min">Ферменты, добавки, разные средства… Эффект временный — и снова по кругу.</p>
+      </div>
+      <div class="pain-card"><div class="ic">🔁</div><h3>И так по кругу</h3><p>Лёгкость сменяется дискомфортом. Кажется, что это уже навсегда и «просто возраст».</p></div>
+    </div>
+    <div class="loop">
+      <p class="c-bal">Дело не в одной диете. Часто пищеварению просто не хватает поддержки — и тогда привычная еда даётся тяжелее.</p>
+      <p class="c-min">Многие средства снимают ощущение на время. Но почти никто не говорит о том, почему пища переваривается «кое-как».</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MECHANISM ===== -->
+<section class="mech" id="mechanism">
+  <div class="wrap">
+    <div class="kicker">Как это работает</div>
+    <h2 class="sec c-bal">Спокойное пищеварение начинается с поддержки желудка</h2>
+    <h2 class="sec c-min">Многое начинается с того, как работает желудок</h2>
+    <!-- ===== balanced: про комфорт пищеварения и режим ===== -->
+    <div class="mech-grid c-bal">
+      <div class="mech-steps">
+        <div class="mech-step"><div class="num">1</div><div><h4>Каждый приём пищи — нагрузка</h4><p>Желудку нужно справиться с тем, что мы съели — особенно при плотной или непривычной еде.</p></div></div>
+        <div class="mech-step"><div class="num">2</div><div><h4>Когда пищеварение в порядке</h4><p>Еда усваивается спокойно — без тяжести и сонливости после стола.</p></div></div>
+        <div class="mech-step"><div class="num">3</div><div><h4>Когда поддержки не хватает</h4><p>Появляется тяжесть и дискомфорт после еды — особенно к вечеру и при переедании.</p></div></div>
+        <div class="mech-step"><div class="num">4</div><div><h4>Питание и режим решают многое</h4><p>Спокойное пищеварение складывается из привычек: что, когда и как вы едите.</p></div></div>
+      </div>
+      <div class="mech-quote">
+        <div class="big">Дело в ежедневной поддержке</div>
+        <p>Поэтому подход простой: наладить питание и режим — и добавить мягкую натуральную поддержку как часть привычного рациона.</p>
+      </div>
+    </div>
+    <!-- ===== minimal: смягчённый рассказ про работу желудка ===== -->
+    <div class="mech-grid c-min">
+      <div class="mech-steps">
+        <div class="mech-step"><div class="num">1</div><div><h4>Еда попадает в желудок</h4><p>Здесь начинается переваривание пищи — желудок вырабатывает желудочный сок, чтобы её обработать.</p></div></div>
+        <div class="mech-step"><div class="num">2</div><div><h4>Когда всё работает</h4><p>Пища переваривается легко и без дискомфорта. Про таких людей говорят: «желудок и гвозди переварит».</p></div></div>
+        <div class="mech-step"><div class="num">3</div><div><h4>Когда поддержки не хватает</h4><p>Переваривание идёт тяжелее — отсюда ощущение тяжести и дискомфорта после еды.</p></div></div>
+        <div class="mech-step"><div class="num">4</div><div><h4>С возрастом нагрузка растёт</h4><p>Пищеварению нужна дополнительная поддержка — особенно при погрешностях в питании.</p></div></div>
+      </div>
+      <div class="mech-quote">
+        <div class="big">Поддержка важнее борьбы с симптомом</div>
+        <p>Поэтому подход не в том, чтобы «глушить» ощущения, а в том, чтобы мягко поддержать естественную работу желудка — как часть ежедневного рациона.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOUNDER ===== -->
+<section class="founder">
+  <div class="ribbon2"></div>
+  <div class="wrap founder-grid">
+    <div class="who">
+      <div class="av"><img src="img/oleg-face.jpg" alt="Олег — основатель Центра Болотова"></div>
+      <h4>Олег</h4>
+      <small>Основатель Центра Болотова</small>
+    </div>
+    <div>
+      <div class="kicker" style="color:var(--gold-light)">Кто за этим стоит</div>
+      <h2 class="sec c-bal">«Двадцать лет назад тяжесть после еды была моим постоянным спутником»</h2>
+      <h2 class="sec c-min">«Двадцать лет назад дискомфорт после еды был моим постоянным спутником»</h2>
+      <p class="c-bal">Я настолько привык к тяжести после еды, что считал это нормой. Академик Болотов дал мне несколько простых рекомендаций по питанию и режиму. Я попробовал — и со временем стал чувствовать себя после еды заметно легче.</p>
+      <p class="c-min">Я настолько привык к дискомфорту после еды, что считал это нормой. Академик Болотов дал мне несколько простых рекомендаций по питанию и режиму. Особой веры у меня не было — но я попробовал, и постепенно самочувствие после еды стало заметно спокойнее.</p>
+      <p>После этого я предложил академику создать Центр Болотова. С тех пор мы помогли тысячам людей наладить привычки питания.</p>
+      <div class="stat">
+        <div><b>20+</b><span>лет практики</span></div>
+        <div><b>1000+</b><span>людей доверились нам</span></div>
+        <div><b>3‑в‑1</b><span>бальзам · гайд · меню</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STORY ===== -->
+<section>
+  <div class="wrap">
+    <div class="kicker" style="text-align:center">Личная история</div>
+    <h2 class="sec c-bal" style="text-align:center">Почему я доверяю системе Болотова</h2>
+    <h2 class="sec c-min" style="text-align:center">Как я сам прошёл проверку на доверие к системе</h2>
+    <div class="story-wrap">
+      <div class="story-photo">
+        <img src="img/oleg-desk.jpg" alt="Олег, основатель Центра Болотова">
+        <div class="cap">Олег · Центр Болотова</div>
+      </div>
+    <div class="story-card c-bal">
+      <p>Несколько лет назад я сам столкнулся с постоянной тяжестью и дискомфортом после еды. Это заставило меня всерьёз заняться питанием и режимом дня.</p>
+      <p>Я стал последовательно соблюдать рекомендации академика — питание, режим и натуральную поддержку как часть ежедневного рациона.</p>
+      <p>Постепенно я стал чувствовать себя после еды гораздо спокойнее и легче. Сегодня для меня это просто привычный образ жизни.</p>
+      <div class="sign">— Олег, Центр Болотова</div>
+    </div>
+    <div class="story-card c-min">
+      <p>Несколько лет назад я столкнулся с сильным дискомфортом после еды — тяжесть и неприятные ощущения буквально по всему животу. Это заставило меня внимательнее отнестись к питанию и режиму.</p>
+      <p>Я решил строго следовать рекомендациям академика по питанию и поддержке желудка — и отнёсся к этому как к личной проверке: насколько я сам верю в систему.</p>
+      <p>Сначала стало легче, потом дискомфорт появлялся всё реже. Через пару недель я уже ел спокойно, а сегодня живу полноценной жизнью и почти не вспоминаю о тех ощущениях.</p>
+      <div class="sign">— Олег, Центр Болотова</div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOLUTION ===== -->
+<section class="sol">
+  <div class="wrap">
+    <div class="kicker">Решение</div>
+    <h2 class="sec c-bal">Бальзам Болотова — натуральная поддержка комфортного пищеварения</h2>
+    <h2 class="sec c-min">Бальзам Болотова — мягкая натуральная поддержка для желудка</h2>
+    <div class="sol-grid">
+      <div class="sol-img">
+        <img src="img/drink.png" alt="Приём бальзама Болотова — разведённый в воде" width="380">
+        <img src="img/sostav.jpg" alt="Бальзам Болотова — натуральный состав на основе ягод и трав" style="margin-top:6px">
+      </div>
+      <div>
+        <p class="lead c-bal" style="margin-bottom:18px">Натуральный жидкий бальзам по рецептуре системы Болотова — мягкая ежедневная поддержка комфортного пищеварения как часть привычного рациона.</p>
+        <p class="lead c-min" style="margin-bottom:18px">Натуральный бальзам по рецептуре системы Болотова — мягкая поддержка работы желудка. Принимают курсом, как часть привычного питания.</p>
+        <div class="benefits c-bal">
+          <div class="benefit"><div class="tick">✓</div><div><b>Комфорт после еды</b><p>Поддерживает ощущение лёгкости.</p></div></div>
+          <div class="benefit"><div class="tick">✓</div><div><b>Спокойное пищеварение</b><p>Как часть привычного режима питания.</p></div></div>
+          <div class="benefit"><div class="tick">✓</div><div><b>Натуральная основа</b><p>Жидкий бальзам по рецептуре системы Болотова. 500 мл.</p></div></div>
+          <div class="benefit"><div class="tick">✓</div><div><b>Простая привычка</b><p>Несколько капель как часть ежедневного рациона.</p></div></div>
+        </div>
+        <div class="benefits c-min">
+          <div class="benefit"><div class="tick">✓</div><div><b>Поддержка работы желудка</b><p>Помогает чувствовать себя после еды спокойнее.</p></div></div>
+          <div class="benefit"><div class="tick">✓</div><div><b>Меньше тяжести после еды</b><p>Особенно при погрешностях в питании.</p></div></div>
+          <div class="benefit"><div class="tick">✓</div><div><b>Натуральная основа</b><p>Жидкий бальзам по рецептуре системы Болотова. 500 мл.</p></div></div>
+          <div class="benefit"><div class="tick">✓</div><div><b>Часть ежедневного рациона</b><p>В связке с небольшой корректировкой питания.</p></div></div>
+        </div>
+        <a href="#order" class="btn btn-gold" style="margin-top:22px">Хочу попробовать</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW TO ===== -->
+<section class="howto">
+  <div class="wrap">
+    <div class="kicker">Просто начать</div>
+    <h2 class="sec">Как принимать</h2>
+    <div class="howto-grid">
+      <div class="howto-card"><div class="n">1</div><h4>Принимайте бальзам</h4><p>По схеме из гайда академика Болотова — небольшое количество перед едой.</p></div>
+      <div class="howto-card"><div class="n">2</div><h4>Скорректируйте питание</h4><p>Меню академика подскажет, что есть, а что временно ограничить. Ограничений меньше, чем кажется.</p></div>
+      <div class="howto-card"><div class="n">3</div><h4>Дайте организму время</h4><p class="c-bal">Через несколько недель многие отмечают, что после еды стало заметно легче.</p><p class="c-min">Через несколько недель многие отмечают: тяжесть уходит, после еды легче.</p></div>
+    </div>
+    <p style="text-align:center;margin-top:22px;font-size:14px;color:#5e6b4a">Точная схема приёма и рекомендации — в гайде, который входит в комплект.</p>
+  </div>
+</section>
+
+<!-- ===== BUNDLE + BROCHURE ===== -->
+<section class="bundle-sec">
+  <div class="wrap">
+    <div class="bundle-head">
+      <div class="kicker" style="text-align:center">Что входит в комплект</div>
+      <h2 class="sec">Всё необходимое, чтобы правильно начать</h2>
+      <p class="lead">Одного бальзама недостаточно, если продолжать прежние ошибки в питании. Поэтому вместе с бальзамом вы <b>бесплатно</b> получаете гайд и меню академика.</p>
+    </div>
+    <div class="bundle-row">
+      <div class="bundle-item">
+        <div class="tag">Основа</div>
+        <img src="img/bottle-box.png" alt="Бальзам Болотова" width="220">
+        <h4>Бальзам Болотова</h4>
+        <p class="c-bal">Натуральный жидкий бальзам, 500 мл. Для комфортного пищеварения каждый день.</p>
+        <p class="c-min">Натуральный жидкий бальзам, 500 мл. Мягкая поддержка работы желудка.</p>
+      </div>
+      <div class="bundle-item">
+        <div class="free">Бесплатно</div>
+        <img src="img/gaid-cover.jpg" alt="Гайд академика Болотова" width="190">
+        <h4>Гайд академика Болотова</h4>
+        <p>Подробно о системе Болотова: как она устроена и с чего начать.</p>
+        <div class="pages"><b>30 страниц рекомендаций</b></div>
+      </div>
+      <div class="bundle-item">
+        <div class="free">Бесплатно</div>
+        <img src="img/menu-cover.jpg" alt="Меню по системе Болотова" width="190">
+        <h4>Меню академика Болотова</h4>
+        <p>Что можно есть, а что лучше временно ограничить. Настоящих ограничений удивительно мало.</p>
+        <div class="pages"><b>18 страниц меню и блюд</b></div>
+      </div>
+    </div>
+
+    <!-- brochure strips -->
+    <div class="flip">
+      <h3>Загляните внутрь гайда</h3>
+      <div class="hint">← листайте, чтобы посмотреть страницы →</div>
+      <div class="strip">
+        <img src="img/gaid/p1.jpg" alt="Гайд, страница 1"><img src="img/gaid/p2.jpg" alt="Гайд, страница 2">
+        <img src="img/gaid/p3.jpg" alt="Гайд, страница 3"><img src="img/gaid/p4.jpg" alt="Гайд, страница 4">
+        <img src="img/gaid/p5.jpg" alt="Гайд, страница 5"><img src="img/gaid/p6.jpg" alt="Гайд, страница 6">
+      </div>
+    </div>
+    <div class="flip">
+      <h3>И внутрь меню</h3>
+      <div class="hint">← листайте, чтобы посмотреть страницы →</div>
+      <div class="strip">
+        <img src="img/menu/p1.jpg" alt="Меню, страница 1"><img src="img/menu/p2.jpg" alt="Меню, страница 2">
+        <img src="img/menu/p3.jpg" alt="Меню, страница 3"><img src="img/menu/p4.jpg" alt="Меню, страница 4">
+        <img src="img/menu/p5.jpg" alt="Меню, страница 5"><img src="img/menu/p6.jpg" alt="Меню, страница 6">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="reviews">
+  <div class="wrap">
+    <div class="kicker" style="text-align:center">Отзывы людей</div>
+    <h2 class="sec" style="text-align:center">Что пишут те, кто уже попробовал</h2>
+    <div class="rev-grid">
+      <img src="img/otz/r1.jpg" alt="Отзыв покупателя"><img src="img/otz/r7.jpg" alt="Отзыв покупателя">
+      <img src="img/otz/r8.jpg" alt="Отзыв покупателя"><img src="img/otz/r11.jpg" alt="Отзыв покупателя">
+      <img src="img/otz/r12.jpg" alt="Отзыв покупателя"><img src="img/otz/r13.jpg" alt="Отзыв покупателя">
+    </div>
+    <p class="rev-note">Реальные отзывы покупателей — их личный опыт и впечатления. Отзывы отражают индивидуальный опыт и не являются обещанием результата или медицинской рекомендацией; у разных людей он может отличаться. Бальзам Болотова — пищевая добавка (doplněk stravy), не лекарственное средство. На посадках для клиентов отзывы отображаются на их языке.</p>
+  </div>
+</section>
+
+<!-- ===== OFFER + FORM ===== -->
+<section class="offer" id="order">
+  <div class="dots"></div>
+  <div class="wrap offer-grid">
+    <div>
+      <div class="kicker" style="color:var(--gold-light)">Специальное предложение</div>
+      <h2 class="sec">Бальзам + Гайд + Меню — одним комплектом</h2>
+      <p class="lead">Обычная ценность всего комплекта превышает 200 €. Сегодня — всё вместе по специальной цене.</p>
+      <ul>
+        <li><span class="c">✓</span> <span><b>Бальзам Болотова</b>, 500 мл</span></li>
+        <li><span class="c">✓</span> <span><b>Гайд академика Болотова</b> — в подарок</span></li>
+        <li><span class="c">✓</span> <span><b>Меню академика Болотова</b> — в подарок</span></li>
+        <li><span class="c">✓</span> <span>Оплата <b>наложенным платежом</b> при получении</span></li>
+      </ul>
+      <div class="price-box">
+        <span class="old">200+ €</span>
+        <span class="new">41<small> €</small></span>
+      </div>
+      <span class="save">Экономия более 80%</span>
+      <p style="font-size:12.5px;opacity:.75;margin-top:16px;max-width:460px">Бальзам Болотова — пищевая добавка (doplněk stravy), не является лекарственным средством и не заменяет консультацию врача.</p>
+    </div>
+
+    <div class="order-card">
+      <div class="ohead">
+        <div class="bdg">Лидер продаж</div>
+        <h3>Оформить заказ</h3>
+      </div>
+      <div class="obundle">
+        <span>Бальзам Болотова</span><span class="plus">+</span>
+        <span>Гайд</span><span class="plus">+</span>
+        <span>Меню</span>
+      </div>
+      <div class="oprice">
+        <span class="old">200+ €</span>
+        <span class="new">41 €</span>
+      </div>
+      <!-- Форма amoCRM (воронка «Германия»). Заявки идут прямо в amoCRM. -->
+      <div class="amo-embed">
+        <script>!function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1726366",hash:"88f4bdb49e10c8d63a92fd070348dcdd",locale:"cs"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");</script>
+        <script id="amoforms_script_1726366" async="async" charset="utf-8" src="https://forms.amocrm.ru/forms/assets/js/amoforms.js?1782383838"></script>
+      </div>
+      <div class="form-consent">
+        Отправляя форму, вы соглашаетесь на обработку персональных данных в соответствии с
+        <a href="https://centerbolotova.eu/cz/privacy-policy/" target="_blank" rel="noopener">Политикой конфиденциальности</a>.
+      </div>
+      <div class="trust" style="padding:0 26px 10px">🔒 Ваши данные в безопасности. Мы перезвоним для подтверждения.</div>
+      <div class="wa-note">Есть вопросы перед заказом? <a href="https://wa.me/421944623644?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A3%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D1%83%20%C2%AB%D0%91%D0%B0%D0%BB%D1%8C%D0%B7%D0%B0%D0%BC%20%2B%20%D0%93%D0%B0%D0%B9%D0%B4%20%2B%20%D0%9C%D0%B5%D0%BD%D1%8E%C2%BB%20%D0%B8%20%D0%BF%D0%BE%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D1%83." target="_blank" rel="noopener">Напишите в WhatsApp →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GUARANTEE ===== -->
+<section class="guarantee">
+  <div class="wrap">
+    <div class="kicker" style="text-align:center">Почему нам доверяют</div>
+    <h2 class="sec">Спокойно и без риска</h2>
+    <div class="g-grid">
+      <div class="g"><div class="ic">🌿</div><h4>Натуральный состав</h4><p>По рецептуре системы академика Болотова.</p></div>
+      <div class="g"><div class="ic">🏛️</div><h4>Центр Болотова</h4><p>Тысячи довольных клиентов уже с нами.</p></div>
+      <div class="g"><div class="ic">📦</div><h4>Наложенный платёж</h4><p>Оплата при получении — платите, когда заказ у вас.</p></div>
+      <div class="g"><div class="ic">📞</div><h4>Поддержка</h4><p>Перезвоним и поможем с началом приёма.</p><a class="wa-inline" href="https://wa.me/421944623644?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A3%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D1%83%20%C2%AB%D0%91%D0%B0%D0%BB%D1%8C%D0%B7%D0%B0%D0%BC%20%2B%20%D0%93%D0%B0%D0%B9%D0%B4%20%2B%20%D0%9C%D0%B5%D0%BD%D1%8E%C2%BB%20%D0%B8%20%D0%BF%D0%BE%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D1%83." target="_blank" rel="noopener"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.2c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.9 20.8 3.3 18.4 3.3 16 3.3 9 9 3.3 16 3.3S28.7 9 28.7 16 23 28.7 16 28.7zm7.7-9.5c-.4-.2-2.5-1.2-2.9-1.4-.4-.1-.7-.2-1 .2-.3.4-1.1 1.4-1.3 1.6-.2.2-.5.3-.9.1-.4-.2-1.8-.7-3.4-2.1-1.3-1.1-2.1-2.5-2.4-2.9-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.1-.2.2-.4.3-.6.1-.2.1-.4 0-.6-.1-.2-.9-2.3-1.3-3.1-.3-.7-.7-.6-.9-.6h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.5 7.1 6.3 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.5-1 2.8-2 .3-1 .3-1.8.2-2-.1-.2-.4-.3-.8-.5z"/></svg>Написать в WhatsApp</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fl">Система Болотова · Centrum Bolotova</div>
+    <p>Здоровье и естественное восстановление организма.</p>
+
+    <nav class="legal-links">
+      <a href="https://centerbolotova.eu/cz/privacy-policy/" target="_blank" rel="noopener">Политика конфиденциальности</a>
+      <a href="https://centerbolotova.eu/cz/public-offer/" target="_blank" rel="noopener">Условия и правила</a>
+      <a href="https://centerbolotova.eu/cz/refund-policy/" target="_blank" rel="noopener">Возврат товара (14 дней)</a>
+      <a href="https://centerbolotova.eu/cz/delivery/" target="_blank" rel="noopener">Доставка</a>
+      <a href="https://centerbolotova.eu/cz/payment/" target="_blank" rel="noopener">Оплата</a>
+      <a href="https://centerbolotova.eu/cz/contacts/" target="_blank" rel="noopener">Контакты</a>
+    </nav>
+
+    <div class="impressum">
+      <p>Provozovatel e-shopu: <b>HataVia s.r.o.</b> · IČO: 23490551 · DIČ: CZ23490551 · Kaprova 42/14, 110 00 Praha 1 – Staré Město, Česká republika</p>
+      <p>Dovozce: OSVČ Mykola Rudenko · IČO: 19607989 · Česká republika</p>
+      <p>info@centerbolotova.eu · +420 775 958 815 · +421 944 623 644 · Po–Ne 9:00–18:00</p>
+    </div>
+
+    <p class="disclaimer">Doplňky stravy nejsou léčivými přípravky a nejsou určeny k diagnostice, léčbě ani prevenci onemocnění. Бальзам Болотова — пищевая добавка (doplněk stravy), не является лекарственным средством и не заменяет консультацию врача. Před užíváním se poraďte s lékařem.</p>
+    <p class="copy">© 2010–2026 Bolotov Center · HataVia s.r.o. Všechna práva vyhrazena.</p>
+  </div>
+</footer>
+
+<!-- sticky cta -->
+<div class="sticky" id="sticky">
+  <div class="sp">41 € <small>200+ €</small></div>
+  <a href="#order" class="btn btn-gold">Заказать комплект</a>
+</div>
+
+<!-- floating WhatsApp -->
+<a class="wa-float" href="https://wa.me/421944623644?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A3%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D1%83%20%C2%AB%D0%91%D0%B0%D0%BB%D1%8C%D0%B7%D0%B0%D0%BC%20%2B%20%D0%93%D0%B0%D0%B9%D0%B4%20%2B%20%D0%9C%D0%B5%D0%BD%D1%8E%C2%BB%20%D0%B8%20%D0%BF%D0%BE%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D1%83." target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.2c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.9 20.8 3.3 18.4 3.3 16 3.3 9 9 3.3 16 3.3S28.7 9 28.7 16 23 28.7 16 28.7zm7.7-9.5c-.4-.2-2.5-1.2-2.9-1.4-.4-.1-.7-.2-1 .2-.3.4-1.1 1.4-1.3 1.6-.2.2-.5.3-.9.1-.4-.2-1.8-.7-3.4-2.1-1.3-1.1-2.1-2.5-2.4-2.9-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.1-.2.2-.4.3-.6.1-.2.1-.4 0-.6-.1-.2-.9-2.3-1.3-3.1-.3-.7-.7-.6-.9-.6h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.5 7.1 6.3 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.5-1 2.8-2 .3-1 .3-1.8.2-2-.1-.2-.4-.3-.8-.5z"/></svg>
+  <span class="wa-txt">Вопрос в WhatsApp</span>
+</a>
+
+<!-- cookie consent -->
+<div class="cookie-bar" id="cookieBar">
+  <div class="cookie-text">
+    Мы используем cookies: необходимые — для работы сайта и оформления заказа, а также маркетинговые — для видео и аналитики.
+    Подробнее в <a href="https://centerbolotova.eu/cz/privacy-policy/" target="_blank" rel="noopener">Политике конфиденциальности</a>.
+  </div>
+  <div class="cookie-btns">
+    <button type="button" class="ck-nec" onclick="acceptCookies(false)">Только необходимые</button>
+    <button type="button" class="ck-all" onclick="acceptCookies(true)">Принять все</button>
+  </div>
+</div>
+
+<script>
+/* ===== ОТПРАВКА ЗАЯВОК =====================================
+   Вставьте ваш endpoint (Formspree / webhook AmoCRM) в ENDPOINT.
+   Пусто — форма покажет «спасибо» без реальной отправки (демо).
+========================================================== */
+const ENDPOINT = ""; // напр. "https://formspree.io/f/xxxxxxx"
+
+/* ===== Cookie-согласие + загрузка YouTube только после согласия ===== */
+function loadMarketing(){
+  document.querySelectorAll('.yt-iframe').forEach(f=>{ if(f.dataset.src && f.src.indexOf('youtube')===-1) f.src=f.dataset.src; });
+  document.querySelectorAll('.yt-consent').forEach(e=>e.style.display='none');
+}
+function acceptCookies(all){
+  try{ localStorage.setItem('cookieConsent', all?'all':'necessary'); }catch(e){}
+  var bar=document.getElementById('cookieBar'); if(bar) bar.style.display='none';
+  if(all) loadMarketing();
+}
+(function(){
+  var c=null; try{ c=localStorage.getItem('cookieConsent'); }catch(e){}
+  if(c){ var bar=document.getElementById('cookieBar'); if(bar) bar.style.display='none'; }
+  if(c==='all') loadMarketing();
+})();
+
+/* переключение режима текста: сбалансированно / минимально (для сравнения) */
+function setMode(m){
+  document.body.classList.toggle("mode-min", m==="min");
+  document.body.classList.toggle("mode-bal", m!=="min");
+  document.getElementById("mMin").classList.toggle("on", m==="min");
+  document.getElementById("mBal").classList.toggle("on", m!=="min");
+  try{ localStorage.setItem("complianceMode", m); }catch(e){}
+}
+(function(){ var m="bal"; try{ m=localStorage.getItem("complianceMode")||"bal"; }catch(e){} setMode(m); })();
+
+async function submitOrder(e){
+  e.preventDefault();
+  const f=e.target, data=Object.fromEntries(new FormData(f).entries());
+  data.cod = f.cod.checked ? "Да" : "Нет";
+  data.lang = "ru";
+  data.product = "Бальзам Болотова — комплект (бальзам + гайд + меню)";
+  data.price = "41 EUR";
+  document.getElementById("err").style.display="none";
+  if(ENDPOINT){
+    try{
+      const r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)});
+      if(!r.ok)throw 0;
+    }catch(_){document.getElementById("err").style.display="block";return false;}
+  }
+  f.style.display="none";
+  document.querySelector(".order-card .oprice").style.display="none";
+  document.querySelector(".order-card .obundle").style.display="none";
+  document.getElementById("ok").style.display="block";
+  document.getElementById("ok").scrollIntoView({behavior:"smooth",block:"center"});
+  return false;
+}
+
+/* sticky cta появляется после hero */
+const sticky=document.getElementById("sticky");
+const order=document.getElementById("order");
+window.addEventListener("scroll",()=>{
+  const y=window.scrollY;
+  const orderTop=order.getBoundingClientRect().top;
+  sticky.style.display = (y>650 && orderTop>200) ? "flex" : "none";
+});
+</script>
+</body>
+</html>
