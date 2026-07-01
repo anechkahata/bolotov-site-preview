@@ -141,9 +141,9 @@ section{padding:64px 0}
 
 /* ============ MECHANISM ============ */
 .mech{background:linear-gradient(180deg,#fff,var(--cream))}
-.mech-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:26px}
-.mech-side{display:flex;flex-direction:column;gap:26px}
-.mech-img{width:100%;max-width:360px;height:auto;margin:0 auto;display:block}
+.mech-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch;margin-top:26px}
+.mech-side{display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.mech-img{width:auto;max-width:300px;max-height:210px;height:auto;object-fit:contain;margin:0 auto;display:block}
 .mech-steps{counter-reset:step}
 .mech-step{display:flex;gap:16px;margin-bottom:22px}
 .mech-step .num{flex-shrink:0;width:46px;height:46px;border-radius:50%;
