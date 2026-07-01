@@ -279,6 +279,16 @@ section{padding:64px 0}
   display:flex;align-items:center;justify-content:center;font-size:19px}
 .offer-trust .ot b{display:block;color:#fff;font-family:'Montserrat';font-weight:700;font-size:15px;margin-bottom:1px}
 .offer-trust .ot small{color:var(--gold-light);font-size:13px;line-height:1.4}
+.offer-ebook{margin:18px 0 4px;max-width:470px;background:rgba(220,230,200,.16);border:1px solid rgba(220,230,200,.4);
+  color:#fff;font-size:13.5px;line-height:1.45;padding:12px 16px;border-radius:12px}
+.offer-ebook b{color:var(--gold-light)}
+.order-sum{margin:4px 26px 2px;padding:14px 16px;background:var(--cream);border:1px solid #ece4dc;border-radius:14px}
+.os-row{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:#555;margin-bottom:6px}
+.os-row:last-child{margin-bottom:0}
+.os-total{margin-top:8px;padding-top:10px;border-top:1px dashed #d9ccc0;font-family:'Montserrat';font-weight:800;
+  font-size:16px;color:var(--wine-dark)}
+.os-total>span:last-child{font-size:19px;color:var(--wine)}
+.os-total small{font-size:13px;font-weight:600;color:#8a8177;margin-left:2px}
 .lbl-hint{text-transform:none;font-weight:400;color:#9a9088;letter-spacing:normal}
 .order-form .submit{margin-top:18px}
 .offer h2.sec{color:#fff}
@@ -341,6 +351,7 @@ input:focus{outline:none;border-color:var(--magenta);background:#fff}
   font-family:'Open Sans';font-size:15px;background:#fdfcfa;color:var(--ink)}
 .order-form select:focus{outline:none;border-color:var(--magenta);background:#fff}
 .order-form .form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.order-form .form-grid2 .span2{grid-column:1 / -1}
 .ship-head{font-family:'Montserrat';font-weight:800;text-transform:uppercase;letter-spacing:.5px;
   font-size:12px;color:var(--wine);margin:18px 0 4px;padding-top:14px;border-top:1px solid #f0e7de}
 .ship-note{font-size:12.5px;color:#777;margin:10px 0 2px}
@@ -713,19 +724,20 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
     <div>
       <div class="kicker" style="color:var(--gold-light)">Специальное предложение</div>
       <h2 class="sec">Бальзам + Гайд + Меню — одним комплектом</h2>
-      <p class="lead">Обычная ценность всего комплекта превышает 200 €. Сегодня — всё вместе по специальной цене.</p>
+      <p class="lead">Обычная ценность всего комплекта превышает 4 920 Kč (≈ 200 €). Сегодня — всё вместе по специальной цене.</p>
       <ul>
         <li><span class="c">✓</span> <span><b>Бальзам Болотова</b>, 500 мл</span></li>
         <li><span class="c">✓</span> <span><b>Гайд академика Болотова</b> — в подарок</span></li>
         <li><span class="c">✓</span> <span><b>Меню академика Болотова</b> — в подарок</span></li>
         <li><span class="c">✓</span> <span>На выбор: <b>оплата вперёд</b> картой или <b>наложенным платежом</b> при получении</span></li>
       </ul>
+      <div class="offer-ebook">📩 <b>Гайд и меню</b> — в электронном виде: придут на вашу почту сразу после оформления заказа.</div>
       <div class="price-box">
-        <span class="old">200+ €</span>
-        <span class="new">41<small> €</small></span>
+        <span class="old">4 920 Kč</span>
+        <span class="new">1 010<small> Kč</small></span>
       </div>
       <span class="save">Экономия более 80%</span>
-      <p style="font-size:13px;opacity:.9;margin-top:12px">Цена при <b>оплате вперёд</b> · наложенным платежом — <b>43 €</b> (+2 € за наложенный).</p>
+      <p style="font-size:13px;opacity:.9;margin-top:12px">Цена при <b>оплате вперёд</b> (≈ 41 €) · наложенным платежом — <b>1 060 Kč</b> (≈ 43 €).</p>
       <div class="offer-trust">
         <div class="ot"><span>📦</span><div><b>Доставка по всей Чехии</b><small>Отправляем сразу после подтверждения заказа.</small></div></div>
         <div class="ot"><span>🔄</span><div><b>Возврат в течение 14 дней</b><small>Не подошло — вернём средства по правилам ЕС.</small></div></div>
@@ -745,9 +757,8 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
         <span>Гайд</span><span class="plus">+</span>
         <span>Меню</span>
       </div>
-      <div class="order-ebook">📩 <b>Гайд и меню</b> — в электронном виде: придут на вашу почту сразу после оформления заказа.</div>
       <div class="oprice">
-        <span class="old">Обычно 200+ €</span>
+        <span class="old">Обычно 4 920 Kč</span>
         <span class="save-tag">Экономия 80%</span>
       </div>
       <div class="pay-head">Способ оплаты</div>
@@ -755,15 +766,20 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
         <label class="pay-opt selected" onclick="pickPay(this)">
           <input type="radio" name="paytype" value="prepay" checked>
           <div class="po-top"><span class="po-title">Оплата вперёд</span><span class="po-badge">Выгоднее</span></div>
-          <div class="po-price">41 €<small>≈ 1 010 Kč</small></div>
+          <div class="po-price">1 010 Kč<small>(≈ 41 €)</small></div>
           <div class="po-desc">Картой онлайн при оформлении заказа</div>
         </label>
         <label class="pay-opt" onclick="pickPay(this)">
           <input type="radio" name="paytype" value="cod">
           <div class="po-top"><span class="po-title">Наложенный платёж</span></div>
-          <div class="po-price">43 €<small>≈ 1 060 Kč</small></div>
-          <div class="po-desc">Оплата при получении (+2 € / ≈ 50 Kč за наложенный)</div>
+          <div class="po-price">1 060 Kč<small>(≈ 43 €)</small></div>
+          <div class="po-desc">Оплата при получении (+50 Kč за наложенный)</div>
         </label>
+      </div>
+      <div class="order-sum">
+        <div class="os-row"><span>Товар</span><span id="os-goods">1 010 Kč</span></div>
+        <div class="os-row"><span>Доставка (DPD / PPL / GLS)</span><span>99 Kč</span></div>
+        <div class="os-row os-total"><span>Итого</span><span id="os-total">1 109 Kč <small>(≈ 46 €)</small></span></div>
       </div>
       <!-- Форма заказа. На запуске: подключить CZ-воронку amoCRM + оплату (Stripe) через ENDPOINT/бэкенд. -->
       <form class="order-form" id="orderForm" onsubmit="return submitOrder(event)" novalidate>
@@ -785,10 +801,8 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
             <input id="f-zip" name="zipcode" inputmode="numeric" autocomplete="postal-code" placeholder="123 45"></div>
           <div class="field"><label>Город</label>
             <input id="f-city" name="city" autocomplete="address-level2" placeholder="Например, Прага"></div>
-          <div class="field"><label>Улица</label>
-            <input id="f-street" name="street" autocomplete="address-line1" placeholder="Например, Karlova"></div>
-          <div class="field"><label>Дом / квартира</label>
-            <input id="f-house" name="house" placeholder="Например, 12/3"></div>
+          <div class="field span2"><label>Улица и дом</label>
+            <input id="f-street" name="street" autocomplete="address-line1" placeholder="Например, Karlova 12/3"></div>
         </div>
         <p class="ship-note">Доставка по Чехии и Словакии (DPD / PPL / GLS). В другие страны — <a href="https://wa.me/421944623644?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%20%D1%81%20%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%BE%D0%B9%20%D0%B2%20%D0%B4%D1%80%D1%83%D0%B3%D1%83%D1%8E%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%83." target="_blank" rel="noopener">напишите в WhatsApp</a>.</p>
         <div class="field"><label>Служба доставки</label>
@@ -858,7 +872,7 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
 
 <!-- sticky cta -->
 <div class="sticky" id="sticky">
-  <div class="sp">41 € <small>200+ €</small></div>
+  <div class="sp">1 010 Kč <small>4 920 Kč</small></div>
   <a href="#order" class="btn btn-gold">Заказать комплект</a>
 </div>
 
@@ -944,8 +958,7 @@ function validateOrderForm(of){
     if(!zip.v) errs.push({el:zip.el,msg:'Укажите индекс.'});
     else if(!/^\d{3}\s?\d{2}$/.test(zip.v)) errs.push({el:zip.el,msg:'Индекс в формате 123 45 (5 цифр). Доставка по Чехии и Словакии.'});
   var city=g('f-city'); if(!city.v) errs.push({el:city.el,msg:'Укажите город.'});
-  var st=g('f-street');  if(!st.v) errs.push({el:st.el,msg:'Укажите улицу.'});
-  var ho=g('f-house');   if(!ho.v) errs.push({el:ho.el,msg:'Укажите дом / квартиру.'});
+  var st=g('f-street');  if(!st.v) errs.push({el:st.el,msg:'Укажите улицу и дом.'});
   return errs;
 }
 
@@ -984,10 +997,12 @@ async function submitOrder(e){
   var pt=document.querySelector('input[name="paytype"]:checked');
   var cod = pt && pt.value==="cod";
   data.paytype = cod ? "Наложенный платёж" : "Оплата вперёд";
-  data.address = ['ul. '+(data.street||'')+' '+(data.house||''), (data.zipcode||'')+' '+(data.city||''), data.country||''].join(', ');
+  data.address = [(data.street||''), (data.zipcode||'')+' '+(data.city||''), data.country||''].join(', ');
+  data.delivery = "99 Kč (DPD/PPL/GLS)";
   data.lang = "ru";
   data.product = "Бальзам Болотова — комплект (бальзам + гайд + меню)";
-  data.price = cod ? "43 EUR" : "41 EUR";
+  data.goods_price = cod ? "1060 Kč" : "1010 Kč";
+  data.total = cod ? "1159 Kč" : "1109 Kč";
   if(ENDPOINT){
     try{
       const r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)});
@@ -1015,7 +1030,23 @@ function pickPay(el){
   document.querySelectorAll('.pay-opt').forEach(function(o){ o.classList.remove('selected'); });
   el.classList.add('selected');
   var r=el.querySelector('input'); if(r) r.checked=true;
+  updateTotal();
 }
+/* Пересчёт итога: товар + доставка. Цены — в кронах, € в скобках для словаков. */
+var DELIVERY_KC = 99;
+function updateTotal(){
+  var pt=document.querySelector('input[name="paytype"]:checked');
+  var cod = pt && pt.value==="cod";
+  var goodsKc = cod ? 1060 : 1010;
+  var goodsEur = cod ? 43 : 41;
+  var totalKc = goodsKc + DELIVERY_KC;
+  var totalEur = goodsEur + 5;
+  var g=document.getElementById('os-goods');
+  var t=document.getElementById('os-total');
+  if(g) g.textContent = goodsKc.toLocaleString('cs-CZ')+' Kč';
+  if(t) t.innerHTML = totalKc.toLocaleString('cs-CZ')+' Kč <small>(≈ '+totalEur+' €)</small>';
+}
+document.addEventListener('DOMContentLoaded', updateTotal);
 
 /* отзывы: увеличение по клику (лайтбокс) */
 function openLightbox(src){
