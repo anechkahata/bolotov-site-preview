@@ -382,12 +382,13 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
 .wa-inline svg{width:15px;height:15px;fill:#fff}
 .wa-inline:hover{filter:brightness(1.05)}
 /* ============ ANIMATIONS ============ */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
-.reveal.in{opacity:1;transform:none}
+.reveal{opacity:0;transform:translateY(30px)}
+.reveal.in{opacity:1;transform:none;
+  transition-property:opacity,transform;transition-duration:.7s;transition-timing-function:cubic-bezier(.2,.7,.2,1)}
 @keyframes ctapulse{0%,100%{box-shadow:0 10px 26px rgba(201,168,106,.45)}50%{box-shadow:0 12px 30px rgba(201,168,106,.8)}}
 .sticky .btn-gold{animation:ctapulse 2.6s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){
-  .reveal{opacity:1!important;transform:none!important;transition:none}
+  .reveal{opacity:1!important;transform:none!important}
   .sticky .btn-gold{animation:none}
 }
 </style>
@@ -792,36 +793,42 @@ function stripNav(btn,dir){
   s.scrollBy({left:dir*step,behavior:'smooth'});
 }
 
-/* анимации: плавное появление блоков + счётчики цифр (уважая prefers-reduced-motion) */
+/* анимации: появление блоков каскадом (по строкам/карточкам) + счётчики цифр */
 (function(){
   if(!('IntersectionObserver' in window)) return;
   if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var sel='h2.sec,.kicker,.lead,.pain-card,.mech-step,.mech-quote,.benefit,.bundle-item,'
-    +'.howto-card,.guarantee .g,.story-card,.founder .who,.flip,.offer .price-box,.order-card,.video-note-legal';
+    +'.howto-card,.guarantee .g,.story-card,.founder .who,.flip,.offer ul li,.offer .price-box,.order-card,.video-note-legal';
   var els=[].slice.call(document.querySelectorAll(sel));
-  els.forEach(function(e){ e.classList.add('reveal'); });
+  els.forEach(function(e){
+    e.classList.add('reveal');
+    // каскад: задержка по позиции среди анимируемых соседей одного родителя
+    var sibs=[].slice.call(e.parentNode.children).filter(function(c){ return els.indexOf(c)>-1; });
+    var i=sibs.indexOf(e);
+    if(i>0) e.style.transitionDelay=(Math.min(i,7)*0.11)+'s';
+  });
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-  },{threshold:.12, rootMargin:'0px 0px -40px 0px'});
+  },{threshold:.1, rootMargin:'0px 0px -60px 0px'});
   els.forEach(function(e){ io.observe(e); });
 
   var stat=document.querySelector('.founder .stat');
   if(stat){
     var sio=new IntersectionObserver(function(entries){
       entries.forEach(function(en){ if(en.isIntersecting){ runCounters(en.target); sio.unobserve(en.target); } });
-    },{threshold:.4});
+    },{threshold:.2});
     sio.observe(stat);
   }
   function runCounters(root){
     [].slice.call(root.querySelectorAll('b')).forEach(function(b){
       var m=(b.textContent||'').trim().match(/^(\d[\d\s]*)(\+?)$/);
       if(!m) return;
-      var target=parseInt(m[1].replace(/\s/g,''),10), suffix=m[2]||'', start=null, dur=1100;
+      var target=parseInt(m[1].replace(/\s/g,''),10), suffix=m[2]||'', start=null, dur=2200;
       function frame(now){
         if(start===null) start=now;
-        var p=Math.min(1,(now-start)/dur), e=1-Math.pow(1-p,3);
+        var p=Math.min(1,(now-start)/dur), e=1-Math.pow(1-p,2);
         b.textContent=Math.round(target*e)+suffix;
-        if(p<1) requestAnimationFrame(frame);
+        if(p<1) requestAnimationFrame(frame); else b.textContent=target+suffix;
       }
       b.textContent='0'+suffix; requestAnimationFrame(frame);
     });
