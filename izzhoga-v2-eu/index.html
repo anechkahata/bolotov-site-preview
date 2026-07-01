@@ -218,6 +218,19 @@ section{padding:64px 0}
 .bundle-item p{font-size:14.5px;color:#555}
 .bundle-item .pages{margin-top:auto;padding-top:14px}
 .bundle-item .pages b{font-family:'Montserrat';color:var(--magenta);font-size:13px;letter-spacing:.5px}
+/* product bottle: cut-out look (shadow follows the shape, no boxy rectangle) */
+.bundle-item img.prod-img{box-shadow:none;filter:drop-shadow(0 12px 18px rgba(94,32,57,.22))}
+/* guide + menu covers: equal height, neat frame */
+.bundle-item img.bcover{width:100%;max-width:200px;height:260px;object-fit:cover;object-position:top center;border:1px solid #eee2da}
+/* carousel arrows */
+.strip-wrap{position:relative}
+.strip-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:44px;height:44px;border:none;
+  border-radius:50%;background:var(--wine);color:#fff;font-size:26px;line-height:1;cursor:pointer;
+  box-shadow:0 6px 16px rgba(94,32,57,.32);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.strip-nav:hover{background:var(--wine-dark)}
+.strip-nav.prev{left:-8px}
+.strip-nav.next{right:-8px}
+@media(max-width:600px){.strip-nav{width:38px;height:38px;font-size:22px}}
 
 /* brochure strip */
 .flip{margin-top:40px}
@@ -400,7 +413,7 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
           <button type="button" onclick="acceptCookies(true)">Разрешить и смотреть</button>
         </div>
       </div>
-      <p class="video-note-legal">⚠️ В видео основатель делится личным опытом. Информация носит образовательный характер и не является медицинской рекомендацией. Бальзам Болотова — пищевая добавка (doplněk stravy), а не лекарство; не предназначен для диагностики, лечения или профилактики заболеваний. Индивидуальный опыт может отличаться.</p>
+      <p class="video-note-legal">⚠️ Личный опыт основателя, образовательный характер — не медицинская рекомендация.<br>Индивидуальный опыт может отличаться.</p>
     </div>
   </div>
 </header>
@@ -538,20 +551,20 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
     <div class="bundle-row">
       <div class="bundle-item">
         <div class="tag">Основа</div>
-        <img src="img/bottle-box.png" alt="Бальзам Болотова" width="220">
+        <img src="img/bottle-box.png" alt="Бальзам Болотова" width="220" class="prod-img">
         <h4>Бальзам Болотова</h4>
         <p>Жидкий бальзам по рецептуре Болотова, 500 мл. Мягкая поддержка работы желудка.</p>
       </div>
       <div class="bundle-item">
         <div class="free">Бесплатно</div>
-        <img src="img/gaid-cover.jpg" alt="Гайд академика Болотова" width="190">
+        <img src="img/gaid-cover.jpg" alt="Гайд академика Болотова" class="bcover">
         <h4>Гайд академика Болотова</h4>
         <p>Подробно о системе Болотова: как она устроена и с чего начать.</p>
         <div class="pages"><b>30 страниц рекомендаций</b></div>
       </div>
       <div class="bundle-item">
         <div class="free">Бесплатно</div>
-        <img src="img/menu-cover.jpg" alt="Меню по системе Болотова" width="190">
+        <img src="img/menu-cover.jpg" alt="Меню по системе Болотова" class="bcover">
         <h4>Меню академика Болотова</h4>
         <p>Что можно есть, а что лучше временно ограничить. Настоящих ограничений удивительно мало.</p>
         <div class="pages"><b>18 страниц меню и блюд</b></div>
@@ -562,19 +575,27 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
     <div class="flip">
       <h3>Загляните внутрь гайда</h3>
       <div class="hint">← листайте, чтобы посмотреть страницы →</div>
-      <div class="strip">
+      <div class="strip-wrap">
+        <button class="strip-nav prev" type="button" onclick="stripNav(this,-1)" aria-label="Назад">‹</button>
+        <div class="strip">
         <img src="img/gaid/p1.jpg" alt="Гайд, страница 1"><img src="img/gaid/p2.jpg" alt="Гайд, страница 2">
         <img src="img/gaid/p3.jpg" alt="Гайд, страница 3"><img src="img/gaid/p4.jpg" alt="Гайд, страница 4">
         <img src="img/gaid/p5.jpg" alt="Гайд, страница 5"><img src="img/gaid/p6.jpg" alt="Гайд, страница 6">
+        </div>
+        <button class="strip-nav next" type="button" onclick="stripNav(this,1)" aria-label="Вперёд">›</button>
       </div>
     </div>
     <div class="flip">
       <h3>И внутрь меню</h3>
       <div class="hint">← листайте, чтобы посмотреть страницы →</div>
-      <div class="strip">
+      <div class="strip-wrap">
+        <button class="strip-nav prev" type="button" onclick="stripNav(this,-1)" aria-label="Назад">‹</button>
+        <div class="strip">
         <img src="img/menu/p1.jpg" alt="Меню, страница 1"><img src="img/menu/p2.jpg" alt="Меню, страница 2">
         <img src="img/menu/p3.jpg" alt="Меню, страница 3"><img src="img/menu/p4.jpg" alt="Меню, страница 4">
         <img src="img/menu/p5.jpg" alt="Меню, страница 5"><img src="img/menu/p6.jpg" alt="Меню, страница 6">
+        </div>
+        <button class="strip-nav next" type="button" onclick="stripNav(this,1)" aria-label="Вперёд">›</button>
       </div>
     </div>
   </div>
@@ -590,7 +611,7 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
       <img src="img/otz/r8.jpg" alt="Отзыв покупателя"><img src="img/otz/r11.jpg" alt="Отзыв покупателя">
       <img src="img/otz/r12.jpg" alt="Отзыв покупателя"><img src="img/otz/r13.jpg" alt="Отзыв покупателя">
     </div>
-    <p class="rev-note">Реальные отзывы покупателей — их личный опыт и впечатления. Отзывы отражают индивидуальный опыт и не являются обещанием результата или медицинской рекомендацией; у разных людей он может отличаться. Бальзам Болотова — пищевая добавка (doplněk stravy), не лекарственное средство. На посадках для клиентов отзывы отображаются на их языке.</p>
+    <p class="rev-note">Реальные отзывы покупателей — их личный опыт. Это не обещание результата и не медицинская рекомендация; индивидуальный опыт может отличаться.</p>
   </div>
 </section>
 
@@ -751,6 +772,14 @@ async function submitOrder(e){
   document.getElementById("ok").style.display="block";
   document.getElementById("ok").scrollIntoView({behavior:"smooth",block:"center"});
   return false;
+}
+
+/* карусели гайда/меню: листание стрелками */
+function stripNav(btn,dir){
+  var s=btn.parentElement.querySelector('.strip');
+  if(!s) return;
+  var step=(s.querySelector('img') ? s.querySelector('img').getBoundingClientRect().width+14 : 220);
+  s.scrollBy({left:dir*step,behavior:'smooth'});
 }
 
 /* sticky cta появляется после hero */
