@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
 <style>
 :root{
   --wine:#7B2D4E; --wine-dark:#5E2039; --magenta:#9C2A6E;
@@ -335,6 +336,25 @@ label{display:block;font-family:'Montserrat';font-weight:600;font-size:12px;text
 input[type=text],input[type=tel],input[type=email]{width:100%;border:1.5px solid #e3dcd5;border-radius:12px;
   padding:13px 15px;font-family:'Open Sans';font-size:15px;background:#fdfcfa}
 input:focus{outline:none;border-color:var(--magenta);background:#fff}
+.order-form .field{margin-bottom:2px}
+.order-form select{width:100%;border:1.5px solid #e3dcd5;border-radius:12px;padding:13px 15px;
+  font-family:'Open Sans';font-size:15px;background:#fdfcfa;color:var(--ink)}
+.order-form select:focus{outline:none;border-color:var(--magenta);background:#fff}
+.order-form .form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.ship-head{font-family:'Montserrat';font-weight:800;text-transform:uppercase;letter-spacing:.5px;
+  font-size:12px;color:var(--wine);margin:18px 0 4px;padding-top:14px;border-top:1px solid #f0e7de}
+.ship-note{font-size:12.5px;color:#777;margin:10px 0 2px}
+.ship-note a{color:var(--magenta);font-weight:600}
+.courier-opts{display:flex;gap:10px;margin-top:4px}
+.courier{flex:1;margin:0;text-transform:none;letter-spacing:normal;color:var(--ink);font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid #e3dcd5;border-radius:12px;
+  padding:11px 8px;cursor:pointer;font-family:'Montserrat';font-size:14px}
+.courier input{accent-color:var(--wine);margin:0}
+.courier:has(input:checked){border-color:var(--wine);background:#fdf6f0}
+input.invalid,select.invalid,.iti.invalid input{border-color:var(--red) !important;background:#fff6f6}
+.field-err{color:var(--red);font-size:12px;margin-top:4px;font-family:'Open Sans'}
+.iti{width:100%}
+.iti__country-list{text-align:left}
 .cod{display:flex;align-items:flex-start;gap:10px;margin-top:16px;background:var(--cream);
   border:1.5px solid #ece4dc;border-radius:12px;padding:13px 15px;cursor:pointer}
 .cod input{width:20px;height:20px;margin-top:1px;accent-color:var(--magenta);flex-shrink:0}
@@ -746,13 +766,39 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
         </label>
       </div>
       <!-- Форма заказа. На запуске: подключить CZ-воронку amoCRM + оплату (Stripe) через ENDPOINT/бэкенд. -->
-      <form class="order-form" onsubmit="return submitOrder(event)">
-        <label>Имя</label>
-        <input type="text" name="name" placeholder="Ваше имя" required>
-        <label>Телефон</label>
-        <input type="tel" name="phone" placeholder="+420 777 123 456" required>
-        <label>E-mail <span class="lbl-hint">— на него придут гайд и меню</span></label>
-        <input type="email" name="email" placeholder="you@email.com" required>
+      <form class="order-form" id="orderForm" onsubmit="return submitOrder(event)" novalidate>
+        <div class="field"><label>Имя и фамилия</label>
+          <input id="f-name" type="text" name="name" autocomplete="name" placeholder="Например, Анна Новакова"></div>
+        <div class="field"><label>Телефон</label>
+          <input id="f-phone" type="tel" name="phone" autocomplete="tel"></div>
+        <div class="field"><label>E-mail <span class="lbl-hint">— на него придут гайд и меню</span></label>
+          <input id="f-email" type="email" name="email" autocomplete="email" placeholder="you@email.com"></div>
+
+        <div class="ship-head">Доставка</div>
+        <div class="field"><label>Страна</label>
+          <select id="f-country" name="country" autocomplete="country-name">
+            <option value="Чехия">Чехия</option>
+            <option value="Словакия">Словакия</option>
+          </select></div>
+        <div class="form-grid2">
+          <div class="field"><label>Индекс</label>
+            <input id="f-zip" name="zipcode" inputmode="numeric" autocomplete="postal-code" placeholder="123 45"></div>
+          <div class="field"><label>Город</label>
+            <input id="f-city" name="city" autocomplete="address-level2" placeholder="Например, Прага"></div>
+          <div class="field"><label>Улица</label>
+            <input id="f-street" name="street" autocomplete="address-line1" placeholder="Например, Karlova"></div>
+          <div class="field"><label>Дом / квартира</label>
+            <input id="f-house" name="house" placeholder="Например, 12/3"></div>
+        </div>
+        <p class="ship-note">Доставка по Чехии и Словакии (DPD / PPL / GLS). В другие страны — <a href="https://wa.me/421944623644?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%20%D1%81%20%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%BE%D0%B9%20%D0%B2%20%D0%B4%D1%80%D1%83%D0%B3%D1%83%D1%8E%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%83." target="_blank" rel="noopener">напишите в WhatsApp</a>.</p>
+        <div class="field"><label>Служба доставки</label>
+          <div class="courier-opts">
+            <label class="courier"><input type="radio" name="dost" value="DPD" checked><span>DPD</span></label>
+            <label class="courier"><input type="radio" name="dost" value="PPL"><span>PPL</span></label>
+            <label class="courier"><input type="radio" name="dost" value="GLS"><span>GLS</span></label>
+          </div>
+        </div>
+
         <button class="submit" type="submit">Оформить заказ →</button>
         <div class="err" id="err">Что-то пошло не так. Попробуйте ещё раз или напишите нам в WhatsApp.</div>
       </form>
@@ -834,12 +880,74 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 <script>
 /* ===== ОТПРАВКА ЗАЯВОК =====================================
    Вставьте ваш endpoint (Formspree / webhook AmoCRM) в ENDPOINT.
    Пусто — форма покажет «спасибо» без реальной отправки (демо).
 ========================================================== */
 const ENDPOINT = ""; // напр. "https://formspree.io/f/xxxxxxx"
+
+/* ===== Телефон: intl-tel-input (флаги + валидация по стране) ===== */
+var itiPhone = null;
+(function(){
+  if(!window.intlTelInput) return;
+  var el = document.getElementById('f-phone');
+  if(!el) return;
+  itiPhone = window.intlTelInput(el, {
+    initialCountry:'cz',
+    preferredCountries:['cz','sk','pl','de','at'],
+    separateDialCode:true,
+    autoPlaceholder:'aggressive',
+    utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js'
+  });
+})();
+function phoneValid(){
+  if(itiPhone && window.intlTelInputUtils && typeof itiPhone.isValidNumber==='function'){
+    var r=itiPhone.isValidNumber(); if(r===true) return true; if(r===false) return false;
+  }
+  var raw=document.getElementById('f-phone'); // fallback: loose digit check
+  return raw ? raw.value.replace(/\D/g,'').length>=8 : false;
+}
+function phoneE164(){
+  try{ if(itiPhone && window.intlTelInputUtils){ var n=itiPhone.getNumber(); if(n) return n; } }catch(e){}
+  var raw=document.getElementById('f-phone'); return raw ? raw.value.trim() : '';
+}
+
+/* ===== Валидация формы заказа (инлайн-ошибки под полями) ===== */
+function clearOrderErrors(of){
+  of.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+  of.querySelectorAll('.field-err').forEach(function(el){ el.remove(); });
+  var iti=of.querySelector('.iti'); if(iti) iti.classList.remove('invalid');
+}
+function showFieldError(el, msg){
+  el.classList.add('invalid');
+  var iti=el.closest('.iti'); if(iti) iti.classList.add('invalid');
+  var box=el.closest('.field') || el.parentNode;
+  if(box.querySelector('.field-err')) return; // one message per field
+  var hint=document.createElement('div'); hint.className='field-err'; hint.textContent=msg;
+  box.appendChild(hint);
+}
+function validateOrderForm(of){
+  var errs=[];
+  var g=function(id){ var e=document.getElementById(id); return {el:e, v:e?e.value.trim():''}; };
+  var n=g('f-name');
+    if(!n.v) errs.push({el:n.el,msg:'Укажите имя и фамилию.'});
+    else if(!/\s\S/.test(n.v)) errs.push({el:n.el,msg:'Укажите имя и фамилию (например, Анна Новакова).'});
+  var ph=g('f-phone');
+    if(!ph.v) errs.push({el:ph.el,msg:'Укажите номер телефона.'});
+    else if(!phoneValid()) errs.push({el:ph.el,msg:'Неверный номер телефона для выбранной страны.'});
+  var em=g('f-email');
+    if(!em.v) errs.push({el:em.el,msg:'Укажите e-mail.'});
+    else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.v)) errs.push({el:em.el,msg:'Неверный e-mail (например, anna@example.com).'});
+  var zip=g('f-zip');
+    if(!zip.v) errs.push({el:zip.el,msg:'Укажите индекс.'});
+    else if(!/^\d{3}\s?\d{2}$/.test(zip.v)) errs.push({el:zip.el,msg:'Индекс в формате 123 45 (5 цифр). Доставка по Чехии и Словакии.'});
+  var city=g('f-city'); if(!city.v) errs.push({el:city.el,msg:'Укажите город.'});
+  var st=g('f-street');  if(!st.v) errs.push({el:st.el,msg:'Укажите улицу.'});
+  var ho=g('f-house');   if(!ho.v) errs.push({el:ho.el,msg:'Укажите дом / квартиру.'});
+  return errs;
+}
 
 /* ===== Cookie-согласие + загрузка YouTube только после согласия ===== */
 function loadMarketing(){
@@ -859,14 +967,27 @@ function acceptCookies(all){
 
 async function submitOrder(e){
   e.preventDefault();
-  const f=e.target, data=Object.fromEntries(new FormData(f).entries());
+  const f=e.target;
+  document.getElementById("err").style.display="none";
+  clearOrderErrors(f);
+  var errs=validateOrderForm(f);
+  if(errs.length){
+    errs.forEach(function(er){ showFieldError(er.el, er.msg); });
+    errs[0].el.focus();
+    (errs[0].el.closest('.field')||errs[0].el).scrollIntoView({behavior:"smooth",block:"center"});
+    return false;
+  }
+  const data=Object.fromEntries(new FormData(f).entries());
+  data.phone = phoneE164();                 // телефон в международном формате +420…
+  var courier=document.querySelector('input[name="dost"]:checked');
+  data.courier = courier ? courier.value : "";
   var pt=document.querySelector('input[name="paytype"]:checked');
   var cod = pt && pt.value==="cod";
   data.paytype = cod ? "Наложенный платёж" : "Оплата вперёд";
+  data.address = ['ul. '+(data.street||'')+' '+(data.house||''), (data.zipcode||'')+' '+(data.city||''), data.country||''].join(', ');
   data.lang = "ru";
   data.product = "Бальзам Болотова — комплект (бальзам + гайд + меню)";
   data.price = cod ? "43 EUR" : "41 EUR";
-  document.getElementById("err").style.display="none";
   if(ENDPOINT){
     try{
       const r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)});
