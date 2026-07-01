@@ -271,7 +271,15 @@ section{padding:64px 0}
 .offer{background:linear-gradient(135deg,var(--wine),var(--wine-dark));color:#fff;position:relative;overflow:hidden}
 .offer .dots{position:absolute;inset:0;opacity:.07;
   background-image:radial-gradient(#fff 1.5px,transparent 1.5px);background-size:26px 26px}
-.offer-grid{display:grid;grid-template-columns:1fr .9fr;gap:40px;align-items:center;position:relative}
+.offer-grid{display:grid;grid-template-columns:1fr .9fr;gap:40px;align-items:start;position:relative}
+.offer-trust{margin-top:26px;display:flex;flex-direction:column;gap:15px;max-width:470px}
+.offer-trust .ot{display:flex;gap:14px;align-items:flex-start}
+.offer-trust .ot>span{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;font-size:19px}
+.offer-trust .ot b{display:block;color:#fff;font-family:'Montserrat';font-weight:700;font-size:15px;margin-bottom:1px}
+.offer-trust .ot small{color:var(--gold-light);font-size:13px;line-height:1.4}
+.lbl-hint{text-transform:none;font-weight:400;color:#9a9088;letter-spacing:normal}
+.order-form .submit{margin-top:18px}
 .offer h2.sec{color:#fff}
 .offer .lead{color:var(--gold-light)}
 .offer ul{list-style:none;margin:20px 0}
@@ -695,7 +703,13 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
       </div>
       <span class="save">Экономия более 80%</span>
       <p style="font-size:13px;opacity:.9;margin-top:12px">Цена при <b>оплате вперёд</b> · наложенным платежом — <b>43 €</b> (+2 € за наложенный).</p>
-      <p style="font-size:12.5px;opacity:.75;margin-top:16px;max-width:460px">Бальзам Болотова — пищевая добавка (doplněk stravy), не является лекарственным средством и не заменяет консультацию врача.</p>
+      <div class="offer-trust">
+        <div class="ot"><span>📦</span><div><b>Доставка по всей Чехии</b><small>Отправляем сразу после подтверждения заказа.</small></div></div>
+        <div class="ot"><span>🔄</span><div><b>Возврат в течение 14 дней</b><small>Не подошло — вернём средства по правилам ЕС.</small></div></div>
+        <div class="ot"><span>🔒</span><div><b>Ваши данные под защитой</b><small>Используем их только для оформления заказа.</small></div></div>
+        <div class="ot"><span>💬</span><div><b>Поддержка в WhatsApp</b><small>Ответим на вопросы до и после покупки.</small></div></div>
+      </div>
+      <p style="font-size:12.5px;opacity:.75;margin-top:22px;max-width:460px">Бальзам Болотова — пищевая добавка (doplněk stravy), не является лекарственным средством и не заменяет консультацию врача.</p>
     </div>
 
     <div class="order-card">
@@ -728,10 +742,21 @@ footer .copy{font-size:12px;opacity:.6;margin-top:6px}
           <div class="po-desc">Оплата при получении (+2 € / ≈ 50 Kč за наложенный)</div>
         </label>
       </div>
-      <!-- Форма amoCRM (воронка «Германия»). Заявки идут прямо в amoCRM. -->
-      <div class="amo-embed">
-        <script>!function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1726366",hash:"88f4bdb49e10c8d63a92fd070348dcdd",locale:"cs"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");</script>
-        <script id="amoforms_script_1726366" async="async" charset="utf-8" src="https://forms.amocrm.ru/forms/assets/js/amoforms.js?1782383838"></script>
+      <!-- Форма заказа. На запуске: подключить CZ-воронку amoCRM + оплату (Stripe) через ENDPOINT/бэкенд. -->
+      <form class="order-form" onsubmit="return submitOrder(event)">
+        <label>Имя</label>
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <label>Телефон</label>
+        <input type="tel" name="phone" placeholder="+420 777 123 456" required>
+        <label>E-mail <span class="lbl-hint">— на него придут гайд и меню</span></label>
+        <input type="email" name="email" placeholder="you@email.com" required>
+        <button class="submit" type="submit">Оформить заказ →</button>
+        <div class="err" id="err">Что-то пошло не так. Попробуйте ещё раз или напишите нам в WhatsApp.</div>
+      </form>
+      <div class="ok" id="ok">
+        <div class="tick">✓</div>
+        <h3>Заявка принята!</h3>
+        <p>Мы свяжемся с вами для подтверждения. Гайд и меню придут на вашу почту.</p>
       </div>
       <div class="form-consent">
         Отправляя форму, вы соглашаетесь на обработку персональных данных в соответствии с
@@ -832,10 +857,12 @@ function acceptCookies(all){
 async function submitOrder(e){
   e.preventDefault();
   const f=e.target, data=Object.fromEntries(new FormData(f).entries());
-  data.cod = f.cod.checked ? "Да" : "Нет";
+  var pt=document.querySelector('input[name="paytype"]:checked');
+  var cod = pt && pt.value==="cod";
+  data.paytype = cod ? "Наложенный платёж" : "Оплата вперёд";
   data.lang = "ru";
   data.product = "Бальзам Болотова — комплект (бальзам + гайд + меню)";
-  data.price = "41 EUR";
+  data.price = cod ? "43 EUR" : "41 EUR";
   document.getElementById("err").style.display="none";
   if(ENDPOINT){
     try{
