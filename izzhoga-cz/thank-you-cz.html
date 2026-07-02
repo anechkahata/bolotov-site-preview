@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="cs">
+<meta name="robots" content="noindex,nofollow">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Děkujeme za objednávku — Centrum Bolotova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wine: #7B2D4E; --wine-dark: #5E2039; --magenta: #9C2A6E;
+    --gold: #C9A86A; --gold-light: #E6D4A8; --sage: #DCE6C8; --sage-deep: #C4D3A3;
+    --cream: #FAF7F2; --ink: #2B2B2B; --red: #D32F2F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Open Sans', sans-serif; 
+    color: var(--ink); 
+    background: var(--cream); 
+    line-height: 1.65; 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+  }
+  .mont { font-family: 'Montserrat', sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; width: 100%; }
+  
+  .thank-you-sec { 
+    flex: 1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 80px 0; 
+    background: linear-gradient(135deg, #fff 0%, var(--cream) 100%); 
+  }
+  .ty-card { 
+    background: #fff; 
+    border-radius: 30px; 
+    padding: 60px 40px; 
+    text-align: center; 
+    box-shadow: 0 24px 60px rgba(94,32,57,.1); 
+    max-width: 640px; 
+    width: 100%; 
+    position: relative; 
+    overflow: hidden; 
+  }
+  .ty-card::before { 
+    content: ""; 
+    position: absolute; 
+    top: 0; left: 0; right: 0; 
+    height: 6px; 
+    background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--wine)); 
+  }
+  .tick-circle { 
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    background: var(--sage); 
+    color: var(--wine); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 40px; 
+    margin: 0 auto 24px; 
+    box-shadow: 0 10px 24px rgba(196,211,163,.4); 
+  }
+  h1 { 
+    font-family: 'Montserrat'; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    color: var(--wine); 
+    font-size: clamp(26px, 4vw, 36px); 
+    line-height: 1.1; 
+    margin-bottom: 16px; 
+  }
+  p.lead { 
+    font-size: 18px; 
+    color: #555; 
+    margin-bottom: 12px; 
+  }
+  .bonus-box { 
+    background: var(--sage); 
+    border: 1px solid var(--sage-deep); 
+    border-radius: 16px; 
+    padding: 20px; 
+    margin: 30px 0 36px; 
+    color: var(--wine-dark); 
+    font-size: 15px; 
+    display: flex; 
+    align-items: center; 
+    gap: 16px; 
+    text-align: left; 
+  }
+  .bonus-box span { 
+    font-size: 32px; 
+    flex-shrink: 0; 
+  }
+  
+  .btn { 
+    font-family: 'Montserrat'; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    border: none; 
+    border-radius: 40px; 
+    padding: 17px 32px; 
+    font-size: 14px; 
+    cursor: pointer; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    text-decoration: none; 
+    transition: transform .08s, box-shadow .2s, background .2s; 
+  }
+  .btn-gold { 
+    background: linear-gradient(90deg, var(--gold-light), var(--gold)); 
+    color: var(--wine-dark); 
+    box-shadow: 0 10px 26px rgba(201,168,106,.45); 
+  }
+  .btn-gold:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 14px 32px rgba(201,168,106,.55); 
+  }
+  .btn-wa { 
+    background: #25D366; 
+    color: #fff; 
+    box-shadow: 0 10px 26px rgba(37,211,102,.3); 
+  }
+  .btn-wa:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 14px 32px rgba(37,211,102,.4); 
+  }
+  .btn-wa svg { 
+    width: 20px; 
+    height: 20px; 
+    fill: #fff; 
+  }
+  .actions { 
+    display: flex; 
+    gap: 16px; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+  }
+  
+  footer { 
+    background: var(--wine-dark); 
+    color: #fff; 
+    padding: 36px 0; 
+    text-align: center; 
+    margin-top: auto; 
+  }
+  footer .fl { 
+    font-family: 'Montserrat'; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    font-size: 18px; 
+    margin-bottom: 6px; 
+  }
+  footer p { 
+    font-size: 13px; 
+    opacity: .7; 
+    margin: 6px auto; 
+  }
+  footer .copy { 
+    opacity: .6; 
+    margin-top: 16px; 
+  }
+
+  @media(max-width: 600px) {
+    .ty-card { padding: 40px 24px; }
+    .actions { flex-direction: column; }
+    .btn { width: 100%; }
+    .bonus-box { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+  <section class="thank-you-sec">
+    <div class="wrap" style="display:flex; justify-content:center;">
+      <div class="ty-card">
+        <div class="tick-circle">✓</div>
+        <h1>Objednávka přijata!</h1>
+        <p class="lead">Děkujeme za vaši objednávku. Brzy se vám ozveme pro potvrzení.</p>
+        
+        <div class="bonus-box">
+          <span>📩</span>
+          <div>
+            <b>Průvodce a jídelníček akademika Bolotova</b> jsme už odeslali na váš e-mail. Zkontrolujte složku Doručená pošta (nebo Spam, pokud tam e-mail není).
+          </div>
+        </div>
+        
+        <div class="actions">
+          <a href="index-cz.html" class="btn btn-gold">Zpět na web</a>
+          <a href="https://wa.me/421944623644" target="_blank" rel="noopener" class="btn btn-wa">
+            <svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.2c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.9 20.8 3.3 18.4 3.3 16 3.3 9 9 3.3 16 3.3S28.7 9 28.7 16 23 28.7 16 28.7zm7.7-9.5c-.4-.2-2.5-1.2-2.9-1.4-.4-.1-.7-.2-1 .2-.3.4-1.1 1.4-1.3 1.6-.2.2-.5.3-.9.1-.4-.2-1.8-.7-3.4-2.1-1.3-1.1-2.1-2.5-2.4-2.9-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.1-.2.2-.4.3-.6.1-.2.1-.4 0-.6-.1-.2-.9-2.3-1.3-3.1-.3-.7-.7-.6-.9-.6h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.5 7.1 6.3 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.5-1 2.8-2 .3-1 .3-1.8.2-2-.1-.2-.4-.3-.8-.5z"/></svg>
+            Napsat na WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="wrap">
+      <div class="fl">Systém Bolotova · Centrum Bolotova</div>
+      <p>Zdraví a péče o sebe každý den.</p>
+      <p class="copy">© 2010–2026 Bolotov Center · HataVia s.r.o. Všechna práva vyhrazena.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Логика добавления email в SendPulse при загрузке страницы
+    document.addEventListener("DOMContentLoaded", function() {
+      try {
+        const orderDataStr = sessionStorage.getItem('orderData');
+        if (orderDataStr) {
+          const orderData = JSON.parse(orderDataStr);
+          
+          // Отправляем запрос на наш бэкенд для подписки
+          fetch('backend/public/api/subscribe.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+          })
+          .then(res => res.json())
+          .then(data => {
+            console.log('SendPulse sync result:', data);
+          })
+          .catch(err => console.error('SendPulse sync error:', err));
+          
+          // Очищаем данные, чтобы не отправить повторно при обновлении страницы
+          sessionStorage.removeItem('orderData');
+        }
+      } catch (e) {
+        console.error('Error processing order data:', e);
+      }
+    });
+  </script>
+</body>
+</html>
