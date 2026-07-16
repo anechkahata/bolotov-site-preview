@@ -11,6 +11,10 @@ Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # ── Force HTTPS (redirect any http:// request to https://) ───────────────────
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
   # ── Clean API URLs: /api/<name> -> /api/<name>.php  (e.g. /api/order, /api/stripe-webhook).
   # Only when the request isn't a real file/dir AND the .php target exists.
   RewriteCond %{REQUEST_FILENAME} !-f
@@ -32,4 +36,21 @@ Options -Indexes
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f
   RewriteRule ^([^.]+?)/?$ $1.html [L]
+</IfModule>
+
+# ── Security headers ───────────────────────────────────────────────────────────
+# Sent with every response. CSP (Content-Security-Policy) is intentionally NOT set
+# here yet — it needs careful whitelisting of GTM/GA4/Stripe/fonts and testing on
+# the live site, so it's a separate task to avoid breaking analytics/checkout.
+<IfModule mod_headers.c>
+  # Always use HTTPS for a year (browsers ignore this header over plain HTTP).
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  # Don't let browsers guess (sniff) a file's type — blocks a class of attacks.
+  Header always set X-Content-Type-Options "nosniff"
+  # Disallow embedding our pages in other sites' frames (anti-clickjacking).
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # Send only the origin (not the full path) as referrer to other sites.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # Turn off browser features the site doesn't use.
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
 </IfModule>
