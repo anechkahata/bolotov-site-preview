@@ -99,10 +99,6 @@ section{padding:64px 0}
   overflow:hidden;background:#000;border:7px solid #fff;
   box-shadow:0 26px 56px rgba(94,32,57,.32)}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.video-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);z-index:3;
-  background:var(--magenta);color:#fff;font-family:'Montserrat';font-weight:800;font-size:11px;
-  letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;border-radius:0;
-  box-shadow:0 8px 18px rgba(156,42,110,.4);white-space:nowrap}
 @media(max-width:860px){.heroC-grid{grid-template-columns:1fr}.video-wrap{order:-1}}
 
 /* ============ HERO ============ */
@@ -148,8 +144,8 @@ section{padding:64px 0}
 .mech-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:stretch;margin-top:26px}
 .mech-steps{display:flex;flex-direction:column}
 .mech-next{align-self:flex-start;margin-top:14px}
-.mech-side{display:flex;flex-direction:column;justify-content:space-between;gap:20px}
-.mech-img{width:auto;max-width:300px;max-height:210px;height:auto;object-fit:contain;margin:0 auto;display:block}
+.mech-side{display:flex;flex-direction:column;justify-content:flex-start;gap:26px}
+.mech-img{width:auto;max-width:380px;max-height:300px;height:auto;object-fit:contain;margin:0 auto;display:block}
 .mech-steps{counter-reset:step}
 .mech-step{display:flex;gap:16px;margin-bottom:22px}
 .mech-step .num{flex-shrink:0;width:46px;height:46px;border-radius:50%;
@@ -350,7 +346,7 @@ section{padding:64px 0}
 .strip img:hover{transform:translateY(-6px) scale(1.03)}
 
 /* ============ REVIEWS ============ */
-.reviews{background:linear-gradient(180deg,#fff,var(--cream))}
+.reviews{background:linear-gradient(180deg,#fff,var(--cream));padding-bottom:20px}
 .rev-strip{margin-top:30px}
 .rev-strip img{width:270px;cursor:zoom-in;border-radius:0;box-shadow:0 8px 26px rgba(94,32,57,.1);border:1px solid #efe5db}
 .rev-strip img:hover{transform:translateY(-6px) scale(1.03)}
@@ -380,6 +376,8 @@ section{padding:64px 0}
 .offer-ebook{margin:18px 0 4px;max-width:470px;background:var(--sage);border:1px solid var(--sage-deep);
   color:var(--wine-dark);font-size:13.5px;line-height:1.45;padding:12px 16px;border-radius:0}
 .offer-ebook b{color:var(--wine)}
+.ship-courier-label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.ship-cost{text-transform:none;letter-spacing:.2px;font-weight:700;font-size:13px;color:var(--wine-dark)}
 .order-sum{margin:4px 26px 2px;padding:14px 16px;background:var(--cream);border:1px solid #ece4dc;border-radius:0}
 .os-row{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:#555;margin-bottom:6px}
 .os-row:last-child{margin-bottom:0}
@@ -1000,8 +998,8 @@ document.addEventListener('DOMContentLoaded',function(){
 .wnp-offer .btn-gold{font-size:16px;padding:16px 32px}
 .wnp-deadline{font-size:13.5px;color:#7a6a70;margin:14px auto 0;max-width:470px;line-height:1.5}
 .wnp-deadline b{color:var(--wine);font-weight:800}
-.wnp-more{display:inline-block;margin-top:16px;color:var(--magenta);font-size:14px;text-decoration:underline;cursor:pointer}
-.mid-offer{text-align:center;margin-top:30px}
+.wnp-more{display:block;width:fit-content;margin:14px auto 0;color:var(--magenta);font-size:14px;text-decoration:underline;cursor:pointer}
+.mid-offer{text-align:center;margin-top:8px}
 .mid-risk{font-size:13px;color:#6f6066;margin-top:12px}
 .mid-risk b{color:var(--wine)}
 .mech .kicker{font-size:clamp(24px,3.6vw,38px);font-weight:900;color:var(--wine);letter-spacing:1px;margin-bottom:6px}
@@ -1026,14 +1024,13 @@ document.addEventListener('DOMContentLoaded',function(){
         <p>Поддерживает саму работу желудка — помогает пище перевариваться полноценно. Работает с причиной, а не маскирует ощущение. Мягко и естественно, как часть ежедневного рациона.</p>
       </div>
     </div>
-    <div class="wnp-what"><b>Что это:</b> жидкий бальзам по рецептуре системы академика Болотова · натуральный состав · 500 мл · принимать по 10 дней в месяц.</div>
     <div class="wnp-offer">
       <a href="#orderCard" class="btn btn-gold">🎁 Заказать бальзам + книгу в подарок</a>
       <p class="mid-risk">💳 <b>Оплата при получении</b> · возврат 14 дней · доставка ЧР и СР</p>
-      <p class="wnp-deadline">Акция до 15 августа — книга академика (306 стр.) в подарок. Осталось <b id="wnpDays">—</b> дн.</p>
+      <p class="wnp-deadline">Акция до 15 августа — книга академика (306 стр.) в подарок.</p>
+      <a href="#tovar" class="wnp-more">Узнать больше о «Бальзаме Болотова» →</a>
       <a href="#istoriya" class="wnp-more">А это правда работает? Посмотреть отзывы →</a>
     </div>
-    <script>(function(){var el=document.getElementById('wnpDays');if(!el)return;var dl=new Date('2026-08-15T23:59:59+02:00').getTime();var d=Math.max(0,Math.ceil((dl-Date.now())/86400000));el.textContent=d;})();</script>
   </div>
 </section>
 
@@ -1045,7 +1042,6 @@ document.addEventListener('DOMContentLoaded',function(){
     <div class="story-wrap">
       <div class="story-photo">
         <div class="video-frame">
-          <div class="video-tag">▶ Смотреть видео</div>
           <iframe class="yt-iframe" src="about:blank" data-src="https://www.youtube.com/embed/w6-i5Cuo8f4?rel=0&playsinline=1&modestbranding=1"
             title="Видео — Олег, Центр Болотова" loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -1085,16 +1081,16 @@ document.addEventListener('DOMContentLoaded',function(){
 .pc-price{font-size:14px;color:#6f6066}
 .pc-price b{color:var(--wine);font-size:16px}
 .prodcard-photo img{width:100%;border-radius:0;box-shadow:0 24px 54px rgba(94,32,57,.22);display:block}
-.prod-wa{margin-top:42px;background:#fff;border:1px solid #ecdfce;border-radius:0;padding:24px 28px;display:flex;gap:22px;align-items:center;justify-content:center;flex-wrap:wrap;box-shadow:0 10px 30px rgba(94,32,57,.07)}
-.pw-text{max-width:540px}
+.prod-wa{margin-top:22px;padding:0;display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap}
+.pw-text{max-width:520px}
 .pw-text b{color:var(--wine)}
-.pw-text p{margin:0;font-size:15.5px;color:#3a3a3a;line-height:1.55}
-.pw-text small{display:block;color:#8a7d82;font-size:13px;margin-top:6px}
+.pw-text p{margin:0;font-size:14.5px;color:#3a3a3a;line-height:1.5}
+.pw-text small{display:block;color:#8a7d82;font-size:12.5px;margin-top:4px}
 .pw-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff !important;font-family:'Montserrat';font-weight:800;font-size:15px;padding:14px 26px;border-radius:0;white-space:nowrap;box-shadow:0 10px 24px rgba(37,211,102,.35)}
 .pw-btn svg{width:20px;height:20px;fill:#fff}
 @media(max-width:860px){.prodcard{grid-template-columns:1fr;gap:26px}.prodcard-photo{order:-1}.prod-wa{flex-direction:column;text-align:center}}
 </style>
-<section class="prod">
+<section class="prod" id="tovar">
   <div class="wrap">
     <div class="prodcard">
       <div class="prodcard-info">
@@ -1110,7 +1106,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </ul>
         <div class="pc-highlight">✓ Способствует комфортному пищеварению</div>
         <div class="pc-buy">
-          <a href="#orderCard" class="btn btn-gold">Заказать бальзам →</a>
+          <a href="#orderCard" class="btn btn-gold">Заказать бальзам + подарок →</a>
           <span class="pc-price">500 мл · в комплекте с книгой — <b>1 010 Kč</b> (41 €)</span>
         </div>
       </div>
@@ -1244,7 +1240,7 @@ function toggleBundle(){
 
 <!-- ===== OFFER + FORM ===== -->
 <style>
-.fsteps-bar{display:flex;gap:10px;margin:2px 0 18px}
+.fsteps-bar{display:flex;gap:10px;margin:2px 0 18px;scroll-margin-top:78px}
 .fstep-dot{flex:1;text-align:center;font-family:'Montserrat';font-weight:700;font-size:12px;letter-spacing:.2px;color:#b7a9af;padding:9px 6px;border-radius:0;background:#f1e9e2;transition:all .2s}
 .fstep-dot.active{color:#fff;background:var(--wine)}
 .fstep[hidden]{display:none}
@@ -1266,7 +1262,7 @@ function formStep(n){
   }
   f.querySelectorAll('.fstep').forEach(function(s){ s.hidden=(+s.getAttribute('data-fstep'))!==n; });
   f.querySelectorAll('.fstep-dot').forEach(function(d){ d.classList.toggle('active',(+d.getAttribute('data-dot'))<=n); });
-  var oc=document.getElementById('orderCard'); if(oc) oc.scrollIntoView({behavior:'smooth',block:'start'});
+  var b=document.getElementById('fStepsBar'); if(b) b.scrollIntoView({behavior:'smooth',block:'start'});
 }
 </script>
 <section class="offer" id="order">
@@ -1275,15 +1271,8 @@ function formStep(n){
     <div>
       <div class="kicker" style="color:var(--gold-light)">Специальное предложение</div>
       <h2 class="sec">Бальзам + книга — по цене одного бальзама</h2>
-      <p class="lead">Обычно бальзам и книга академика вместе — 1 519 Kč (62 €). Сегодня весь комплект — 1 010 Kč, книгу вы получаете фактически в подарок.</p>
       <img class="offer-photo" src="img/kniha/2-1.png" alt="Люди, выбравшие систему Болотова — с книгой академика Болотова">
       <div class="offer-ebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm0 2v.4l8 5 8-5V6H4zm16 12V8.7l-7.5 4.6a1 1 0 01-1 0L4 8.7V18h16z"/></svg><b>Гайд и меню</b> — в электронном виде: придут на почту сразу после заказа. Книга едет в посылке.</div>
-      <div class="price-box">
-        <span class="old">1 519 Kč</span>
-        <span class="new">1 010<small> Kč</small></span>
-      </div>
-      <span class="save">Книга в подарок · экономия 509 Kč</span>
-      <p style="font-size:13px;opacity:.9;margin-top:12px">Цена при <b>оплате вперёд</b> (41 €) · наложенным платежом — <b>1 060 Kč</b> (43 €).</p>
       <div class="offer-trust">
         <div class="ot"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM12 5.3L18.4 9 12 12.7 5.6 9zM5 10.6l6 3.4v6.1l-6-3.4zm14 0v6.1l-6 3.4V14z"/></svg></span><div><b>Доставка по всей Чехии</b><small>Отправляем сразу после подтверждения заказа.</small></div></div>
         <div class="ot"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 11-5 5H5a7 7 0 107-7z"/></svg></span><div><b>Возврат в течение 14 дней</b><small>Не подошло — вернём средства по правилам ЕС.</small></div></div>
@@ -1323,14 +1312,9 @@ function formStep(n){
           <div class="po-desc">Оплата при получении (+50 Kč за наложенный)</div>
         </label>
       </div>
-      <div class="order-sum">
-        <div class="os-row"><span>Товар</span><span id="os-goods">1 010 Kč</span></div>
-        <div class="os-row"><span>Доставка</span><span>99 Kč</span></div>
-        <div class="os-row os-total"><span>Итого</span><span id="os-total">1 109 Kč <small>(46 €)</small></span></div>
-      </div>
       <!-- Форма заказа. На запуске: подключить CZ-воронку amoCRM + оплату (Stripe) через ENDPOINT/бэкенд. -->
       <form class="order-form" id="orderForm" onsubmit="return submitOrder(event)" novalidate>
-        <div class="fsteps-bar">
+        <div class="fsteps-bar" id="fStepsBar">
           <span class="fstep-dot active" data-dot="1">1 · Контакты</span>
           <span class="fstep-dot" data-dot="2">2 · Доставка</span>
         </div>
@@ -1360,7 +1344,7 @@ function formStep(n){
             <input id="f-street" type="text" name="street" autocomplete="address-line1" placeholder="Например, Karlova 12/3"></div>
         </div>
         <p class="ship-note">Доставка: Чехия и Словакия. Другие страны — <a href="https://wa.me/421944623644?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%20%D1%81%20%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%BE%D0%B9%20%D0%B2%20%D0%B4%D1%80%D1%83%D0%B3%D1%83%D1%8E%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%83." target="_blank" rel="noopener">WhatsApp</a>.</p>
-        <div class="field"><label>Служба доставки</label>
+        <div class="field"><label class="ship-courier-label">Служба доставки <span class="ship-cost">Доставка&nbsp;— 99&nbsp;Kč (5&nbsp;€)</span></label>
           <div class="courier-opts">
             <label class="courier"><input type="radio" name="dost" value="DPD" checked><span>DPD</span></label>
             <label class="courier"><input type="radio" name="dost" value="PPL"><span>PPL</span></label>
@@ -1486,7 +1470,7 @@ function formStep(n){
    Вставьте ваш endpoint (Formspree / webhook AmoCRM) в ENDPOINT.
    Пусто — форма покажет «спасибо» без реальной отправки (демо).
 ========================================================== */
-const ENDPOINT = "";
+const ENDPOINT = "backend/public/api/order.php";
 
 /* ===== Телефон: intl-tel-input (флаги + валидация по стране) ===== */
 var itiPhone = null;
