@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="description" content="Centrum Bolotova — схема пути заказа: приём, оплата, склад, невыкуп, возврат, письма, сроки, метки и повторные клиенты.">
+<style>*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}</style>
+<title>Схема заказа — как хочется</title>
+<style>
+  :root {
+    --paper:#FBF8F3; --ink:#211B1D; --soft:#6B6063; --faint:#9C9093;
+    --rule:#E3DAD3; --wine:#7A2B3B; --sage:#5F7053; --gold:#9E6F2C; --sky:#3D6480;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#161213; --ink:#F2EAEB; --soft:#B2A5A8; --faint:#7C7074; --rule:#342B2E;
+            --wine:#E0929F; --sage:#A2B492; --gold:#D4A75F; --sky:#8FB6CE; }
+  }
+  :root[data-theme="dark"]{ --paper:#161213; --ink:#F2EAEB; --soft:#B2A5A8; --faint:#7C7074; --rule:#342B2E;
+            --wine:#E0929F; --sage:#A2B492; --gold:#D4A75F; --sky:#8FB6CE; }
+  :root[data-theme="light"]{ --paper:#FBF8F3; --ink:#211B1D; --soft:#6B6063; --faint:#9C9093; --rule:#E3DAD3;
+            --wine:#7A2B3B; --sage:#5F7053; --gold:#9E6F2C; --sky:#3D6480; }
+
+  body { background:var(--paper); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  .sheet { max-width:1080px; margin:0 auto; padding:40px 18px 70px; }
+
+  .kicker { font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--wine); margin:0 0 12px; }
+  h1 { font-family:var(--serif); font-weight:400; font-size:clamp(27px,5.2vw,40px); line-height:1.12; margin:0 0 12px; letter-spacing:-.015em; text-wrap:balance; }
+  .lede { color:var(--soft); max-width:64ch; margin:0 0 8px; }
+
+  h2 { font-family:var(--serif); font-weight:400; font-size:23px; margin:0 0 4px; }
+  .num { font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--wine); display:block; margin-bottom:6px; }
+  .sub { color:var(--soft); font-size:13.5px; margin:0 0 18px; max-width:68ch; }
+  section { margin-top:54px; }
+
+  .legend { display:flex; flex-wrap:wrap; gap:8px 18px; margin:0 0 20px; font-size:12.8px; color:var(--soft); }
+  .lg { display:inline-flex; align-items:center; gap:7px; }
+  .sw { width:14px; height:14px; border-radius:2px; border:1.5px solid; flex:none; }
+  .sw.src { background:#E7EFF4; border-color:#3D6480; }
+  .sw.auto { background:#E9EFE4; border-color:#5F7053; }
+  .sw.hand { background:#F8EEDC; border-color:#9E6F2C; }
+  .sw.wait { background:#EFEAF4; border-color:#6A5A80; }
+  .sw.key  { background:#7A2B3B; border-color:#5E1F2C; }
+  .sw.gate { background:#FBF8F3; border-color:#7A2B3B; transform:rotate(45deg); width:12px; height:12px; }
+
+  .board { background:#FCFAF7; border:1px solid var(--rule); border-radius:4px; padding:22px 12px; overflow-x:auto; }
+  .board pre.mermaid { background:transparent; margin:0; text-align:center; }
+  .board svg { max-width:100%; height:auto; }
+
+  .cap { margin-top:13px; font-size:13px; color:var(--soft); max-width:70ch; }
+  .cap b { color:var(--ink); }
+
+  .callout { margin-top:16px; border-left:3px solid var(--wine); background:var(--paper); padding:14px 16px; font-size:13.6px; line-height:1.5; }
+  .callout .h { font-weight:700; margin-bottom:5px; }
+  .callout p { margin:6px 0; }
+
+  .tw { overflow-x:auto; border:1px solid var(--rule); border-radius:3px; }
+  table { border-collapse:collapse; width:100%; min-width:540px; }
+  th, td { text-align:left; padding:10px 13px; border-bottom:1px solid var(--rule); font-size:13.4px; vertical-align:top; }
+  th { font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--faint); font-weight:700; }
+  tbody tr:last-child td { border-bottom:0; }
+  td.who { white-space:nowrap; font-weight:650; }
+  td.who.a { color:var(--sage); }
+  td.who.h { color:var(--gold); }
+  td.st { white-space:nowrap; font-weight:650; }
+  td.tm { white-space:nowrap; font-family:var(--mono); font-size:12.5px; color:var(--wine); }
+
+  .needs { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  @media (max-width:760px){ .needs { grid-template-columns:1fr; } }
+  .need { border:1px solid var(--rule); border-radius:3px; padding:15px 16px; }
+  .need .n-t { font-weight:700; font-size:14px; margin-bottom:5px; }
+  .need .n-d { font-size:13px; color:var(--soft); line-height:1.45; }
+
+  footer { margin-top:54px; padding-top:16px; border-top:1px solid var(--rule); font-size:12.6px; color:var(--faint); }
+</style>
+</head>
+<body>
+
+
+<div class="sheet">
+
+  <p class="kicker">Centrum Bolotova · как хочется</p>
+  <h1>Путь заказа целиком</h1>
+  <p class="lede">Ромб — развилка. Сделка не закрывается, пока вопрос не решён, и после любой починки
+    возвращается на «Передан на склад» — той же сделкой, с тем же номером.</p>
+
+  <div class="legend">
+    <span class="lg"><span class="sw src"></span>откуда пришёл</span>
+    <span class="lg"><span class="sw gate"></span>развилка</span>
+    <span class="lg"><span class="sw auto"></span>система делает сама</span>
+    <span class="lg"><span class="sw hand"></span>менеджер руками</span>
+    <span class="lg"><span class="sw wait"></span>сделка ждёт</span>
+    <span class="lg"><span class="sw key"></span>ключевое действие</span>
+  </div>
+
+  <section style="margin-top:34px">
+    <h2><span class="num">ЧАСТЬ 1</span>От заказа до склада</h2>
+    <p class="sub">Приём, проверки, оплата и отправка.</p>
+    <div class="board">
+<pre class="mermaid">
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#9A8B82","primaryColor":"#FFFFFF","primaryTextColor":"#211B1D","primaryBorderColor":"#C9BDB4","edgeLabelBackground":"#FCFAF7"},"flowchart":{"curve":"linear","nodeSpacing":38,"rankSpacing":46,"useMaxWidth":true}} }%%
+flowchart TB
+  START(("Клиент оформил заказ"))
+  TIL["ТИЛЬДА"]
+  BOT["БОТ TELEGRAM"]
+  POL["САЙТ ПОЛЬША"]
+  OPT["ОПТ"]
+  OLD["СТАРЫЕ САЙТЫ"]
+  START --> TIL
+  START --> BOT
+  START --> POL
+  START --> OPT
+  START --> OLD
+
+  DUP{"Похож на дубль?"}
+  TIL --> DUP
+  BOT --> DUP
+  POL --> DUP
+  OPT --> DUP
+  OLD --> DUP
+  LINKED["Связываем со старой сделкой, решает менеджер"]
+  DUP -- "да" --> LINKED
+
+  DEAL["Сделка в воронке своей страны"]
+  DUP -- "нет" --> DEAL
+  LINKED --> DEAL
+
+  OWNER["Назначен ответственный менеджер"]
+  DEAL --> OWNER
+
+  CHK{"Всё заполнено верно?"}
+  OWNER --> CHK
+  SELF{"Чинится без клиента?"}
+  CHK -- "нет" --> SELF
+  AUTO["Система чинит молча"]
+  SELF -- "да, само" --> AUTO
+  HAND["Менеджер правит в карточке"]
+  SELF -- "да, руками" --> HAND
+  ASK["Пишем клиенту, что уточняем"]
+  SELF -- "нет, нужен клиент" --> ASK
+  WAIT["ЖДЁМ КЛИЕНТА"]
+  ASK --> WAIT
+  ANS{"Клиент ответил?"}
+  WAIT --> ANS
+  ANS -- "да" --> HAND
+  LOST(("Закрыто · нет связи"))
+  ANS -- "нет, тишина" --> LOST
+
+  OK["Менеджер посмотрел заказ"]
+  CHK -- "да" --> OK
+  AUTO --> OK
+  HAND --> OK
+
+  PAY{"Как платит?"}
+  OK --> PAY
+  PRE{"Деньги пришли?"}
+  PAY -- "предоплата, карта, опт" --> PRE
+  REMIND["Письмо с напоминанием об оплате"]
+  PRE -- "нет" --> REMIND
+  WAITPAY["ЖДЁМ ОПЛАТУ"]
+  REMIND --> WAITPAY
+  PAID2{"Оплатил?"}
+  WAITPAY --> PAID2
+  NOPAY(("Закрыто · не оплачен"))
+  PAID2 -- "нет" --> NOPAY
+
+  DRAG["ПЕРЕТАЩИТЬ НА ПЕРЕДАН НА СКЛАД"]
+  PAY -- "наложка" --> DRAG
+  PRE -- "да" --> DRAG
+  PAID2 -- "да" --> DRAG
+
+  TOOK{"Склад принял?"}
+  DRAG --> TOOK
+  REJ["Не принял · причины в части 3"]
+  TOOK -- "нет" --> REJ
+  EDIT["НА ПРАВКЕ"]
+  REJ --> EDIT
+  EDIT --> DRAG
+
+  WH(("Заказ на складе · дальше часть 2"))
+  TOOK -- "да" --> WH
+
+  classDef src fill:#E7EFF4,stroke:#3D6480,stroke-width:1.4px,color:#22303A;
+  classDef auto fill:#E9EFE4,stroke:#5F7053,stroke-width:1.4px,color:#2A331F;
+  classDef hand fill:#F8EEDC,stroke:#9E6F2C,stroke-width:1.4px,color:#3A2A10;
+  classDef wait fill:#EFEAF4,stroke:#6A5A80,stroke-width:1.6px,color:#2E2739;
+  classDef key fill:#7A2B3B,stroke:#5E1F2C,stroke-width:1.6px,color:#FFFFFF;
+  classDef gate fill:#FBF8F3,stroke:#7A2B3B,stroke-width:1.4px,color:#7A2B3B;
+  classDef plain fill:#FFFFFF,stroke:#C9BDB4,stroke-width:1.2px,color:#211B1D;
+  classDef ends fill:#F1EDE7,stroke:#9A8B82,stroke-width:1.4px,color:#4A403F;
+
+  class TIL,BOT,POL,OPT,OLD src;
+  class DUP,CHK,SELF,ANS,PAY,PRE,PAID2,TOOK gate;
+  class AUTO auto;
+  class HAND,REJ,ASK,REMIND,LINKED hand;
+  class WAIT,EDIT,WAITPAY wait;
+  class DRAG key;
+  class DEAL,OWNER,OK plain;
+  class START,WH,LOST,NOPAY ends;
+</pre>
+    </div>
+    <p class="cap">Три места, где сделка <b>ждёт</b>, а не закрывается: «Ждём клиента», «Ждём оплату», «На правке».</p>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 2</span>От склада до клиента</h2>
+    <p class="sub">Отправка, доставка, невыкуп и возврат. Возврат денег зависит от того, платил ли клиент вообще.</p>
+    <div class="board">
+<pre class="mermaid">
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#9A8B82","primaryColor":"#FFFFFF","primaryTextColor":"#211B1D","primaryBorderColor":"#C9BDB4","edgeLabelBackground":"#FCFAF7"},"flowchart":{"curve":"linear","nodeSpacing":36,"rankSpacing":46,"useMaxWidth":true}} }%%
+flowchart TB
+  WH2(("Заказ на складе"))
+  STOP{"Нужно остановить?"}
+  WH2 --> STOP
+  WHO{"Кто останавливает?"}
+  STOP -- "да" --> WHO
+  W1["СКЛАД · причины в части 3"]
+  W2["МЫ САМИ · причины в части 3"]
+  W3["КЛИЕНТ попросил отменить"]
+  WHO -- "склад" --> W1
+  WHO -- "мы" --> W2
+  WHO -- "клиент" --> W3
+  EDIT2["НА ПРАВКЕ"]
+  W1 --> EDIT2
+  W2 --> EDIT2
+  BACK["Вернуться на Передан на склад"]
+  EDIT2 --> BACK
+  WANT{"Клиент хочет вообще отказаться?"}
+  W3 --> WANT
+  WANT -- "нет, просто поправить" --> EDIT2
+  MONEY{"Клиент уже платил?"}
+  WANT -- "да, отменяем" --> MONEY
+
+  SENT["Отправлен · трек-номер у клиента"]
+  STOP -- "нет" --> SENT
+  PART{"Отправили всё?"}
+  SENT --> PART
+  REST["Остаток отдельной отправкой"]
+  PART -- "нет, часть" --> REST
+  REST --> BACK
+
+  GOT{"Клиент получил?"}
+  PART -- "да" --> GOT
+  DELIV["Доставлен"]
+  GOT -- "да" --> DELIV
+  NOGET["НЕВЫКУП · причины в части 3"]
+  GOT -- "нет" --> NOGET
+  RETURN["ВОЗВРАТ · товар едет назад"]
+  NOGET --> RETURN
+  RETURN --> MONEY
+
+  COD["Наложка · денег не было"]
+  MONEY -- "нет, наложка" --> COD
+  PREP{"Что решили?"}
+  MONEY -- "да, платил" --> PREP
+  AGAIN{"Шлём заново?"}
+  COD --> AGAIN
+  AGAIN -- "да" --> BACK
+  CLOSED(("Закрыто с причиной"))
+  AGAIN -- "нет" --> CLOSED
+  PREP -- "шлём заново" --> BACK
+  REFUND["Возвращаем деньги"]
+  PREP -- "возвращаем деньги" --> REFUND
+  REFUND --> CLOSED
+
+  MAIL["Письма клиенту · схема в части 4"]
+  DELIV --> MAIL
+  FIN(("Успешно реализовано"))
+  MAIL --> FIN
+
+  classDef auto fill:#E9EFE4,stroke:#5F7053,stroke-width:1.4px,color:#2A331F;
+  classDef hand fill:#F8EEDC,stroke:#9E6F2C,stroke-width:1.4px,color:#3A2A10;
+  classDef wait fill:#EFEAF4,stroke:#6A5A80,stroke-width:1.6px,color:#2E2739;
+  classDef key fill:#7A2B3B,stroke:#5E1F2C,stroke-width:1.6px,color:#FFFFFF;
+  classDef gate fill:#FBF8F3,stroke:#7A2B3B,stroke-width:1.4px,color:#7A2B3B;
+  classDef plain fill:#FFFFFF,stroke:#C9BDB4,stroke-width:1.2px,color:#211B1D;
+  classDef ends fill:#F1EDE7,stroke:#9A8B82,stroke-width:1.4px,color:#4A403F;
+
+  class STOP,WHO,WANT,MONEY,PART,GOT,PREP,AGAIN gate;
+  class W1,W2,W3,NOGET,REST,REFUND hand;
+  class EDIT2,RETURN wait;
+  class BACK key;
+  class SENT,DELIV,MAIL,COD plain;
+  class WH2,FIN,CLOSED ends;
+</pre>
+    </div>
+    <div class="callout">
+      <div class="h">Важная развилка, которой раньше не было</div>
+      <p><b>При наложке возвращать нечего</b> — клиент не платил. Товар вернулся, решаем только одно:
+        отправить заново или закрыть с причиной. Возврат денег бывает только у предоплаты, карты и опта.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 3</span>Все причины, по которым что-то пошло не так</h2>
+    <p class="sub">Три группы: склад не принял сразу, заказ остановили после приёмки, клиент не забрал посылку.</p>
+
+    <div class="board">
+<pre class="mermaid">
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#9A8B82","primaryColor":"#FFFFFF","primaryTextColor":"#211B1D","primaryBorderColor":"#C9BDB4","edgeLabelBackground":"#FCFAF7"},"flowchart":{"curve":"linear","nodeSpacing":18,"rankSpacing":80,"useMaxWidth":true}} }%%
+flowchart LR
+  R1["Имя получателя пустое"]
+  R2["Индекс не того формата"]
+  R3["Телефон короткий или без кода страны"]
+  R4["Не указан пункт выдачи"]
+  R5["Товар не опознан складом"]
+  R6["Нет улицы или города"]
+  R7["Валюта не та для страны"]
+  R8["Наложка с нулевой суммой"]
+  SAY["СКЛАД НЕ ПРИНЯЛ · причина по-русски в поле, в примечании и в Telegram"]
+  R1 --> SAY
+  R2 --> SAY
+  R3 --> SAY
+  R4 --> SAY
+  R5 --> SAY
+  R6 --> SAY
+  R7 --> SAY
+  R8 --> SAY
+  E["НА ПРАВКЕ · правим именно то, что названо"]
+  SAY --> E
+  D["Перетащить снова"]
+  E --> D
+  classDef gap fill:#F8EEDC,stroke:#9E6F2C,stroke-width:1.3px,color:#3A2A10;
+  classDef auto fill:#E9EFE4,stroke:#5F7053,stroke-width:1.4px,color:#2A331F;
+  classDef wait fill:#EFEAF4,stroke:#6A5A80,stroke-width:1.6px,color:#2E2739;
+  classDef key fill:#7A2B3B,stroke:#5E1F2C,stroke-width:1.6px,color:#FFFFFF;
+  class R1,R2,R3,R4,R5,R6,R7,R8 gap;
+  class SAY auto;
+  class E wait;
+  class D key;
+</pre>
+    </div>
+
+    <div class="board" style="margin-top:16px">
+<pre class="mermaid">
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#9A8B82","primaryColor":"#FFFFFF","primaryTextColor":"#211B1D","primaryBorderColor":"#C9BDB4","edgeLabelBackground":"#FCFAF7"},"flowchart":{"curve":"linear","nodeSpacing":18,"rankSpacing":74,"useMaxWidth":true}} }%%
+flowchart LR
+  S1["Нет товара на складе"]
+  S2["Курьер не смог доставить"]
+  S3["Адрес не найден"]
+  W["ОСТАНОВИЛ СКЛАД · причину присылает сам"]
+  S1 --> W
+  S2 --> W
+  S3 --> W
+  M1["Клиент дозаказал"]
+  M2["Нашли ошибку в адресе"]
+  M3["Клиент передумал по составу"]
+  M4["Просит другой день или перевозчика"]
+  M["ОСТАНОВИЛИ МЫ · менеджер выбирает причину из списка"]
+  M1 --> M
+  M2 --> M
+  M3 --> M
+  M4 --> M
+  C1["Клиент просит отменить"]
+  C2["Клиент просит поправить"]
+  C["ПОПРОСИЛ КЛИЕНТ"]
+  C1 --> C
+  C2 --> C
+  E2["НА ПРАВКЕ · сделка не закрывается, номер прежний"]
+  W --> E2
+  M --> E2
+  C --> E2
+  D2["Перетащить снова"]
+  E2 --> D2
+  classDef gap fill:#F8EEDC,stroke:#9E6F2C,stroke-width:1.3px,color:#3A2A10;
+  classDef src fill:#E7EFF4,stroke:#3D6480,stroke-width:1.4px,color:#22303A;
+  classDef cli fill:#F1E7F0,stroke:#7A4A72,stroke-width:1.4px,color:#33202F;
+  classDef hand fill:#F1E3CB,stroke:#9E6F2C,stroke-width:1.6px,color:#3A2A10;
+  classDef wait fill:#EFEAF4,stroke:#6A5A80,stroke-width:1.6px,color:#2E2739;
+  classDef key fill:#7A2B3B,stroke:#5E1F2C,stroke-width:1.6px,color:#FFFFFF;
+  class S1,S2,S3 src;
+  class M1,M2,M3,M4 gap;
+  class C1,C2 cli;
+  class W,M,C hand;
+  class E2 wait;
+  class D2 key;
+</pre>
+    </div>
+
+    <div class="board" style="margin-top:16px">
+<pre class="mermaid">
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#9A8B82","primaryColor":"#FFFFFF","primaryTextColor":"#211B1D","primaryBorderColor":"#C9BDB4","edgeLabelBackground":"#FCFAF7"},"flowchart":{"curve":"linear","nodeSpacing":18,"rankSpacing":78,"useMaxWidth":true}} }%%
+flowchart LR
+  N1["Передумал"]
+  N2["Не дозвонились"]
+  N3["Не забрал с пункта выдачи"]
+  N4["Не было дома"]
+  N5["Нашёл дешевле"]
+  N6["Не ждал посылку · забыл о заказе"]
+  NG["НЕВЫКУП · причину выбирает менеджер из списка"]
+  N1 --> NG
+  N2 --> NG
+  N3 --> NG
+  N4 --> NG
+  N5 --> NG
+  N6 --> NG
+  CNT["СЧИТАЕМ: доля невыкупа по каналам, по рекламе, по перевозчикам"]
+  NG --> CNT
+  ACT["Дорогая реклама видна сразу · слабый перевозчик тоже"]
+  CNT --> ACT
+  classDef gap fill:#F8EEDC,stroke:#9E6F2C,stroke-width:1.3px,color:#3A2A10;
+  classDef hand fill:#F1E3CB,stroke:#9E6F2C,stroke-width:1.6px,color:#3A2A10;
+  classDef auto fill:#E9EFE4,stroke:#5F7053,stroke-width:1.4px,color:#2A331F;
+  classDef key fill:#7A2B3B,stroke:#5E1F2C,stroke-width:1.6px,color:#FFFFFF;
+  class N1,N2,N3,N4,N5,N6 gap;
+  class NG hand;
+  class CNT auto;
+  class ACT key;
+</pre>
+    </div>
+    <div class="callout">
+      <div class="h">Невыкуп — главная цифра бизнеса на наложке</div>
+      Сейчас он прячется внутри «Возврата» без причины и без счёта. А это деньги: реклама, которая
+      приводит людей, не забирающих посылку, стоит дороже, чем показывает отчёт. Поэтому причина
+      невыкупа — обязательное поле, а доля невыкупа считается по каналу, по рекламе и по перевозчику.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 4</span>Что получает клиент</h2>
+    <p class="sub">Не только на счастливом пути. Когда что-то идёт не так, молчание дороже письма —
+      особенно при наложке, где человек не ждёт посылку и не забирает её.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Когда</th><th>Письмо</th><th>Зачем</th></tr></thead>
+        <tbody>
+          <tr><td class="st">Склад принял</td><td>Заказ принят — состав, адрес, сумма, инструкция</td><td>подтвердить и дать проверить адрес</td></tr>
+          <tr><td class="st">Отправлен</td><td>Заказ отправлен — кнопка отслеживания</td><td>чтобы ждал и забрал</td></tr>
+          <tr><td class="st">Скоро приедет</td><td>Напоминание за день, с адресом пункта выдачи</td><td class="who h">против невыкупа</td></tr>
+          <tr><td class="st">Доставлен</td><td>Спасибо, как начать принимать, поддержка</td><td>чтобы начал пользоваться</td></tr>
+          <tr><td class="st">Через 30 дней</td><td>Как ваши успехи, отзыв, каталог</td><td>повторная покупка</td></tr>
+          <tr><td class="st">Уточняем данные</td><td>Не хватает телефона или адреса — ответьте</td><td class="who h">иначе сделка стоит молча</td></tr>
+          <tr><td class="st">Ждём оплату</td><td>Напоминание со ссылкой на оплату</td><td class="who h">спасает брошенные заказы</td></tr>
+          <tr><td class="st">Задержка</td><td>Заказ задерживается, вот новый срок</td><td class="who h">чтобы не отказался</td></tr>
+          <tr><td class="st">Отменён</td><td>Заказ отменён и почему</td><td class="who h">чтобы не ждал зря</td></tr>
+          <tr><td class="st">Не забрал</td><td>Посылка возвращается — вернуть или отменить?</td><td class="who h">второй шанс на выкуп</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap">Жёлтым — письма, которых сегодня нет. Клиент в этих ситуациях сидит в тишине.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 5</span>Сроки</h2>
+    <p class="sub">Схема отвечает «что происходит», но без сроков «Ждём клиента» и «На правке»
+      становятся кладбищем. Цифры — предложение, их надо утвердить.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Стадия</th><th>Сколько ждём</th><th>Что происходит потом</th></tr></thead>
+        <tbody>
+          <tr><td class="st">Новый заказ</td><td class="tm">4 часа</td><td>напоминание ответственному менеджеру</td></tr>
+          <tr><td class="st">Ждём клиента</td><td class="tm">2 дня</td><td>второе письмо и напоминание менеджеру</td></tr>
+          <tr><td class="st">Ждём клиента</td><td class="tm">7 дней</td><td>закрываем с причиной «нет связи»</td></tr>
+          <tr><td class="st">Ждём оплату</td><td class="tm">1 день</td><td>напоминание клиенту со ссылкой</td></tr>
+          <tr><td class="st">Ждём оплату</td><td class="tm">5 дней</td><td>закрываем с причиной «не оплачен»</td></tr>
+          <tr><td class="st">На правке</td><td class="tm">1 день</td><td>напоминание менеджеру</td></tr>
+          <tr><td class="st">Передан на склад</td><td class="tm">1 день</td><td>склад молчит — тревога в Telegram</td></tr>
+          <tr><td class="st">Отправлен</td><td class="tm">7 дней</td><td>нет движения по треку — проверить у перевозчика</td></tr>
+          <tr><td class="st">Отправлен</td><td class="tm">14 дней</td><td>скорее всего невыкуп — звоним клиенту</td></tr>
+          <tr><td class="st">Возврат</td><td class="tm">3 дня</td><td>решение принято, иначе напоминание</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 6</span>Метки рекламы</h2>
+    <p class="sub">Без них не видно, какая реклама принесла заказ — и какая приносит невыкуп.</p>
+    <div class="board">
+<pre class="mermaid">
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#9A8B82","primaryColor":"#FFFFFF","primaryTextColor":"#211B1D","primaryBorderColor":"#C9BDB4","edgeLabelBackground":"#FCFAF7"},"flowchart":{"curve":"linear","nodeSpacing":26,"rankSpacing":52,"useMaxWidth":true}} }%%
+flowchart TB
+  REG["ОБЩИЙ РЕЕСТР ССЫЛОК · одна таблица на все продукты"]
+  AD["Объявление в рекламе"]
+  REG -- "берём готовую ссылку" --> AD
+  LAND["Посадка или сайт"]
+  AD --> LAND
+  FORM["Форма заказа"]
+  LAND -- "метки едут в ссылке" --> FORM
+  DEALU["СДЕЛКА · метки в родные поля статистики"]
+  FORM --> DEALU
+  REP["Отчёты: выручка и невыкуп по каждой рекламе"]
+  DEALU --> REP
+  BAD["Метку придумали при запуске"]
+  BAD2["Заказ в отчёте не опознан"]
+  BAD --> BAD2
+  classDef good fill:#E9EFE4,stroke:#5F7053,stroke-width:1.4px,color:#2A331F;
+  classDef plain fill:#FFFFFF,stroke:#C9BDB4,stroke-width:1.2px,color:#211B1D;
+  classDef key fill:#7A2B3B,stroke:#5E1F2C,stroke-width:1.6px,color:#FFFFFF;
+  classDef bad fill:#F8EEDC,stroke:#9E6F2C,stroke-width:1.3px,color:#3A2A10;
+  class REG,REP good;
+  class AD,LAND,FORM plain;
+  class DEALU key;
+  class BAD,BAD2 bad;
+</pre>
+    </div>
+    <div class="callout">
+      <div class="h">Два правила</div>
+      <p><b>Ссылку не сочиняем при запуске.</b> Все рабочие ссылки живут в одном реестре, оттуда берём готовую.</p>
+      <p><b>Метки кладём в родные поля статистики сделки</b>, иначе отчёты не строятся сами.
+        Это касается каждого канала — и бота тоже: там метку приносит менеджер из переписки.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 7</span>Тильда — отдельная ветка</h2>
+    <p class="sub">Форма не наша: переделать нельзя, переиздавать страницу рискованно — там живая реклама.
+      Значит заказ приходит неполным всегда, и достраивание — постоянная часть схемы.</p>
+    <div class="board">
+<pre class="mermaid">
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#9A8B82","primaryColor":"#FFFFFF","primaryTextColor":"#211B1D","primaryBorderColor":"#C9BDB4","edgeLabelBackground":"#FCFAF7"},"flowchart":{"curve":"linear","nodeSpacing":24,"rankSpacing":50,"useMaxWidth":true}} }%%
+flowchart TB
+  F(("Клиент заполнил форму на посадке"))
+  GIVE["ЧТО ФОРМА ДАЁТ"]
+  F --> GIVE
+  G1["имя · телефон · почта"]
+  G2["улица · дом · город · индекс"]
+  G3["количество · перевозчик · номер"]
+  G4["метки рекламы"]
+  GIVE --> G1
+  GIVE --> G2
+  GIVE --> G3
+  GIVE --> G4
+  MISS["ЧЕГО В ФОРМЕ НЕТ"]
+  F --> MISS
+  B1["названия товара и цены"]
+  B2["страны · одна форма на Чехию и Словакию"]
+  B3["суммы заказа"]
+  MISS --> B1
+  MISS --> B2
+  MISS --> B3
+  QUIRK["ЧТО В ФОРМЕ КРИВО"]
+  F --> QUIRK
+  Q1["номер дома написан в двух полях"]
+  Q2["телефон и почта уходят на карточку клиента"]
+  QUIRK --> Q1
+  QUIRK --> Q2
+  BUILD["ДОСТРАИВАЕМ · товар, цены, страна по телефону, доставка, сумма"]
+  B1 --> BUILD
+  B2 --> BUILD
+  B3 --> BUILD
+  FIXQ["ЧИНИМ ПРИ ПРИЁМЕ · схлопываем дом, забираем телефон и почту из формы"]
+  Q1 --> FIXQ
+  Q2 --> FIXQ
+  READY["Заказ достроен и вычищен"]
+  G1 --> READY
+  G2 --> READY
+  G3 --> READY
+  G4 --> READY
+  BUILD --> READY
+  FIXQ --> READY
+  JOIN["Дальше общий путь"]
+  READY --> JOIN
+  classDef plain fill:#FFFFFF,stroke:#C9BDB4,stroke-width:1.2px,color:#211B1D;
+  classDef head fill:#FBF8F3,stroke:#7A2B3B,stroke-width:1.4px,color:#7A2B3B;
+  classDef gap fill:#F8EEDC,stroke:#9E6F2C,stroke-width:1.3px,color:#3A2A10;
+  classDef auto fill:#E9EFE4,stroke:#5F7053,stroke-width:1.4px,color:#2A331F;
+  classDef ends fill:#F1EDE7,stroke:#9A8B82,stroke-width:1.4px,color:#4A403F;
+  classDef src fill:#E7EFF4,stroke:#3D6480,stroke-width:1.4px,color:#22303A;
+  class GIVE,MISS,QUIRK head;
+  class B1,B2,B3,Q1,Q2 gap;
+  class BUILD,FIXQ auto;
+  class G1,G2,G3,G4,READY plain;
+  class F ends;
+  class JOIN src;
+</pre>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 8</span>Повторный покупатель</h2>
+    <p class="sub">Как узнаём человека, что помечаем и что от этого получаем.</p>
+    <div class="board">
+<pre class="mermaid">
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif","fontSize":"13px","lineColor":"#9A8B82","primaryColor":"#FFFFFF","primaryTextColor":"#211B1D","primaryBorderColor":"#C9BDB4","edgeLabelBackground":"#FCFAF7"},"flowchart":{"curve":"linear","nodeSpacing":30,"rankSpacing":48,"useMaxWidth":true}} }%%
+flowchart TB
+  IN(("Пришёл заказ"))
+  FIND{"Знаем этого человека? ищем по телефону ИЛИ по почте"}
+  IN --> FIND
+  NEWC["Новый клиент · заводим карточку"]
+  FIND -- "не нашли" --> NEWC
+  REP["ПОВТОРНЫЙ · тег на сделке"]
+  FIND -- "нашли" --> REP
+  CARD["На карточке клиента: сколько заказов, первый, последний, сколько невыкупов"]
+  NEWC --> CARD
+  REP --> CARD
+  ANA["Аналитика: доля повторных, срок до второй покупки"]
+  CARD --> ANA
+  BOOK["Покупатель в книге рассылок с флагами что купил"]
+  CARD --> BOOK
+  CH["Цепочки: кросс-селл 7 дней, повтор 20, как успехи 30, возврат клиента 90-180, день рождения"]
+  BOOK --> CH
+  classDef plain fill:#FFFFFF,stroke:#C9BDB4,stroke-width:1.2px,color:#211B1D;
+  classDef gate fill:#FBF8F3,stroke:#7A2B3B,stroke-width:1.4px,color:#7A2B3B;
+  classDef key fill:#7A2B3B,stroke:#5E1F2C,stroke-width:1.6px,color:#FFFFFF;
+  classDef auto fill:#E9EFE4,stroke:#5F7053,stroke-width:1.4px,color:#2A331F;
+  classDef ends fill:#F1EDE7,stroke:#9A8B82,stroke-width:1.4px,color:#4A403F;
+  class FIND gate;
+  class REP key;
+  class NEWC,CARD plain;
+  class ANA,BOOK,CH auto;
+  class IN ends;
+</pre>
+    </div>
+    <div class="callout">
+      <div class="h">В Польше это сделано, и там три изъяна</div>
+      <p><b>Слишком строгий поиск.</b> Повторным считается только тот, у кого совпали <b>и телефон,
+        и почта одновременно</b>. Заказал с другой почты — засчитается как новый. Правильно: телефон <b>или</b> почта.</p>
+      <p><b>Вторая покупка не запускает письма.</b> Повторное добавление адреса обновляет данные,
+        но цепочка заново не стартует. Правильно: запускать от покупки, а не от появления адреса.</p>
+      <p><b>Повторность живёт только на сделке.</b> Тег говорит «этот заказ повторный», но не «сколько
+        раз покупал человек». Счётчик и даты — на карточке клиента. Туда же счётчик невыкупов:
+        клиенту, который трижды не забрал посылку, наложку лучше не давать.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 9</span>Где менеджер это видит</h2>
+    <p class="sub">Ничего не живёт «где-то в системе». У каждой вещи своё место в карточке.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Что</th><th>Где именно</th><th>Кто заполняет</th></tr></thead>
+        <tbody>
+          <tr><td><b>Почему склад не принял</b></td><td>поле «Статус склада» строкой по-русски, примечание, Telegram</td><td class="who a">Система</td></tr>
+          <tr><td><b>Почему остановили</b></td><td>поле «Статус склада»: кто остановил и почему</td><td class="who a">Система</td></tr>
+          <tr><td><b>Почему не выкупил</b></td><td>отдельное поле с выбором из списка — по нему считается доля невыкупа</td><td class="who h">Менеджер</td></tr>
+          <tr><td>Номер складского заказа</td><td>поле «Статус склада»</td><td class="who a">Система</td></tr>
+          <tr><td>Трек-номер</td><td>поле «Трек-номер»</td><td class="who a">Система</td></tr>
+          <tr><td>Что менеджер поправил</td><td>примечание «Правки из карточки» и Telegram</td><td class="who a">Система</td></tr>
+          <tr><td>Чего ждём от клиента</td><td>примечание и задача менеджеру со сроком</td><td class="who a">Система</td></tr>
+          <tr><td>Метки рекламы</td><td>родные поля статистики сделки</td><td class="who a">Система</td></tr>
+          <tr><td>Ответственный менеджер</td><td>владелец сделки — назначается сразу при создании</td><td class="who a">Система</td></tr>
+          <tr><td>Состав заказа</td><td>поле «Информация о заказе» строками</td><td class="who h">Оба</td></tr>
+          <tr><td>Адрес</td><td>улица, дом, город, индекс отдельно + строкой для чтения</td><td class="who h">Оба</td></tr>
+          <tr><td>Получатель</td><td>«Получатель — имя / телефон / email» — едут на склад именно они</td><td class="who h">Оба</td></tr>
+          <tr><td>Деньги</td><td>сумма, доставка, скидка или промокод, оплачено ли, бюджет</td><td class="who h">Оба</td></tr>
+          <tr><td>Как платит</td><td>«Тип оплаты»: наложка, предоплата, опт, подарок</td><td class="who h">Оба</td></tr>
+          <tr><td>Перевозчик и пункт выдачи</td><td>«Вид доставки» и «Пункт выдачи»</td><td class="who h">Оба</td></tr>
+          <tr><td>Причина возврата или отказа</td><td>поле «Причина отказа/возврата»</td><td class="who h">Менеджер</td></tr>
+          <tr><td>Повторный клиент</td><td>тег на сделке, счётчики на карточке клиента</td><td class="who a">Система</td></tr>
+          <tr><td>Язык клиента</td><td>на карточке клиента — по нему шлём письма</td><td class="who a">Система</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <div class="h">Правило</div>
+      Причина всегда попадает в <b>три места сразу</b>: строкой в поле — видно в списке не открывая;
+      примечанием — подробности; в Telegram — чтобы заметить сразу.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">ЧАСТЬ 10</span>Чего в схеме сейчас нет</h2>
+    <p class="sub">Всё, что нужно, чтобы картина выше собралась.</p>
+    <div class="needs">
+      <div class="need"><div class="n-t">Стадия «Ждём клиента»</div><div class="n-d">Со сроком, напоминанием и автоматическим закрытием, если тишина.</div></div>
+      <div class="need"><div class="n-t">Стадия «Ждём оплату»</div><div class="n-d">Для предоплаты, карты и опта. Сейчас неоплаченный заказ просто висит.</div></div>
+      <div class="need"><div class="n-t">Стадия «На правке»</div><div class="n-d">Заказ не принят или остановлен. Не закрывается и не теряется среди новых.</div></div>
+      <div class="need"><div class="n-t">Возврат по типу оплаты</div><div class="n-d">При наложке возвращать нечего — только отправить заново или закрыть.</div></div>
+      <div class="need"><div class="n-t">Причина невыкупа списком</div><div class="n-d">Обязательное поле. Без него не посчитать, какая реклама приносит убыток.</div></div>
+      <div class="need"><div class="n-t">Кнопка «Отменить на складе»</div><div class="n-d">Чтобы менеджер сам останавливал заказ, а не звонил.</div></div>
+      <div class="need"><div class="n-t">Список причин отмены</div><div class="n-d">Менеджер выбирает из готовых, иначе причину не посчитать.</div></div>
+      <div class="need"><div class="n-t">Проверка на дубль</div><div class="n-d">Два заказа подряд от одного человека — предупредить, а не отправить дважды.</div></div>
+      <div class="need"><div class="n-t">Сроки на каждой стадии</div><div class="n-d">Иначе сделки тихо стареют и теряются.</div></div>
+      <div class="need"><div class="n-t">Письма на несчастливом пути</div><div class="n-d">Уточняем данные, ждём оплату, задержка, отменён, не забрали.</div></div>
+      <div class="need"><div class="n-t">Напоминание перед доставкой</div><div class="n-d">Самое дешёвое средство против невыкупа.</div></div>
+      <div class="need"><div class="n-t">Повторный — по телефону или почте</div><div class="n-d">Одного совпадения достаточно, сейчас нужны оба.</div></div>
+      <div class="need"><div class="n-t">Счётчики на карточке клиента</div><div class="n-d">Сколько покупал и сколько раз не выкупил.</div></div>
+      <div class="need"><div class="n-t">Ответственный менеджер</div><div class="n-d">Назначается сразу. Иначе непонятно, кто отвечает ночью и в выходные.</div></div>
+      <div class="need"><div class="n-t">Язык клиента</div><div class="n-d">Словацкий заказ в чешской воронке не должен получать письма на чешском.</div></div>
+      <div class="need"><div class="n-t">Частичная отправка</div><div class="n-d">Склад может отправить не всё. Остаток — отдельной отправкой, не потеряв заказ.</div></div>
+      <div class="need"><div class="n-t">Промокоды и скидки</div><div class="n-d">Меняют сумму, значит должны быть видны в сделке и в отчёте.</div></div>
+      <div class="need"><div class="n-t">Отписка и удаление данных</div><div class="n-d">В Европе не опционально. Запрос клиента должен исполняться, а не теряться.</div></div>
+    </div>
+    <div class="callout">
+      <div class="h">Честно: два вопроса ещё не проверены</div>
+      Умеет ли склад принимать отмену и правку уже отправленного заказа — <b>не проверяли</b>, у нас есть
+      только «создать» и «посмотреть». И говорит ли склад, <b>кто именно</b> отменил заказ, тоже неизвестно.
+      От этого зависит, станет ли «Отменить на складе» кнопкой или останется звонком.
+    </div>
+  </section>
+
+  <footer>Картина желаемого, не текущего состояния. Германия не включена. Сроки в части 5 — предложение, их надо утвердить.</footer>
+
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, securityLevel: 'loose' });
+</script>
+</body>
+</html>
