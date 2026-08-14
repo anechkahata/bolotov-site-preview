@@ -51,6 +51,9 @@ h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:cl
 .brand{display:flex;align-items:center;gap:12px;font-family:'Montserrat';font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--wine);font-size:17px}
 .brand img.logo{width:52px;height:52px;object-fit:contain}
 .nav{display:flex;gap:17px;font-family:'Montserrat';font-weight:600;font-size:14px;color:var(--wine-dark)}
+/* Czech menu labels are longer than the Polish ones ("O centru", "Užitečné informace") and were
+   wrapping onto two lines inside the header. Keep each item on one line. */
+.nav a{white-space:nowrap}
 .nav a:hover{color:var(--magenta)}
 .header-actions{display:flex;align-items:center;gap:14px}
 .wa-ic{width:40px;height:40px;border-radius:50%;background:#25D366;display:grid;place-items:center}

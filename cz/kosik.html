@@ -181,6 +181,10 @@
       if (city) city.placeholder = cz ? 'např. Praha' : 'napr. Bratislava';
       var street = document.getElementById('f-street');
       if (street) street.placeholder = cz ? 'např. Kaprova' : 'napr. Hlavná';
+      /* Keep the phone country in step with the delivery country — a Slovak buyer
+         should not have to change the flag by hand. */
+      try { if (itiPhone) itiPhone.setCountry(cz ? 'cz' : 'sk'); } catch (e) {}
+      try { if (itiRec) itiRec.setCountry(cz ? 'cz' : 'sk'); } catch (e) {}
       var note = document.getElementById('ship-note');
       if (note) note.textContent = cz
         ? 'Doručení po celé České republice (Zásilkovna, DPD, GLS, PPL).'
@@ -414,9 +418,10 @@
 
     /* Phone: international input with flag + per-country validation (intl-tel-input).
        Default Poland, popular EU countries pinned on top; the full list is searchable. */
-    // Country list limited to our sales markets + main diaspora (owner decision 2026-07-23); PL default.
-    var ITI_ONLY = ['pl','ua','cz','sk','de','at','it','si','gb','ie','nl','be'];
-    var itiOpts = { initialCountry:'pl', onlyCountries:ITI_ONLY, preferredCountries:['pl','ua','cz','sk','de'],
+    // Country list limited to our sales markets + main diaspora (owner decision 2026-07-23).
+    // CZ default here, and the flag follows the country picked for delivery (CZ/SK).
+    var ITI_ONLY = ['cz','sk','pl','ua','de','at','it','si','gb','ie','nl','be'];
+    var itiOpts = { initialCountry:'cz', onlyCountries:ITI_ONLY, preferredCountries:['cz','sk','ua','pl','de'],
                     separateDialCode:true, autoPlaceholder:'aggressive',
                     utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js' };
     var itiPhone = null, itiRec = null;
