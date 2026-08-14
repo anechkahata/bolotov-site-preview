@@ -402,12 +402,12 @@ window.cbAttribution = function () {
     } catch (e) {}
   })();
 
-  /* Header counter badge — updates the "Koszyk" link on every page. */
+  /* Header counter badge — updates the "Košík" link on every page. */
   function renderBadge() {
     var n = Cart.count();
     var links = document.querySelectorAll('.header-actions a[href="kosik.html"]');
     for (var i = 0; i < links.length; i++) {
-      links[i].textContent = n > 0 ? 'Košík (' + n + ')' : 'Koszyk';
+      links[i].textContent = n > 0 ? 'Košík (' + n + ')' : 'Košík';
     }
   }
 
