@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Consent Mode v2 defaults (GDPR: analytika vypnutá do udělení souhlasu) -->
+  <script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+  try{if(localStorage.getItem('cb-consent')==='all'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}
+  </script>
+  <!-- TODO(launch): Google Tag Manager — this market needs ITS OWN container (one domain =
+       one GTM container = one GA4 property). Deliberately NOT wired to Poland's GTM-5ZP5LLR4,
+       which would mix Czech traffic into the Polish property. dataLayer events fire either way.
+       See docs/OPEN-QUESTIONS.md. -->
+  <title>Košík | Centrum Bolotova</title>
+  <meta name="description" content="Košík a dokončení objednávky — Centrum Bolotova.">
+  <meta name="robots" content="noindex, nofollow"><link rel="stylesheet" href="brand.css"><link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png"><link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+  <style>.field{display:grid;gap:5px}.field label{font-size:13px;font-weight:600;color:var(--wine-dark)}.field input,.field select{border:1px solid #e0d3d9;border-radius:12px;padding:12px 14px;font-size:15px}
+  .field input.invalid,.field select.invalid{border-color:#d23b5e;background:#fdf2f5}
+  .field-err{color:#c0264a;font-size:12px;font-weight:600;margin-top:3px}
+  .field input::placeholder{color:#bca9b0}
+  .field .iti{width:100%}.field .iti input{width:100%}
+  .iti__country-list{text-align:left}
+  #consent-label.consent-invalid{color:#c0264a}#consent-label.consent-invalid input{outline:2px solid #d23b5e;outline-offset:2px}</style>
+</head>
+<body data-recent-show data-exit="cart">
+  <div class="topbar"><div class="container">
+    <span>🚚 Doručujeme po ČR i na Slovensko · doplňky stravy potravinářské kvality</span>
+    <span>info@centerbolotova.eu</span>
+  </div></div>
+
+  <header class="site-header"><div class="container">
+    <a href="index.html" class="brand"><img class="logo" src="assets/img/logo.png" alt="Centrum Bolotova">Centrum Bolotova</a>
+    <nav class="nav"><a href="katalog.html">Katalog</a><a href="katalog.html#komplety">Komplety</a><a href="balzam-bolotova.html">Bolotovův balzám</a><div class="nav-dd"><a href="#" onclick="return false">Užitečné informace ▾</a><div class="nav-dd-menu"><a href="zpusob-uziti.html">Způsob užití</a><a href="faq.html">Otázky a odpovědi</a><a href="pro-lekare.html">Zveme lékaře</a><a href="certifikaty.html">Certifikáty</a><a href="stante-se-partnerem.html">Stát se partnerem</a></div></div><a href="hodnoceni.html">Hodnocení</a><a href="o-centru.html">O centru</a><a href="kontakty.html">Kontakty</a></nav>
+    <div class="header-actions"><button class="burger" aria-label="Menu" onclick="document.querySelector('.nav').classList.toggle('open')">☰</button>
+      <a class="wa-ic" href="https://wa.me/421944623644?text=Dobr%C3%BD%20den" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.519 5.26l-.999 3.648 3.48-.907z"/></svg></a>
+      <a class="btn btn-primary" href="kosik.html">Košík</a>
+    </div>
+  </div></header>
+
+  <section class="section"><div class="container" style="max-width:980px">
+    <h2 class="title" style="text-align:left">Košík</h2>
+    <div id="pay-cancel" style="display:none;margin-top:16px;background:#f6e3e8;border:1px solid #e3b9c6;border-radius:12px;padding:14px 18px;color:#7a2540;font-size:14.5px">⚠️ Platba nebyla dokončena. Váš košík zůstal zachovaný — můžete to zkusit znovu.</div>
+
+    <div id="cart-empty" class="card" style="padding:24px;margin-top:20px;text-align:center;background:var(--cream)">
+      <p style="font-size:17px;color:var(--wine-dark);font-weight:600">Váš košík čeká 🛒</p>
+      <p class="muted" style="margin-top:6px">Začněte naším bestsellerem — <strong>Balzámem Bolotova</strong> — nebo si projděte celý katalog.</p>
+      <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-gold" href="produkt-balzam.html">Zobrazit Balzám</a>
+        <a class="btn btn-ghost" href="katalog.html">Přejít do katalogu</a>
+      </div>
+    </div>
+
+    <div id="cart-items" class="card" style="padding:6px 24px;margin-top:20px;display:none"></div>
+    <div id="set-suggest" style="margin-top:14px;display:none"></div>
+
+    <div id="promo-box" style="margin-top:14px;display:none">
+      <button type="button" id="promo-toggle" class="promo-toggle">Máte slevový kód?</button>
+      <div id="promo-collapse" class="promo-collapse" style="display:none">
+        <form id="promo-form" onsubmit="return false" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <input id="promo-input" placeholder="např. BALSAM" autocomplete="off" style="flex:1 1 200px;min-width:140px;border:1px solid #e0d3d9;border-radius:40px;padding:11px 18px;font-size:15px;text-transform:uppercase">
+          <button class="btn btn-ghost" type="submit" style="padding:11px 22px">Zastosuj</button>
+        </form>
+      </div>
+      <div id="promo-msg" style="margin-top:10px;font-size:13.5px;color:var(--wine-dark)"></div>
+    </div>
+
+    <div id="order-block" style="display:none">
+    <h2 class="title" style="text-align:left;margin-top:40px;font-size:24px">Dokončit objednávku</h2>
+
+    <form id="order-form" novalidate style="margin-top:22px;display:grid;gap:26px">
+      <div class="card" style="padding:24px">
+        <h3 style="color:var(--wine);margin-bottom:14px">Klient</h3>
+        <div class="grid2" style="gap:16px">
+          <div class="field"><label>Jméno a příjmení *</label><input id="f-name" autocomplete="name" placeholder="např. Jan Novák" required></div>
+          <div class="field"><label>Telefon *</label><input id="f-phone" type="tel" autocomplete="tel" required></div>
+          <div class="field"><label>E-mail *</label><input id="f-email" type="email" autocomplete="email" placeholder="např. jan@example.cz" required></div>
+          <div class="field"><label>Datum narození (nepovinné)</label>
+            <div style="display:flex;gap:8px">
+              <select id="f-bday-d" style="flex:1"><option value="">Den</option></select>
+              <select id="f-bday-m" style="flex:1.6"><option value="">Měsíc</option></select>
+            </div>
+          </div>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:10px">Uveďte den a měsíc narození (bez roku) — pošleme vám narozeninovou slevu v den narozenin a 7 dní po nich.</p>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <h3 style="color:var(--wine);margin-bottom:14px">Doprava</h3>
+        <div class="field" style="margin-bottom:14px">
+          <label>Země doručení *</label>
+          <select id="f-country" style="border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;font-size:15px;font-family:inherit;background:#fff">
+            <option value="CZ">Česká republika</option>
+            <option value="SK">Slovensko</option>
+          </select>
+          <p class="muted" style="font-size:12px;margin-top:8px" id="country-note">Doručujeme i na Slovensko — po přepnutí uvidíte ceny v eurech a slovenské dopravce.</p>
+        </div>
+        <div style="display:grid;gap:10px;margin-bottom:14px" id="carriers"></div>
+        <div class="grid2" style="gap:16px">
+          <div class="field"><label>PSČ *</label><input id="f-zip" autocomplete="postal-code" inputmode="numeric" placeholder="např. 110 00" id="f-zip-ph" required></div>
+          <div class="field"><label>Město *</label><input id="f-city" autocomplete="address-level2" placeholder="např. Praha" required></div>
+          <div class="field"><label>Ulice *</label><input id="f-street" autocomplete="address-line1" placeholder="např. Kaprova" required></div>
+          <div class="field"><label>Číslo popisné / bytu *</label><input id="f-house" placeholder="např. 42/14" required></div>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:10px"><span id="ship-note">Doručení po celé České republice (Zásilkovna, DPD, GLS, PPL).</span> Doručení do jiných zemí Evropy — <a href="https://wa.me/421944623644?text=Dobr%C3%BD%20den%2C%20chci%20objednat%20s%20doru%C4%8Den%C3%ADm%20mimo%20%C4%8CR%20a%20SR" style="color:var(--magenta);font-weight:600">napište na WhatsApp</a>.</p>
+        <label style="display:flex;gap:8px;font-size:14px;color:#6b5b62;margin-top:16px;cursor:pointer"><input type="checkbox" id="f-diff-recipient"><span>Příjemcem zásilky je jiná osoba</span></label>
+        <div id="recipient-fields" style="display:none;margin-top:14px">
+          <div class="grid2" style="gap:16px">
+            <div class="field"><label>Jméno a příjmení příjemce *</label><input id="f-rec-name" placeholder="např. Anna Nováková"></div>
+            <div class="field"><label>Telefon příjemce *</label><input id="f-rec-phone" type="tel"></div>
+          </div>
+          <p class="muted" style="font-size:12px;margin-top:10px">Údaje příjemce předáme dopravci. Potvrzení objednávky pošleme na váš e-mail.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <h3 style="color:var(--wine);margin-bottom:14px">Platba</h3>
+        <div style="display:grid;gap:10px">
+          <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:14px 16px;cursor:pointer"><span><input type="radio" name="platba" value="cod" data-label="Dobírka" checked> <strong>Dobírka</strong> — zaplatíte při převzetí</span><strong id="cod-fee-label">+ 39 CZK</strong></label>
+          <label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:14px 16px;cursor:pointer"><span><input type="radio" name="platba" value="card" data-label="Karta online"> <strong>Platba kartou online</strong> — Visa, Mastercard, Apple Pay, Google Pay</span></label>
+        </div>
+        <p class="muted" style="font-size:13px;margin-top:10px">Při platbě kartou vás po odeslání objednávky přesměrujeme na zabezpečenou platební bránu. Údaje o platební kartě neuchováváme. Při dobírce zaplatíte dopravci při převzetí zásilky. Za dobírku účtujeme malý příplatek, který uvidíte v souhrnu objednávky.</p>
+      </div>
+
+      <div class="card" style="padding:24px;background:var(--cream)">
+        <h3 style="color:var(--wine);margin-bottom:14px">Souhrn objednávky</h3>
+        <div class="sum-row"><span>Hodnota zboží</span><span id="sum-products">0 CZK</span></div>
+        <div class="sum-row" id="sum-save-row" style="display:none;color:var(--magenta)"><span>Ušetříte</span><span id="sum-save">0 CZK</span></div>
+        <div class="sum-row" id="sum-promo-row" style="display:none;color:var(--magenta)"><span id="sum-promo-label">Slevový kód</span><span id="sum-promo">0 CZK</span></div>
+        <div class="sum-row"><span>Doprava</span><span id="sum-delivery">88 CZK</span></div>
+        <div class="sum-row" id="sum-cod-row" style="display:none"><span>Dobírka</span><span id="sum-cod">0 CZK</span></div>
+        <div class="sum-row total"><span>Celkem</span><span id="sum-total">0 CZK</span></div>
+        <p class="fnote" style="margin-top:10px">Ceny jsou uvedeny včetně DPH.</p>
+      </div>
+
+      <label id="consent-label" style="display:flex;gap:8px;font-size:13px;color:#6b5b62"><input type="checkbox" id="f-consent" required><span>Souhlasím se zpracováním osobních údajů podle platných předpisů o ochraně osobních údajů (<a href="zasady-ochrany-osobnich-udaju.html" style="color:var(--magenta)">více informací</a>).</span></label>
+      <div id="order-error" style="display:none;background:#f6e3e8;border:1px solid #e3b9c6;border-radius:12px;padding:14px 18px;color:#7a2540;font-size:14.5px">⚠️ Při odesílání objednávky se něco pokazilo. Zkuste to prosím znovu, nebo nám napište na <a href="https://wa.me/421944623644" style="color:#7a2540;font-weight:600">WhatsApp</a>.</div>
+      <button class="btn btn-gold" style="justify-self:start">Odeslat objednávku</button>
+      <div class="buy-trust" style="margin-top:0"><span>🔒 Zabezpečená platba</span><span>💵 Možnost dobírky</span><span>⏱ Odesíláme do 1–2 pracovních dnů</span><span>↩ 14 dní na vrácení</span></div>
+    </form>
+    </div>
+  </div></section>
+
+  <footer class="site-footer"><div class="container foot-cols"><div><a href="index.html" class="brand" style="color:#fff;margin-bottom:14px"><img class="logo" src="assets/img/logo.png" alt="">Centrum Bolotova</a><p style="color:#e0cad3;margin-top:8px">Provozovatel e-shopu: <strong>HataVia s.r.o.</strong></p><p style="margin-top:6px;color:#e0cad3">Tel.: +420 775 958 815<br>E-mail: <a href="mailto:info@centerbolotova.eu">info@centerbolotova.eu</a></p><a class="btn btn-wa" style="margin-top:12px" href="https://wa.me/421944623644">Napište na WhatsApp</a><div class="foot-social"><a href="https://www.facebook.com/balzam.bolotova.cz" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15.12 22v-8.16h2.74l.41-3.18h-3.15V8.63c0-.92.26-1.55 1.58-1.55h1.68V4.23c-.29-.04-1.29-.13-2.45-.13-2.42 0-4.08 1.48-4.08 4.2v2.34H9.1v3.18h2.75V22h3.27z"/></svg></a><a href="https://www.instagram.com/centrum.bolotova.cz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 002.12-1.38c.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 00-1.38-2.12A5.86 5.86 0 0019.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zM12 16a4 4 0 114-4 4 4 0 01-4 4zm6.41-10.85a1.44 1.44 0 11-1.44-1.44 1.44 1.44 0 011.44 1.44z"/></svg></a><a href="https://www.youtube.com/@Centr_Bolotova_CZ" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a><a href="https://wa.me/421944623644" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg></a><a href="https://www.tiktok.com/@bolotovcentrum_cz" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 01-1.01-2.82h-3.3v13.1a2.59 2.59 0 01-2.59 2.5 2.59 2.59 0 01-2.59-2.59 2.59 2.59 0 013.39-2.46V10.2a5.92 5.92 0 00-.8-.05A5.93 5.93 0 004 16.08a5.93 5.93 0 0010.13 4.19 5.93 5.93 0 001.74-4.19V9.01a7.56 7.56 0 004.42 1.42V7.13a4.28 4.28 0 01-3.69-1.31z"/></svg></a></div></div><div><h3 style="color:var(--gold-light);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Centrum Bolotova</h3><p style="margin-bottom:6px"><a href="o-centru.html">O centru Bolotova</a></p><p style="margin-bottom:6px"><a href="katalog.html">Katalog produktů</a></p><p style="margin-bottom:6px"><a href="certifikaty.html">Certifikáty</a></p><p><a href="hodnoceni.html">Hodnocení</a></p></div><div><h3 style="color:var(--gold-light);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Zákazníkovi</h3><p style="margin-bottom:6px"><a href="platby.html">Způsob platby</a></p><p style="margin-bottom:6px"><a href="doprava.html">Doručení</a></p><p style="margin-bottom:6px"><a href="vraceni-zbozi.html">Vrácení zboží</a></p><p style="margin-bottom:6px"><a href="faq.html">Otázky a odpovědi</a></p><p><a href="kontakty.html">Kontakty</a></p></div><div><h3 style="color:var(--gold-light);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Partnerům</h3><p style="margin-bottom:6px"><a href="pro-lekare.html">Zveme lékaře</a></p><p><a href="stante-se-partnerem.html">Stát se partnerem</a></p></div></div><div style="border-top:1px solid rgba(255,255,255,.12)"><div class="container" style="padding:22px 20px"><p class="fnote">HataVia s.r.o. | IČO: 23490551 | DIČ: CZ23490551 | Kaprova 42/14, 110 00 Praha 1 – Staré Město, Česká republika · Dovozce: OSVČ Mykola Rudenko | IČO: 19607989 | Česká republika</p><p class="fnote" style="margin-top:10px">© 2010–2026 Bolotov Center. Všechna práva vyhrazena. · <a href="obchodni-podminky.html">Obchodní podmínky</a> · <a href="zasady-ochrany-osobnich-udaju.html">Zásady ochrany osobních údajů</a> · <a href="zasady-cookies.html">Zásady cookies</a> · <a href="#" class="cookie-settings">Nastavení cookies</a></p></div></div></footer>
+  <div class="disclaimer-bar">Doplňky stravy nejsou léčivými přípravky a nejsou určeny k diagnostice, léčbě ani prevenci onemocnění. Veškeré materiály, články a recenze zveřejněné na těchto stránkách mají výhradně informativní charakter. Centrum Bolotova nenese odpovědnost za obsah recenzí a materiálů poskytnutých třetími stranami. Před užíváním se poraďte s lékařem.</div>
+  <a class="wa-float" href="https://wa.me/421944623644?text=Dobr%C3%BD%20den" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.519 5.26l-.999 3.648 3.48-.907z"/></svg></a>
+  <script src="cart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+  <script>
+  (function(){
+    /* Money and carriers both follow the chosen market (CZ default / SK) — Cart owns the
+       price lists so every page agrees on the numbers. */
+    var fmt = function(n){ return Cart.fmt(n); };
+    function renderCarriers(){
+      var box = document.getElementById('carriers');
+      var chosen = (document.querySelector('input[name="dost"]:checked') || {}).value;
+      var opts = Cart.deliveryOptions();
+      /* Carriers differ per market, so a carrier picked for Czechia may not exist in
+         Slovakia — fall back to the first option instead of leaving nothing selected
+         (which silently zeroed the delivery line). */
+      var keep = chosen && opts.some(function(o){ return o.carrier === chosen; });
+      var pickupLabel = Cart.market() === 'SK' ? 'výdajné miesto' : 'výdejní místo';
+      box.innerHTML = opts.map(function(o, idx){
+        var label = o.carrier + (o.pickup ? ' <span class="muted" style="font-size:13px">— ' + pickupLabel + '</span>' : '');
+        var checked = (keep ? chosen === o.carrier : idx === 0) ? ' checked' : '';
+        return '<label style="display:flex;justify-content:space-between;border:1px solid #e0d3d9;border-radius:12px;padding:12px 16px;cursor:pointer">'
+             + '<span><input type="radio" name="dost" value="' + o.carrier + '" data-cost="' + o.price + '" data-kind="' + o.carrier + '"' + checked + '> '
+             + label + '</span><strong>' + fmt(o.price) + '</strong></label>';
+      }).join('');
+      box.querySelectorAll('input[name="dost"]').forEach(function(r){ r.addEventListener('change', updateTotals); });
+    }
+    function applyCountry(){
+      var sel = document.getElementById('f-country');
+      var cz = sel.value === 'CZ';
+      Cart.setMarket(sel.value);                    // repaints prices via cart:change
+      renderCarriers();
+      var zip = document.getElementById('f-zip');
+      if (zip) zip.placeholder = cz ? 'např. 110 00' : 'napr. 821 01';
+      var city = document.getElementById('f-city');
+      if (city) city.placeholder = cz ? 'např. Praha' : 'napr. Bratislava';
+      var street = document.getElementById('f-street');
+      if (street) street.placeholder = cz ? 'např. Kaprova' : 'napr. Hlavná';
+      var note = document.getElementById('ship-note');
+      if (note) note.textContent = cz
+        ? 'Doručení po celé České republice (Zásilkovna, DPD, GLS, PPL).'
+        : 'Doručenie po celom Slovensku (Packeta, GLS, PPL, DPD). Ceny sú v eurách.';
+      var cnote = document.getElementById('country-note');
+      if (cnote) cnote.textContent = cz
+        ? 'Doručujeme i na Slovensko — po přepnutí uvidíte ceny v eurech a slovenské dopravce.'
+        : 'Objednávka na Slovensko: ceny sú v eurách, platí sa v eurách a doručujú slovenskí dopravcovia.';
+      updateTotals();
+    }
+    var deliveryCost = function(){
+      var r = document.querySelector('input[name="dost"]:checked');
+      /* parseFloat, not parseInt: Slovak delivery prices have decimals (5.40 €, 5.80 €). */
+      return r ? parseFloat(r.dataset.cost) : 0;
+    };
+    function render(){
+      var items = Cart.items();
+      var box = document.getElementById('cart-items');
+      var empty = document.getElementById('cart-empty');
+      var order = document.getElementById('order-block');
+      if(!items.length){
+        box.style.display = 'none';
+        order.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      box.style.display = 'block';
+      order.style.display = 'block';
+      var html = '';
+      items.forEach(function(it){
+        var p = Cart.CATALOG[it.id];
+        if(!p) return;
+        var unit = Cart.unitPrice(it.id, it.qty);
+        var reg = Cart.regularUnit(it.id);
+        var thumb = p.img
+          ? '<img class="cart-thumb" src="'+p.img+'" alt="">'
+          : '<div class="cart-thumb ph">B</div>';
+        // unit price line — show struck regular price when discounted
+        var unitLine = unit < reg
+          ? '<span class="cart-old">'+fmt(reg)+'</span> <strong style="color:var(--magenta)">'+fmt(unit)+'</strong> / szt.'
+          : fmt(unit)+' / szt.';
+        // quantity-tier hint ("add more to save")
+        var nt = Cart.nextTier(it.id, it.qty);
+        var hint = nt
+          ? '<div class="cart-hint">+ Přidejte ještě '+nt.need+' ks (od '+nt.min+' ks) a cena klesne na '+fmt(nt.price)+' / ks.</div>'
+          : '';
+        // per-line savings
+        var sav = Cart.lineSavings(it.id, it.qty);
+        var savLine = sav > 0 ? '<div class="cart-save">Ušetříte '+fmt(sav)+'</div>' : '';
+        // promo-code discount on this line (e.g. Balzam only)
+        var pd = Cart.promoLineDiscount(it.id, it.qty);
+        var promoLine = pd > 0 ? '<div class="cart-save">Kod '+Cart.activePromo().toUpperCase()+': − '+fmt(pd)+'</div>' : '';
+        // Omnibus: when a code reduces this item's price, show the lowest price from the last 30 days.
+        var omnibusLine = pd > 0 ? '<div class="cart-omnibus">Nejnižší cena za 30 dní před slevou: '+fmt(Cart.regularUnit(it.id))+' / ks</div>' : '';
+        // short composition for sets, so the customer sees what a bundle contains
+        var contents = Cart.setContents(it.id);
+        var contentsLine = contents ? '<div class="cart-contents">Zawiera: '+contents+'</div>' : '';
+        html += '<div class="cart-row">'
+          + thumb
+          + '<div class="cart-info"><div class="cart-name"><a href="'+p.url+'" style="color:var(--wine-dark)">'+p.name+'</a></div>'
+          + contentsLine
+          + '<div class="cart-unit">'+unitLine+'</div>'+savLine+promoLine+omnibusLine+hint+'</div>'
+          + '<div class="qty"><button data-act="dec" data-id="'+it.id+'" aria-label="Méně">−</button>'
+          + '<span>'+it.qty+'</span>'
+          + '<button data-act="inc" data-id="'+it.id+'" aria-label="Více">+</button></div>'
+          + '<div class="cart-line">'+fmt(unit*it.qty)+'</div>'
+          + '<button class="cart-del" data-act="del" data-id="'+it.id+'" aria-label="Odebrat">×</button>'
+          + '</div>';
+      });
+      box.innerHTML = html;
+      box.querySelectorAll('button[data-act]').forEach(function(b){
+        b.addEventListener('click', function(){
+          var id = b.dataset.id, act = b.dataset.act;
+          var cur = (Cart.items().filter(function(i){return i.id===id;})[0]||{}).qty || 0;
+          if(act==='inc') Cart.setQty(id, cur+1);
+          else if(act==='dec') Cart.setQty(id, cur-1);
+          else if(act==='del') Cart.remove(id);
+        });
+      });
+      renderSuggest();
+      renderPromo();
+      updateTotals();
+    }
+
+    /* Promo code: enter in the cart or arrive via ?promo=CODE link. Discount is scoped (Balzam only). */
+    function renderPromo(){
+      var box = document.getElementById('promo-box');
+      if(!box) return;
+      box.style.display = Cart.items().length ? 'block' : 'none';
+      var msg = document.getElementById('promo-msg');
+      var toggle = document.getElementById('promo-toggle');
+      var collapse = document.getElementById('promo-collapse');
+      var input = document.getElementById('promo-input');
+      var active = Cart.activePromo();
+      if(active){
+        // a code is applied -> hide the entry UI, show a compact confirmation
+        toggle.style.display = 'none';
+        collapse.style.display = 'none';
+        var label = Cart.PROMOS[active].label;
+        var sav = Cart.promoSavings();
+        if(sav > 0){
+          msg.innerHTML = '✓ Kod <strong>'+active.toUpperCase()+'</strong> aktywny ('+label+'). Rabat: <strong>'+fmt(sav)
+            + '</strong>. <button type="button" id="promo-clear" class="promo-link">Odebrat</button>';
+        } else {
+          msg.innerHTML = 'ℹ️ Kód <strong>'+active.toUpperCase()+'</strong> je aktivní, ale platí pouze na Balzám — přidejte Balzám do košíku a sleva se projeví. '
+            + '<button type="button" id="promo-clear" class="promo-link">Odebrat</button>';
+        }
+        if(input) input.value = '';
+        var clr = document.getElementById('promo-clear');
+        if(clr) clr.addEventListener('click', function(){ Cart.clearPromo(); });
+      } else {
+        // no code -> show only the discreet "Máte slevový kód?" link (keeps the user's expand state)
+        toggle.style.display = 'inline-block';
+        msg.innerHTML = '';
+      }
+    }
+
+    /* Cross-sell: when cart products form (or nearly form) a set, suggest the cheaper bundle. */
+    var dismissed = null;
+    function renderSuggest(){
+      var el = document.getElementById('set-suggest');
+      if(!el) return;
+      // Don't cross-sell a set while a promo code is active — mixing offers confuses the customer.
+      var s = Cart.activePromo() ? null : Cart.suggestSet();
+      if(!s || dismissed === s.setId){ el.style.display = 'none'; el.innerHTML = ''; return; }
+      var msg, btn;
+      if(s.complete){
+        msg = 'Tyto produkty tvoří komplet <strong>'+s.name+'</strong>. Vyměňte je za komplet a zaplatíte '
+            + '<strong>'+fmt(s.setPrice)+'</strong> místo <span style="text-decoration:line-through">'+fmt(s.partsPrice)+'</span> '
+            + '— ušetříte <strong>'+fmt(s.saving)+'</strong>.';
+        btn = 'Vyměnit za komplet';
+      } else {
+        var names = s.missing.map(function(m){
+          var p = Cart.CATALOG[m.id]; return p.name + (m.qty > 1 ? ' (×'+m.qty+')' : '');
+        }).join(', ');
+        msg = 'Přidejte ještě <strong>'+names+'</strong> a doplníte komplet <strong>'+s.name+'</strong> '
+            + '— zaplatíte <strong>'+fmt(s.setPrice)+'</strong> místo <span style="text-decoration:line-through">'+fmt(s.partsPrice)+'</span> '
+            + '(ušetříte <strong>'+fmt(s.saving)+'</strong>).';
+        btn = 'Vzít celý komplet';
+      }
+      el.style.display = 'block';
+      el.innerHTML = '<div class="set-suggest-box">'
+        + '<div class="ss-ico">💡</div>'
+        + '<div class="ss-txt">'+msg+'</div>'
+        + '<div class="ss-act"><button type="button" class="btn btn-gold" data-ss-go>'+btn+'</button></div>'
+        + '<button type="button" class="ss-x" aria-label="Zamknij">×</button>'
+        + '</div>';
+      el.querySelector('[data-ss-go]').addEventListener('click', function(){ Cart.convertToSet(s.setId); });
+      el.querySelector('.ss-x').addEventListener('click', function(){ dismissed = s.setId; el.style.display = 'none'; });
+    }
+    function updateTotals(){
+      var sub = Cart.subtotal();
+      var promo = Cart.promoSavings();
+      var payable = sub - promo;                 // products value after the promo code
+      /* Czechia has no free-delivery threshold (canon: delivery.CZ.free_from = null),
+         so delivery is always charged and the "spend more for free shipping" nudge is gone. */
+      var del = deliveryCost();
+      /* Cash on delivery carries a small surcharge; card payment does not. */
+      var payRadioNow = document.querySelector('input[name="platba"]:checked');
+      var codFee = (payRadioNow && payRadioNow.value === 'cod') ? Cart.codFee() : 0;
+      var sav = Cart.savings();
+      document.getElementById('sum-products').textContent = fmt(sub);
+      document.getElementById('sum-delivery').textContent = fmt(del);
+      document.getElementById('sum-total').textContent = fmt(payable + del + codFee);
+      var codRow = document.getElementById('sum-cod-row');
+      if (codRow) {
+        codRow.style.display = codFee ? 'flex' : 'none';
+        document.getElementById('sum-cod').textContent = fmt(codFee);
+      }
+      var feeLabel = document.getElementById('cod-fee-label');
+      if (feeLabel) feeLabel.textContent = '+ ' + fmt(Cart.codFee());
+      var sr = document.getElementById('sum-save-row');
+      if(sav > 0){ document.getElementById('sum-save').textContent = '− ' + fmt(sav); sr.style.display = 'flex'; }
+      else { sr.style.display = 'none'; }
+      var pr = document.getElementById('sum-promo-row');
+      if(promo > 0){
+        document.getElementById('sum-promo-label').textContent = 'Kod ' + Cart.activePromo().toUpperCase();
+        document.getElementById('sum-promo').textContent = '− ' + fmt(promo);
+        pr.style.display = 'flex';
+      } else { pr.style.display = 'none'; }
+    }
+    document.addEventListener('cart:change', render);
+    document.querySelectorAll('input[name="platba"]').forEach(function(r){
+      r.addEventListener('change', updateTotals);
+    });
+    (function(){
+      var sel = document.getElementById('f-country');
+      if (!sel) return;
+      sel.value = Cart.market();
+      sel.addEventListener('change', applyCountry);
+      applyCountry();
+    })();
+    document.querySelectorAll('input[name="dost"]').forEach(function(r){
+      r.addEventListener('change', updateTotals);
+    });
+
+    /* Ship-to-another-person: reveal recipient fields on demand. */
+    var diffRec = document.getElementById('f-diff-recipient');
+    if(diffRec) diffRec.addEventListener('change', function(){
+      var box = document.getElementById('recipient-fields');
+      if(box) box.style.display = diffRec.checked ? 'block' : 'none';
+    });
+    var pt = document.getElementById('promo-toggle');
+    if(pt) pt.addEventListener('click', function(){
+      var c = document.getElementById('promo-collapse');
+      var open = c.style.display !== 'none';
+      c.style.display = open ? 'none' : 'block';
+      if(!open){ var i = document.getElementById('promo-input'); if(i) i.focus(); }
+    });
+    var pf = document.getElementById('promo-form');
+    if(pf) pf.addEventListener('submit', function(){
+      var code = document.getElementById('promo-input').value;
+      if(Cart.applyPromo(code)){ /* cart:change -> render() repaints everything */ }
+      else { document.getElementById('promo-msg').innerHTML = '✕ Neplatný slevový kód.'; }
+    });
+
+    /* ── Client-side validation ───────────────────────────────────────────────
+       We use novalidate and drive validation ourselves so we can: highlight the
+       exact field in red, show a Polish hint under it, and scroll/focus the first
+       problem. Errors clear as soon as the customer edits the field. */
+    var of = document.getElementById('order-form');
+
+    /* Birthday: day + month only (no year — people are shy about the year). */
+    (function(){
+      var dSel = document.getElementById('f-bday-d'), mSel = document.getElementById('f-bday-m');
+      if(dSel) for(var d=1; d<=31; d++){ var o=document.createElement('option'); o.value=d; o.textContent=d; dSel.appendChild(o); }
+      var months = ['leden','únor','březen','duben','květen','červen','červenec','srpen','září','říjen','listopad','prosinec'];
+      if(mSel) months.forEach(function(name,i){ var o=document.createElement('option'); o.value=i+1; o.textContent=name; mSel.appendChild(o); });
+    })();
+
+    /* Phone: international input with flag + per-country validation (intl-tel-input).
+       Default Poland, popular EU countries pinned on top; the full list is searchable. */
+    // Country list limited to our sales markets + main diaspora (owner decision 2026-07-23); PL default.
+    var ITI_ONLY = ['pl','ua','cz','sk','de','at','it','si','gb','ie','nl','be'];
+    var itiOpts = { initialCountry:'pl', onlyCountries:ITI_ONLY, preferredCountries:['pl','ua','cz','sk','de'],
+                    separateDialCode:true, autoPlaceholder:'aggressive',
+                    utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js' };
+    var itiPhone = null, itiRec = null;
+    if(window.intlTelInput){
+      var pEl = document.getElementById('f-phone'); if(pEl) itiPhone = window.intlTelInput(pEl, itiOpts);
+      var rEl = document.getElementById('f-rec-phone'); if(rEl) itiRec = window.intlTelInput(rEl, itiOpts);
+    }
+    /* valid only when utils loaded; otherwise fall back to a loose digit check. */
+    function phoneValid(iti, raw){
+      if(iti && window.intlTelInputUtils && typeof iti.isValidNumber==='function'){
+        var r = iti.isValidNumber(); if(r===true) return true; if(r===false) return false;
+      }
+      return raw.replace(/\D/g,'').length >= 8;
+    }
+    function phoneE164(iti, raw){
+      try{ if(iti && window.intlTelInputUtils){ var n = iti.getNumber(); if(n) return n; } }catch(e){}
+      return raw;
+    }
+
+    function clearErrors(){
+      of.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+      of.querySelectorAll('.field-err').forEach(function(el){ el.remove(); });
+      var cl = document.getElementById('consent-label'); if(cl) cl.classList.remove('consent-invalid');
+    }
+    function showError(el, msg, isConsent){
+      if(isConsent){
+        var lab = document.getElementById('consent-label');
+        if(lab){ lab.classList.add('consent-invalid'); var h=document.createElement('div'); h.className='field-err'; h.textContent=msg; lab.parentNode.insertBefore(h, lab.nextSibling); }
+        return;
+      }
+      el.classList.add('invalid');
+      var box = el.closest('.field') || el.parentNode;
+      var hint = document.createElement('div'); hint.className='field-err'; hint.textContent = msg;
+      box.appendChild(hint);
+    }
+    function validateOrderForm(){
+      var errs = [];
+      var g = function(id){ var e=document.getElementById(id); return { el:e, v: e ? e.value.trim() : '' }; };
+      var n=g('f-name');
+        if(!n.v) errs.push({el:n.el,msg:'Zadejte jméno a příjmení.'});
+        else if(!/\s\S/.test(n.v)) errs.push({el:n.el,msg:'Zadejte jméno a příjmení (např. Jan Novák).'});
+      var ph=g('f-phone');
+        if(!ph.v) errs.push({el:ph.el,msg:'Podaj numer telefonu.'});
+        else if(!phoneValid(itiPhone, ph.v)) errs.push({el:ph.el,msg:'Neplatné telefonní číslo pro vybranou zemi.'});
+      var em=g('f-email');
+        if(!em.v) errs.push({el:em.el,msg:'Podaj adres e-mail.'});
+        else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.v)) errs.push({el:em.el,msg:'Neplatná e-mailová adresa (např. jan@example.cz).'});
+      var zip=g('f-zip');
+        if(!zip.v) errs.push({el:zip.el,msg:'Podaj kod pocztowy.'});
+        else if(!/^\d{3}\s?\d{2}$/.test(zip.v)) errs.push({el:zip.el,msg:'České PSČ ve tvaru 110 00 (pět číslic). Doručení pouze v rámci České republiky.'});
+      var city=g('f-city');   if(!city.v) errs.push({el:city.el,msg:'Podaj miasto.'});
+      var st=g('f-street');   if(!st.v) errs.push({el:st.el,msg:'Podaj adres dostawy.'});
+      var ho=g('f-house');    if(!ho.v) errs.push({el:ho.el,msg:'Podaj numer domu.'});
+      var diffR = document.getElementById('f-diff-recipient');
+      if(diffR && diffR.checked){
+        var rn=g('f-rec-name'); if(!rn.v) errs.push({el:rn.el,msg:'Zadejte jméno a příjmení příjemce.'});
+        var rp=g('f-rec-phone');
+          if(!rp.v) errs.push({el:rp.el,msg:'Podaj telefon odbiorcy.'});
+          else if(!phoneValid(itiRec, rp.v)) errs.push({el:rp.el,msg:'Neplatné telefonní číslo příjemce.'});
+      }
+      var consent=document.getElementById('f-consent');
+      if(consent && !consent.checked) errs.push({el:consent,msg:'Zaškrtněte souhlas, abyste mohli pokračovat.',consent:true});
+      return errs;
+    }
+    /* Clear a field's error as soon as it's edited / consent ticked. */
+    if(of){
+      of.addEventListener('input', function(e){
+        var t=e.target; if(t && t.classList && t.classList.contains('invalid')){
+          t.classList.remove('invalid'); var box=t.closest('.field'); if(box){ var h=box.querySelector('.field-err'); if(h) h.remove(); }
+        }
+      });
+      of.addEventListener('change', function(e){
+        if(e.target && e.target.id==='f-consent' && e.target.checked){
+          var lab=document.getElementById('consent-label');
+          if(lab){ lab.classList.remove('consent-invalid'); var h=lab.nextSibling; if(h && h.className==='field-err') h.remove(); }
+        }
+      });
+    }
+
+    /* Place order: validate → snapshot → POST to backend → redirect to Stripe / thank-you. */
+    if(of) of.addEventListener('submit', function(e){
+      e.preventDefault();
+      /* Validate first: on any problem, highlight + hint + jump to the first field. */
+      clearErrors();
+      var problems = validateOrderForm();
+      if(problems.length){
+        problems.forEach(function(p){ showError(p.el, p.msg, p.consent); });
+        var first = problems[0].el;
+        try { first.scrollIntoView({behavior:'smooth', block:'center'}); } catch(err){ first.scrollIntoView(); }
+        setTimeout(function(){ try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); } }, 250);
+        return;
+      }
+      var sub = Cart.subtotal(), promo = Cart.promoSavings(), payable = sub - promo;
+      var del = deliveryCost();
+      /* Cash on delivery carries a small surcharge; card payment does not. */
+      var payRadioNow = document.querySelector('input[name="platba"]:checked');
+      var codFee = (payRadioNow && payRadioNow.value === 'cod') ? Cart.codFee() : 0;
+      var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+      var d = new Date();
+      /* Payment method is read before the order object so the confirmation page can
+         tell a cash-on-delivery order from a card one. */
+      var payRadio = document.querySelector('input[name="platba"]:checked');
+      var payMethod = payRadio ? payRadio.value : 'cod';
+      var order = {
+        no: 'CB-' + (''+d.getFullYear()).slice(2) + pad(d.getMonth()+1) + pad(d.getDate()) + '-' + Math.floor(1000 + Math.random()*9000),
+        items: Cart.items().map(function(i){ var p = Cart.CATALOG[i.id]; return { id: i.id, name: p.name, qty: i.qty, line: Cart.unitPrice(i.id, i.qty) * i.qty }; }),
+        promo: promo, promoCode: Cart.activePromo(), delivery: del,
+        cod_fee: payMethod === 'cod' ? Cart.codFee() : 0,
+        total: payable + del + (payMethod === 'cod' ? Cart.codFee() : 0),
+        payment: payMethod
+      };
+      try { sessionStorage.setItem('bolotov_last_order', JSON.stringify(order)); } catch(err){}
+      /* begin_checkout — fires when the customer submits the order to proceed to payment. */
+      try {
+        var ckItems = Cart.items().map(function(i){ var p = Cart.CATALOG[i.id]; return { item_id:i.id, item_name:p.name, price:Cart.unitPrice(i.id,i.qty), quantity:i.qty }; });
+        (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
+        window.dataLayer.push({ event:'begin_checkout', ecommerce:{ currency:'CZK', value: payable, coupon: Cart.activePromo() || undefined, items: ckItems } });
+      } catch(err){}
+      /* Send the order to our backend → creates the amoCRM deal (Paid=No).
+         Direct API POST (no iframe) so it works in in-app browsers (IG/FB).
+         Stripe payment will be inserted before the thank-you redirect in the next phase. */
+      var val = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+      var radio = document.querySelector('input[name="dost"]:checked');
+      var street = val('f-street'), house = val('f-house'), zip = val('f-zip'), city = val('f-city');
+      /* Recipient values (already validated above); empty unless "different person" is ticked. */
+      var diffR = document.getElementById('f-diff-recipient');
+      var recName = (diffR && diffR.checked) ? val('f-rec-name') : '';
+      var recPhone = (diffR && diffR.checked) ? phoneE164(itiRec, val('f-rec-phone')) : '';
+      /* Birthday as "DD.MM" (day+month, no year), or '' if not filled. */
+      var bd = (document.getElementById('f-bday-d')||{}).value, bm = (document.getElementById('f-bday-m')||{}).value;
+      var birthday = (bd && bm) ? (pad(parseInt(bd,10)) + '.' + pad(parseInt(bm,10))) : '';
+      var payload = {
+        name: val('f-name'), phone: phoneE164(itiPhone, val('f-phone')), email: val('f-email'),
+        birthday: birthday,
+        recipient_name: recName, recipient_phone: recPhone,
+        /* send item ids — the backend expands sets (discounted component prices)
+           and builds the order description + SKU list for the warehouse. */
+        items: order.items.map(function(i){ return { id:i.id, title:i.name, qty:i.qty, price:i.line }; }),
+        order_total: order.total,
+        delivery_kind: radio ? (radio.getAttribute('data-kind') || '') : '',
+        delivery_cost: String(del),
+        cod_fee: String(payMethod === 'cod' ? Cart.codFee() : 0),
+        delivery_addr: street + ' ' + house + ', ' + zip + ' ' + city + ', ' + (Cart.market() === 'SK' ? 'Slovensko' : 'Česká republika'),
+        street: street, street_number: house, zipcode: zip, city: city,
+        country: Cart.market() === 'SK' ? 'Slovensko' : 'Česká republika',
+        currency: Cart.currency(),
+        payment_type: payMethod === 'cod' ? 'COD' : 'Stripe'
+      };
+      /* Ad attribution → forward the captured UTM / click ids (first-touch, from
+         sessionStorage via cart.js) so the amoCRM lead carries the channel/campaign.
+         Never overwrite a real order field. */
+      try {
+        var _attr = (typeof window.cbAttribution === 'function') ? window.cbAttribution() : {};
+        Object.keys(_attr).forEach(function (k) { if (_attr[k] && !payload[k]) payload[k] = _attr[k]; });
+      } catch (_e) {}
+      var btn = of.querySelector('button');
+      if (btn) { btn.disabled = true; btn.textContent = 'Zpracováváme…'; }
+      document.getElementById('order-error').style.display = 'none';
+      fetch('/api/order', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+        .then(function(r){ return r.json().catch(function(){ return { ok:false }; }); })
+        .then(function(res){
+          if (res && res.ok) {
+            /* Use the server's authoritative order number so the thank-you page
+               and the CRM deal show the same number. */
+            try { if (res.order_no) { order.no = res.order_no; sessionStorage.setItem('bolotov_last_order', JSON.stringify(order)); } } catch(e){}
+            /* If Stripe is configured, the backend returns a hosted-checkout URL
+               → full-page redirect to pay (no iframe; in-app browser safe).
+               Stripe then redirects to objednavka-prijata.html on success / kosik.html on cancel.
+               If no URL (Stripe not wired yet), fall back to the thank-you page. */
+            /* Card orders go to the hosted payment page; cash-on-delivery orders skip
+               payment entirely and land straight on the confirmation page. */
+            if (payMethod === 'card' && res.checkout_url) { window.location.href = res.checkout_url; }
+            else { window.location.href = 'objednavka-prijata.html?status=success'; }
+          } else { throw new Error('order_failed'); }
+        })
+        .catch(function(){
+          if (btn) { btn.disabled = false; btn.textContent = 'Odeslat objednávku'; }
+          document.getElementById('order-error').style.display = 'block';
+        });
+    });
+
+    /* Returned from a cancelled / failed Stripe payment — keep the cart, show a notice. */
+    if (/[?&]status=(cancel|failed)/.test(location.search)) {
+      var pc = document.getElementById('pay-cancel');
+      if (pc) pc.style.display = 'block';
+    }
+    render();
+  })();
+  </script>
+  <script src="cookies.js"></script>
+  <script src="analytics.js"></script>
+</body>
+</html>
