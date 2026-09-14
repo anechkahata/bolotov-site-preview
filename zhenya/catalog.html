@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Каталог — Центр Болотова</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=PT+Serif:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<!-- Local mockup (2026-09-14): layout after peptidx.ru catalog, products and sections from centerbolotova.ru/tovary/. -->
+</head>
+<body data-page="catalog">
+<div id="hdr"></div>
+
+<div class="wrap cchips" id="chips"></div>
+<main class="wrap">
+  <nav class="crumbs"><a href="index.html">Главная</a><i>·</i><a href="catalog.html">Каталог</a><span id="crumb"></span></nav>
+  <div class="page-title"><h1 id="title">Каталог</h1><span class="count" id="count"></span></div>
+
+  <div class="cat-layout">
+    <aside class="side">
+      <nav class="side-menu" id="menu" aria-label="Разделы каталога"></nav>
+      <div class="side-box">
+        <h4>Меню по Болотову</h4>
+        <p>Бесплатно в Телеграм-канале Центра — плюс консультация врача.</p>
+        <a class="btn sm" href="https://t.me/centr_bolotova" target="_blank" rel="noopener">Подписаться</a>
+      </div>
+      <div class="side-box">
+        <h4>Документы</h4>
+        <p>Госрегистрация, экспертиза и декларации на продукты.</p>
+        <a class="btn sm ghost" href="sertifikaty.html">Сертификаты</a>
+      </div>
+    </aside>
+
+    <section>
+      <div class="toolbar">
+        <span class="tsel ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4"/></svg><select id="sort" aria-label="Сортировка">
+          <option value="pop">Сначала популярные</option>
+          <option value="cheap">Сначала дешевле</option>
+          <option value="exp">Сначала дороже</option>
+          <option value="az">По алфавиту</option>
+        </select></span>
+        <span class="tsel"><select id="price" aria-label="Цена">
+          <option value="">Цена</option>
+          <option value="0-1500">до 1 500 ₽</option>
+          <option value="1500-3000">1 500 – 3 000 ₽</option>
+          <option value="3000-99999">от 3 000 ₽</option>
+        </select></span>
+        <button class="pill" data-flag="hit">Хиты</button>
+        <button class="pill" data-flag="new">Новинки</button>
+        <button class="pill" id="stock">В наличии (<span id="stockN"></span>)</button>
+        <span class="sp"></span>
+        <button class="pill" id="reset">Сбросить</button>
+        <div class="views" aria-label="Вид">
+          <button data-cols="3" aria-label="3 в ряд"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></button>
+          <button data-cols="4" class="on" aria-label="4 в ряд"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></svg></button>
+        </div>
+      </div>
+      <div class="pgrid" id="grid"></div>
+    </section>
+  </div>
+</main>
+
+<div id="ftr"></div>
+<script src="assets/products.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  const {TYPES,SOLS,card}=CB;
+  const TN=Object.fromEntries(TYPES), SN=Object.fromEntries(SOLS);
+  const st={type:'',sol:'',flag:'',q:'',sort:'pop',price:''};
+  const read=()=>{const h=new URLSearchParams(location.hash.slice(1));st.type=h.get('type')||'';st.sol=h.get('sol')||'';st.flag=h.get('flag')||'';st.q=h.get('q')||''};
+  const write=()=>{const h=new URLSearchParams();['type','sol','flag','q'].forEach(k=>st[k]&&h.set(k,st[k]));history.replaceState(null,'','#'+h.toString());};
+  const count=f=>PRODUCTS.filter(f).length;
+
+  function menu(){
+    const a=(href,label,n,on,cls='')=>`<a href="${href}" class="${cls}${on?' on':''}">${label}<span>${n}</span></a>`;
+    let h='<div class="grp">Каталог</div>'+a('#','Все товары',PRODUCTS.length,!st.type&&!st.sol&&!st.flag);
+    h+='<div class="grp">По типу продукта</div>'+TYPES.map(([k,n])=>a('#type='+k,n,count(p=>p.type===k),st.type===k)).join('');
+    h+='<div class="grp">Решения</div>'+SOLS.map(([k,n])=>a('#sol='+k,n,count(p=>p.sol.includes(k)),st.sol===k)).join('');
+    h+='<div class="grp">Популярное</div>'+a('#flag=hit','Хиты продаж',count(p=>p.hit),st.flag==='hit')+a('#flag=new','Новинки',count(p=>p.new),st.flag==='new');
+    document.getElementById('menu').innerHTML=h;
+  }
+  function render(){
+    let list=PRODUCTS.filter(p=>(!st.type||p.type===st.type)&&(!st.sol||p.sol.includes(st.sol))&&(!st.flag||p[st.flag])&&(!st.q||p.name.toLowerCase().includes(st.q.toLowerCase())));
+    if(st.price){const [lo,hi]=st.price.split('-').map(Number);list=list.filter(p=>p.price>=lo&&p.price<hi)}
+    const by={pop:(a,b)=>(b.hit-a.hit)||(b.new-a.new),cheap:(a,b)=>a.price-b.price,exp:(a,b)=>b.price-a.price,az:(a,b)=>a.name.localeCompare(b.name,'ru')}[st.sort];
+    list=[...list].sort(by);
+    const title=st.type?TN[st.type]:st.sol?SN[st.sol]:st.flag==='hit'?'Хиты продаж':st.flag==='new'?'Новинки':st.q?`Поиск: «${st.q}»`:'Каталог';
+    document.getElementById('title').textContent=title;
+    document.getElementById('crumb').innerHTML=title==='Каталог'?'':'<i>·</i> '+title;
+    document.getElementById('stockN').textContent=list.length;
+    document.getElementById('chips').innerHTML=SOLS.map(([k,n])=>`<a href="#sol=${k}" class="${st.sol===k?'on':''}">${n}</a>`).join('');
+    document.getElementById('count').textContent=list.length;
+    document.getElementById('grid').innerHTML=list.length?list.map(card).join(''):'<div class="empty" style="grid-column:1/-1">Ничего не нашлось — попробуйте сбросить фильтры</div>';
+    document.querySelectorAll('.pill[data-flag]').forEach(b=>b.classList.toggle('on',st.flag===b.dataset.flag));
+    menu();
+  }
+  document.getElementById('menu').addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();location.hash=a.getAttribute('href').slice(1)||'';});
+  document.getElementById('sort').onchange=e=>{st.sort=e.target.value;render()};
+  document.getElementById('price').onchange=e=>{st.price=e.target.value;render()};
+  document.querySelectorAll('.pill[data-flag]').forEach(b=>b.onclick=()=>{st.flag=st.flag===b.dataset.flag?'':b.dataset.flag;write();render()});
+  document.getElementById('reset').onclick=()=>{location.hash='';st.sort='pop';st.price='';document.getElementById('sort').value='pop';document.getElementById('price').value='';};
+  document.querySelectorAll('.views button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.views button').forEach(x=>x.classList.toggle('on',x===b));document.getElementById('grid').classList.toggle('cols3',b.dataset.cols==='3')});
+  window.addEventListener('hashchange',()=>{read();render();window.scrollTo({top:0})});
+  read();render();
+})();
+</script>
+</body>
+</html>
