@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Бальзам Болотова 475 мл — Центр Болотова</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=PT+Serif:ital@1&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<!-- Local mockup (2026-09-15): product page. Layout after the peptidx.ru product page (gallery · info · buy box · sections),
+     look taken from the balsam's own packaging (plum box, gold foil). Facts, prices and quantity discounts from
+     centerbolotova.ru/tovary/po-tipu-produkta/balzamy/balzam-bolotova/ as of 2026-09-15. -->
+</head>
+<body data-page="product" data-product="balzam-bolotova">
+<div id="hdr"></div>
+
+<main class="wrap prod">
+  <nav class="crumbs"><a href="index.html">Главная</a><i>·</i><a href="catalog.html">Каталог</a><i>·</i><span>Бальзам Болотова</span></nav>
+
+  <section class="p-top">
+    <!-- gallery -->
+    <div class="p-gal">
+      <div class="p-thumbs" role="tablist" aria-label="Фото товара">
+        <button class="on" data-src="assets/products/balzam/box.webp" aria-label="Бутылка с коробкой"><img src="assets/products/balzam/box.webp" alt=""></button>
+        <button data-src="assets/products/balzam/bottle.webp" aria-label="Бутылка"><img src="assets/products/balzam/bottle.webp" alt=""></button>
+        <button data-src="assets/products/balzam/cap.webp" aria-label="Дозатор"><img src="assets/products/balzam/cap.webp" alt=""></button>
+        <button data-src="assets/products/balzam/back.webp" aria-label="Обратная сторона"><img src="assets/products/balzam/back.webp" alt=""></button>
+      </div>
+      <div class="p-main">
+        <div class="flags"><span class="flag hit">Хит</span></div>
+        <img id="pMain" src="assets/products/balzam/box.webp" alt="Бальзам Болотова 475 мл">
+      </div>
+    </div>
+
+    <!-- info -->
+    <div class="p-info">
+      <div class="p-eyebrow">По рецепту академика Б.&nbsp;В.&nbsp;Болотова</div>
+      <h1 class="p-name">Бальзам Болотова</h1>
+      <div class="p-meta">
+        <span><span class="st">★</span> нет оценок</span>
+        <a href="#otzyvy">Отзывы</a>
+        <span class="ok">✓ В наличии</span>
+      </div>
+
+      <div class="p-opt">
+        <div class="p-label">Объём</div>
+        <div class="p-chips"><button class="on" aria-pressed="true">475 мл</button></div>
+        <p class="p-note">Новая бутылка с удобным дозатором</p>
+      </div>
+
+      <ul class="p-facts">
+        <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M10 2h4v4l2 3v11a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9l2-3z"/><path d="M8 13h8"/></svg></span><b>475 мл</b><small>объём</small></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1.5 11a2 2 0 0 1-2 1.7h-5a2 2 0 0 1-2-1.7z"/><path d="M9 4h6M12 4v4"/></svg></span><b>1 ч. л.</b><small>на 100–200 мл воды</small></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span><b>2 месяца</b><small>минимальный курс</small></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><b>№ 769395</b><small>товарный знак</small></li>
+      </ul>
+
+      <div class="p-char" id="char-short">
+        <h2 class="p-h">Характеристики</h2>
+        <dl>
+          <div><dt>Объём</dt><dd>475 мл</dd></div>
+          <div><dt>Состав</dt><dd>вода, виноградный уксус, сок красного винограда, янтарная кислота…</dd></div>
+          <div><dt>Срок годности</dt><dd>2 года</dd></div>
+          <div><dt>Изготовитель</dt><dd>ООО «КоролёвФарм»</dd></div>
+        </dl>
+        <a class="p-more" href="#char">Все характеристики</a>
+      </div>
+    </div>
+
+    <!-- buy box -->
+    <aside class="p-buy" id="buy">
+      <div class="p-price"><b id="unit">2 350 ₽</b><span>за бутылку</span></div>
+      <div class="p-save" id="save" hidden></div>
+
+      <div class="tiers">
+        <div class="tiers-h"><span>Больше — выгоднее</span><small>цена за бутылку</small></div>
+        <div id="tiers" role="radiogroup" aria-label="Цена в зависимости от количества"></div>
+      </div>
+
+      <div class="p-qty">
+        <div class="step" aria-label="Количество">
+          <button type="button" id="minus" aria-label="Меньше">−</button>
+          <input id="qty" type="number" min="1" max="99" value="1" inputmode="numeric" aria-label="Количество бутылок">
+          <button type="button" id="plus" aria-label="Больше">+</button>
+        </div>
+        <div class="p-total"><small>Итого</small><b id="total">2 350 ₽</b></div>
+      </div>
+
+      <button class="btn p-cart" type="button">В корзину</button>
+      <button class="btn ghost p-one" type="button">Купить в 1 клик</button>
+
+      <ul class="p-serv">
+        <li><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><a href="#">Рассчитать доставку</a></li>
+        <li><svg viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4z"/></svg><a href="https://t.me/centr_bolotova" target="_blank" rel="noopener">Консультация врача — бесплатно</a></li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- sections: one page, a sticky strip of anchors (familiar tabs, nothing hidden) -->
+  <nav class="p-tabs" id="tabs" aria-label="Разделы страницы">
+    <a href="#opisanie" class="on">Описание</a>
+    <a href="#primenenie">Способ применения</a>
+    <a href="#char">Характеристики</a>
+    <a href="#docs">Документы</a>
+    <a href="#otzyvy">Отзывы</a>
+  </nav>
+
+  <section class="p-sec p-desc" id="opisanie">
+    <div>
+      <div class="p-eyebrow">Описание</div>
+      <h2 class="p-h2">Напиток по рецепту академика Болотова</h2>
+      <p>Бальзам Болотова готовят на основе сока красного винограда и натурального виноградного уксуса с&nbsp;добавлением янтарной кислоты. Рецепт разработан академиком Борисом Болотовым (патент № 16111 от 17.07.2006).</p>
+      <p>Оригинал выпускается под товарным знаком «Бальзам Болотова» № 769395 на производстве ООО «КоролёвФарм» в&nbsp;Королёве.</p>
+    </div>
+    <figure class="p-desc-img"><img src="assets/products/balzam/bottle.webp" alt=""></figure>
+  </section>
+
+  <section class="p-sec" id="primenenie">
+    <div class="p-eyebrow">Способ применения</div>
+    <h2 class="p-h2">Как принимать</h2>
+    <ol class="p-steps">
+      <li><b>1 чайная ложка</b><span>бальзама на 100–200 мл воды</span></li>
+      <li><b>Через трубочку</b><span>во время или сразу после еды, 2–3 раза в день</span></li>
+      <li><b>Через 1–2 недели</b><span>дозу увеличивают до 1 столовой ложки</span></li>
+    </ol>
+    <p class="p-course">Минимальный рекомендованный курс — <b>2 месяца</b>. <a href="catalog.html#type=komplekty">Курс на 2 месяца →</a></p>
+    <details><summary>Противопоказания</summary><p>Язвенная болезнь желудка и двенадцатиперстной кишки в стадии обострения; эрозивный гастродуоденит и эзофагит в стадии обострения; индивидуальная непереносимость компонентов; беременность; лактация. Перед применением рекомендуется проконсультироваться с врачом.</p></details>
+  </section>
+
+  <section class="p-sec" id="char">
+    <div class="p-eyebrow">Характеристики</div>
+    <h2 class="p-h2">Всё о продукте</h2>
+    <dl class="p-table">
+      <div><dt>Объём</dt><dd>475 мл. Зимой — 400 мл в бутылке 475 мл, чтобы стекло выдержало мороз</dd></div>
+      <div><dt>Состав</dt><dd>Вода, натуральный виноградный уксус 6%, серная кислота (Е513), соляная кислота (Е507), сок концентрированный из красных сортов винограда, янтарная кислота</dd></div>
+      <div><dt>Срок годности</dt><dd>2 года</dd></div>
+      <div><dt>Условия хранения</dt><dd>В недоступном для детей месте при температуре не выше +25 °C</dd></div>
+      <div><dt>Изготовитель</dt><dd>ООО «КоролёвФарм», 141074, Московская обл., г. Королёв, ул. Пионерская, д. 4</dd></div>
+      <div><dt>Товарный знак</dt><dd>«Бальзам Болотова» № 769395</dd></div>
+      <div><dt>Патент</dt><dd>№ 16111 от 17.07.2006</dd></div>
+    </dl>
+  </section>
+
+  <section class="p-sec" id="docs">
+    <div class="p-eyebrow">Документы</div>
+    <h2 class="p-h2">Проверено и зарегистрировано</h2>
+    <div class="p-docs">
+      <button class="p-doc" data-img="sgr-balzam,sgr-balzam-pril" data-cap="Свидетельство о государственной регистрации № RU.77.99.88.003.R.002719.09.23 от 20.09.2023 и приложение"><img src="assets/docs/sgr-balzam.webp" alt=""><span>Свидетельство о госрегистрации</span></button>
+      <button class="p-doc" data-img="ekspert-1,ekspert-9" data-cap="Экспертное заключение ФБУЗ ФЦГиЭ Роспотребнадзора № 10 ФЦ/2337 от 05.09.2019"><img src="assets/docs/ekspert-1.webp" alt=""><span>Экспертиза Роспотребнадзора</span></button>
+      <button class="p-doc" data-img="tz-1,tz-2" data-cap="Свидетельство на товарный знак № 769395 «Бальзам Болотова»"><img src="assets/docs/tz-1.webp" alt=""><span>Товарный знак № 769395</span></button>
+    </div>
+  </section>
+
+  <section class="p-sec" id="sets">
+    <div class="sec-head"><h2 class="p-h2">С бальзамом выгоднее</h2><a class="btn ghost sm" href="catalog.html#type=komplekty">Все комплекты</a></div>
+    <div class="rail" id="setRail"></div>
+  </section>
+
+  <section class="p-sec" id="otzyvy">
+    <div class="p-eyebrow">Отзывы</div>
+    <h2 class="p-h2">Отзывы покупателей</h2>
+    <div class="p-empty">Пока нет отзывов на сайте. <a class="btn ghost sm" href="#">Оставить отзыв</a></div>
+  </section>
+</main>
+
+<!-- mobile: price and button stay at hand -->
+<div class="p-bar" id="bar"><div><b id="barTotal">2 350 ₽</b><small id="barQty">1 бутылка</small></div><button class="btn p-cart" type="button">В корзину</button></div>
+
+<div id="ftr"></div>
+<script src="assets/products.js"></script>
+<script src="assets/brand/logo-bb.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  // Quantity discounts as listed on centerbolotova.ru (2026-09-15). The live site words the first row «При заказе 2 шт»;
+  // the base price is the same 2 350 ₽, so it reads here as 1–2.
+  const TIERS=[{from:1,to:2,price:2350},{from:3,to:5,price:2300},{from:6,to:9,price:2200},{from:10,to:99,price:2100}];
+  const BASE=TIERS[0].price;
+  const rub=n=>n.toLocaleString('ru-RU')+' ₽';
+  const bottles=n=>n+' '+(n%10===1&&n%100!==11?'бутылка':[2,3,4].includes(n%10)&&![12,13,14].includes(n%100)?'бутылки':'бутылок');
+  const tierOf=q=>TIERS.find(t=>q>=t.from&&q<=t.to)||TIERS[TIERS.length-1];
+  const $=id=>document.getElementById(id), qty=$('qty');
+
+  $('tiers').innerHTML=TIERS.map((t,i)=>`<button type="button" role="radio" class="tier" data-i="${i}">
+    <i class="dot" aria-hidden="true"></i>
+    <span class="tq">${t.to>=99?'от '+t.from:t.from+'–'+t.to} шт</span>
+    <span class="tp">${rub(t.price)}</span>
+    <span class="ts">${t.price<BASE?'−'+rub(BASE-t.price):''}</span></button>`).join('');
+
+  function update(){
+    let q=Math.max(1,Math.min(99,parseInt(qty.value,10)||1)); qty.value=q;
+    const t=tierOf(q), sum=q*t.price, saved=q*(BASE-t.price);
+    document.querySelectorAll('.tier').forEach(b=>{const on=TIERS[b.dataset.i]===t;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});
+    $('unit').textContent=rub(t.price); $('total').textContent=rub(sum);
+    $('save').hidden=!saved; $('save').textContent=saved?'Экономия '+rub(saved):'';
+    $('barTotal').textContent=rub(sum); $('barQty').textContent=bottles(q)+(saved?' · −'+rub(saved):'');
+  }
+  $('tiers').addEventListener('click',e=>{const b=e.target.closest('.tier');if(!b)return;const t=TIERS[b.dataset.i];const q=parseInt(qty.value,10)||1;if(q<t.from||q>t.to)qty.value=t.from;update()});
+  $('minus').onclick=()=>{qty.value=(parseInt(qty.value,10)||1)-1;update()};
+  $('plus').onclick=()=>{qty.value=(parseInt(qty.value,10)||1)+1;update()};
+  qty.addEventListener('input',update);
+  update();
+
+  // gallery
+  document.querySelector('.p-thumbs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+    document.querySelectorAll('.p-thumbs button').forEach(x=>x.classList.toggle('on',x===b));$('pMain').src=b.dataset.src});
+
+  // sets with the balsam
+  const sets=PRODUCTS.filter(p=>p.type==='komplekty'&&/бальзам/i.test(p.name));
+  $('setRail').innerHTML=sets.map(CB.card).join('');
+
+  // highlight the section in view
+  const links=[...document.querySelectorAll('.p-tabs a')];
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+  links.forEach(a=>{const s=document.querySelector(a.getAttribute('href'));s&&io.observe(s)});
+
+  // mobile bar only once the buy box has scrolled away
+  const bar=$('bar');
+  new IntersectionObserver(([en])=>bar.classList.toggle('show',!en.isIntersecting&&en.boundingClientRect.top<0)).observe($('buy'));
+})();
+</script>
+</body>
+</html>

@@ -65,6 +65,7 @@
 
 <div id="ftr"></div>
 <script src="assets/products.js"></script>
+<script src="assets/brand/logo-bb.js"></script>
 <script src="assets/site.js"></script>
 <script>
 (function(){
@@ -104,7 +105,11 @@
   document.querySelectorAll('.pill[data-flag]').forEach(b=>b.onclick=()=>{st.flag=st.flag===b.dataset.flag?'':b.dataset.flag;write();render()});
   document.getElementById('reset').onclick=()=>{location.hash='';st.sort='pop';st.price='';document.getElementById('sort').value='pop';document.getElementById('price').value='';};
   document.querySelectorAll('.views button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.views button').forEach(x=>x.classList.toggle('on',x===b));document.getElementById('grid').classList.toggle('cols3',b.dataset.cols==='3')});
-  window.addEventListener('hashchange',()=>{read();render();window.scrollTo({top:0})});
+  // After a filter change keep the reader where they are; only when they have scrolled past the
+  // results, bring the page title back just under the sticky header (never to the very top of the page).
+  const toResults=()=>{const t=document.querySelector('.page-title'),h=document.querySelector('header.site');
+    const y=t.getBoundingClientRect().top+scrollY-(h?h.offsetHeight:0)-12;if(scrollY>y)window.scrollTo({top:y,behavior:'smooth'})};
+  window.addEventListener('hashchange',()=>{read();render();toResults()});
   read();render();
 })();
 </script>

@@ -1,10 +1,10 @@
-// Products as listed on centerbolotova.ru/tovary/ (names, prices, sections; img2 = an extra photo from the product page) — scraped 2026-09-14 for the mockup.
+// Products as listed on centerbolotova.ru/tovary/ (names, prices; sections regrouped by the owner 2026-09-15; img2 = an extra photo from the product page) — scraped 2026-09-14 for the mockup.
 window.PRODUCTS=[
 {
 "id": "balzam-bolotova",
 "name": "Бальзам Болотова",
 "price": 2350,
-"type": "balzamy",
+"type": "balzam",
 "sol": [
 "sosudy",
 "sahar",
@@ -33,7 +33,7 @@ window.PRODUCTS=[
 "id": "biyang",
 "name": "Биянг",
 "price": 3000,
-"type": "balzamy",
+"type": "kapsuly",
 "sol": [],
 "hit": false,
 "new": false,
@@ -96,7 +96,7 @@ window.PRODUCTS=[
 "id": "chistyy-hrustal",
 "name": "Чистый хрусталь",
 "price": 1250,
-"type": "dobavki",
+"type": "kapsuly",
 "sol": [
 "zrenie"
 ],
@@ -107,7 +107,7 @@ window.PRODUCTS=[
 "id": "pilorum-pischevarenie",
 "name": "Пилорум пищеварение",
 "price": 1450,
-"type": "dobavki",
+"type": "kapsuly",
 "sol": [
 "pishchevarenie"
 ],
@@ -129,7 +129,7 @@ window.PRODUCTS=[
 "id": "yuvital",
 "name": "Ювитал",
 "price": 1550,
-"type": "dobavki",
+"type": "kapsuly",
 "sol": [
 "sahar",
 "davlenie"
@@ -142,7 +142,7 @@ window.PRODUCTS=[
 "id": "vermidol",
 "name": "Вермидол",
 "price": 1300,
-"type": "dobavki",
+"type": "kapsuly",
 "sol": [
 "ochishchenie"
 ],
@@ -200,7 +200,7 @@ window.PRODUCTS=[
 "id": "hlorofill",
 "name": "Хлорофилл",
 "price": 1900,
-"type": "dobavki",
+"type": "kapsuly",
 "sol": [
 "ves"
 ],
@@ -212,7 +212,7 @@ window.PRODUCTS=[
 "id": "legofit",
 "name": "Легофит",
 "price": 1300,
-"type": "dobavki",
+"type": "kapsuly",
 "sol": [
 "ves"
 ],
@@ -267,7 +267,7 @@ window.PRODUCTS=[
 "id": "nochnoy-krem-s-retinolom-i-mutsinom-ulitki",
 "name": "Ночной крем с ретинолом и муцином улитки",
 "price": 1500,
-"type": "geli",
+"type": "kosmetika",
 "sol": [],
 "hit": false,
 "new": true
@@ -276,7 +276,7 @@ window.PRODUCTS=[
 "id": "inozitol",
 "name": "Инозитол",
 "price": 1500,
-"type": "dobavki",
+"type": "kapsuly",
 "sol": [
 "sahar"
 ],
@@ -287,7 +287,7 @@ window.PRODUCTS=[
 "id": "psillium",
 "name": "Псиллиум",
 "price": 1500,
-"type": "dobavki",
+"type": "kapsuly",
 "sol": [
 "pishchevarenie"
 ],
