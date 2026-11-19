@@ -44,6 +44,9 @@
 .orig-reasons li{counter-increment:r;position:relative;padding:14px 16px 14px 56px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;font-size:15px;line-height:1.55;color:#f3e8ec}
 .orig-reasons li::before{content:counter(r);position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--wine-dark);font-weight:800;display:grid;place-items:center;font-family:'Montserrat','Montserrat Fallback',sans-serif;font-size:14px}
 .orig-reasons strong{display:block;color:#fff;font-family:'Montserrat','Montserrat Fallback',sans-serif;margin-bottom:2px}
+.orig-check{margin:20px 0 0;padding:14px 18px;border-radius:14px;background:rgba(201,168,106,.16);border:1px solid rgba(230,212,168,.45);color:#f6ecef;font-size:15px;line-height:1.55}
+.orig-check strong{color:#fff}
+.orig-check a{color:var(--gold-light);font-weight:700}
 .orig-price .orig-note{margin-top:18px;font-size:12.5px;line-height:1.5;color:#cdb5bf}
 .orig-price .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
 .orig-price .btn-ghost:hover{background:rgba(255,255,255,.1)}
@@ -94,3 +97,14 @@
 .orig-checks li::before{content:'✓';position:absolute;left:14px;top:11px;width:22px;height:22px;border-radius:50%;background:var(--sage);color:#3f5a22;font-weight:800;display:grid;place-items:center;font-size:13px}
 .orig-checks li.warn::before{content:'!';background:#f6e1d8;color:#9a3b12}
 @media (max-width:760px){.orig-split{grid-template-columns:1fr}.orig-lib{grid-template-columns:1fr 1fr;gap:12px}.orig-lib img{height:190px}.orig-points,.orig-facts{grid-template-columns:1fr}.orig-thumbs img{height:150px}.orig-status{align-items:flex-start}}
+
+/* ---------- Video slots (placeholders until the Polish videos arrive) ---------- */
+.orig-video{margin:20px 0 0;max-width:640px}
+.orig-video .frame{position:relative;aspect-ratio:16/9;border-radius:16px;background:linear-gradient(135deg,var(--wine-dark),var(--wine));border:2px dashed var(--gold);display:grid;place-items:center;align-content:center;gap:12px;color:#fff;text-align:center;padding:16px}
+.orig-video .play{width:64px;height:64px;border-radius:50%;background:var(--gold);color:var(--wine-dark);display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.orig-video .play svg{width:30px;height:30px;margin-left:4px}
+.orig-video .soon{font-family:'Montserrat','Montserrat Fallback',sans-serif;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light)}
+.orig-video figcaption{margin-top:10px;font-size:14px;line-height:1.45;color:#5a4a51}
+.orig-video figcaption strong{display:block;color:var(--wine);font-family:'Montserrat','Montserrat Fallback',sans-serif;font-size:15px}
+.orig-video.is-reserved .frame{background:linear-gradient(135deg,#8a7a80,#a8979d);border-color:#d8cdd1}
+.orig-video.is-reserved .play{background:#efe7ea;color:#6b5b62}

@@ -551,7 +551,8 @@ window.cbAttribution = function () {
     addOnce: addOnce,
     freeFrom: freeFrom,
     pragueDay: pragueDay,         // Y-m-d on the Prague clock — the day every date window here is read against
-    add: function (id, qty) {
+    /* silent: no «Dodano do koszyka» pop-up — for a «buy now» button that goes to the cart at once (home page, 2026-11). */
+    add: function (id, qty, silent) {
       if (!CATALOG[id]) { return; }
       qty = qty || 1;
       var items = read();
@@ -560,7 +561,7 @@ window.cbAttribution = function () {
       write(items);
       dl({ ecommerce: null });
       dl({ event: 'add_to_cart', ecommerce: { currency: 'PLN', value: unitPrice(id, qty) * qty, items: [ecomItem(id, qty)] } });
-      notify(id, qty);
+      if (!silent) notify(id, qty);
     },
     setQty: function (id, qty) {
       var items = read().map(function (i) { return i.id === id ? { id: id, qty: qty } : i; })
