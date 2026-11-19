@@ -1,0 +1,657 @@
+/* ===== Centrum Bolotova — brand design system (wine/gold, from brand-style.html) ===== */
+/* Fonts are self-hosted since 2026-11-15 (PageSpeed: the Google Fonts @import blocked the first paint, ~0.75 s).
+   Montserrat (600–900) and Open Sans (400–700) are the variable fonts from github.com/google/fonts, cut with fontTools to
+   Google's own «latin» character set + Latin Extended-A (all Polish letters; arrows such as → stay the system font, as
+   before); PT Serif is Google's own latin / latin-ext files, unchanged
+   (its OFL reserves the name, so no cut copy). Licences: assets/fonts/OFL-*.txt. The two main files are preloaded in
+   every page <head>. A new version of a font goes up under a new file name (the -vNN in it). */
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:600 900;font-display:swap;src:url(assets/fonts/montserrat-v31-pl.woff2) format('woff2')}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(assets/fonts/opensans-v44-pl.woff2) format('woff2')}
+/* Google's own Open Sans «symbols» file, unchanged: the arrows (→ ←) in body text came from it before, so they look the same. */
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(assets/fonts/opensans-v44-symbols.woff2) format('woff2');unicode-range:U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AE, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8BB, U+1F8C0-1F8C1, U+1F8D0-1F8D8, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FAC6, U+1FAC8, U+1FACC-1FADD, U+1FADF-1FAEB, U+1FAEF-1FAFA, U+1FB00-1FBFF}
+@font-face{font-family:'PT Serif';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/ptserif-400-v19-latinext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'PT Serif';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/ptserif-400-v19-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'PT Serif';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/ptserif-700-v19-latinext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'PT Serif';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/ptserif-700-v19-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'PT Serif';font-style:italic;font-weight:400;font-display:swap;src:url(assets/fonts/ptserif-400i-v19-latinext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'PT Serif';font-style:italic;font-weight:400;font-display:swap;src:url(assets/fonts/ptserif-400i-v19-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
+/* Metric-matched fallbacks (2026-11-15): while the web fonts load, text is drawn in a local Arial / Liberation /
+   Roboto / Times scaled to the web font's widths and line heights, so the swap moves nothing (PageSpeed CLS). Numbers
+   from fontTools over the home page's own text. */
+@font-face{font-family:'Montserrat Fallback';font-weight:400 900;src:local('Arial Bold'),local('Arial-BoldMT'),local('Liberation Sans Bold'),local('LiberationSans-Bold'),local('Roboto Bold'),local('Roboto-Bold');size-adjust:107.51%;ascent-override:90.04%;descent-override:23.35%;line-gap-override:0%}
+@font-face{font-family:'Open Sans Fallback';font-weight:300 500;src:local('Arial'),local('ArialMT'),local('Liberation Sans'),local('LiberationSans'),local('Roboto'),local('Roboto-Regular');size-adjust:103.46%;ascent-override:103.31%;descent-override:28.32%;line-gap-override:0%}
+@font-face{font-family:'Open Sans Fallback';font-weight:600 900;src:local('Arial Bold'),local('Arial-BoldMT'),local('Liberation Sans Bold'),local('LiberationSans-Bold'),local('Roboto Bold'),local('Roboto-Bold');size-adjust:103.74%;ascent-override:103.03%;descent-override:28.24%;line-gap-override:0%}
+@font-face{font-family:'PT Serif Fallback';font-style:normal;src:local('Times New Roman'),local('TimesNewRomanPSMT'),local('Liberation Serif'),local('LiberationSerif');size-adjust:108.93%;ascent-override:95.38%;descent-override:26.26%;line-gap-override:0%}
+@font-face{font-family:'PT Serif Fallback';font-style:italic;src:local('Times New Roman Italic'),local('TimesNewRomanPS-ItalicMT'),local('Liberation Serif Italic'),local('LiberationSerif-Italic');size-adjust:104.30%;ascent-override:99.62%;descent-override:27.42%;line-gap-override:0%}
+
+:root{
+  --wine:#7B2D4E; --wine-dark:#5E2039; --magenta:#9C2A6E;
+  --gold:#C9A86A; --gold-light:#E6D4A8;
+  --sage:#DCE6C8; --sage-deep:#C4D3A3;
+  --cream:#FAF7F2; --ink:#2B2B2B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans','Open Sans Fallback',system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1140px;margin:0 auto;padding:0 20px}
+.section{padding:64px 0}
+
+/* Typography */
+h1,h2,h3,.mont{font-family:'Montserrat','Montserrat Fallback',sans-serif}
+.kicker{font-family:'Montserrat','Montserrat Fallback';font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--magenta);font-size:13px}
+h1{font-weight:800;text-transform:uppercase;line-height:1.08;letter-spacing:-.015em;font-size:clamp(28px,3.6vw,40px)}
+h2.title{font-weight:800;text-transform:uppercase;color:var(--wine);font-size:clamp(22px,2.6vw,31px);line-height:1.12;letter-spacing:-.01em;text-align:center}
+.serif{font-family:'PT Serif','PT Serif Fallback',serif}
+.accent{font-family:'PT Serif','PT Serif Fallback',serif;color:var(--magenta);font-weight:700}
+.lead{font-size:18px;max-width:680px}
+.center{text-align:center}
+.muted{color:#6b5b62}
+
+/* Pills / buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat','Montserrat Fallback';font-weight:700;text-transform:uppercase;
+     letter-spacing:1px;border:none;border-radius:12px;padding:14px 28px;font-size:14px;cursor:pointer;transition:.18s;white-space:nowrap}
+.btn-primary{background:var(--wine);color:#fff}
+.btn-primary:hover{background:var(--wine-dark)}
+.btn-gold{background:linear-gradient(90deg,var(--gold),var(--gold-light));color:var(--wine-dark)}
+.btn-gold:hover{filter:brightness(1.05)}
+.btn-ghost{background:var(--sage);color:var(--wine-dark)}
+.btn-ghost:hover{background:var(--sage-deep)}
+.btn-wa{background:#178540;color:#fff}   /* WhatsApp green, same hue, darker: white text 4.7:1 (was #25D366, 2.0:1 — 2026-11-15, same as CZ/SK) */
+.btn-wa:hover{filter:brightness(.95)}
+.tag{display:inline-block;font-family:'Montserrat','Montserrat Fallback';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+     color:#fff;background:var(--magenta);border-radius:40px;padding:6px 14px}
+.ribbon{height:6px;background:linear-gradient(90deg,var(--gold-light),var(--gold),var(--wine));border-radius:40px}
+.card{background:#fff;border-radius:18px;box-shadow:0 6px 22px rgba(94,32,57,.08);overflow:hidden}
+
+/* Header */
+.topbar{background:var(--wine-dark);color:#f3e7da;font-size:13px}
+.topbar .container{display:flex;align-items:center;justify-content:space-between;height:38px}
+.sw-home a.card{display:grid;grid-template-columns:1fr 1.2fr;align-items:center;background:var(--wine-dark);color:#fff;overflow:hidden;text-decoration:none}
+.sw-home img{width:100%;height:100%;max-height:420px;object-fit:cover}
+.sw-home-txt{padding:26px;display:grid;gap:10px}
+.sw-home-txt strong{font-family:Montserrat,'Montserrat Fallback';font-size:30px;line-height:1.1}
+@media (max-width:640px){.sw-home a.card{grid-template-columns:1fr}.sw-home img{max-height:260px}.sw-home-txt{padding:20px}.sw-home-txt strong{font-size:24px}}
+.site-header{position:sticky;top:0;z-index:40;background:rgba(250,247,242,.96);backdrop-filter:blur(6px);border-bottom:1px solid #ecdfe4;transition:transform .25s ease}
+/* Phones and tablets: cart.js adds .hdr-hide while scrolling down, removes it on the way up (owner, 2026-11-01). */
+@media (max-width:1100px){ .site-header.hdr-hide{transform:translateY(-100%)} }
+.site-header .container{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:12px;font-family:'Montserrat','Montserrat Fallback';font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--wine);font-size:17px}
+.brand img.logo{width:52px;height:52px;object-fit:contain}
+.nav{display:flex;gap:17px;font-family:'Montserrat','Montserrat Fallback';font-weight:600;font-size:14px;color:var(--wine-dark)}
+.nav a:hover{color:var(--magenta)}
+.header-actions{display:flex;align-items:center;gap:14px}
+.wa-ic{width:40px;height:40px;border-radius:50%;background:#25D366;display:grid;place-items:center}
+.wa-ic svg{width:22px;height:22px;fill:#fff}
+@media(max-width:900px){.nav{display:none}}
+
+/* Hero */
+.hero{position:relative;color:#fff;overflow:hidden}
+.hero>img,.hero>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .overlay{position:absolute;inset:0;background:linear-gradient(100deg,rgba(94,32,57,.94),rgba(123,45,78,.82) 45%,rgba(123,45,78,.25))}
+.hero .inner{position:relative;padding:120px 0;max-width:620px}
+
+/* Product card tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:2px solid #ecdfe4;margin-bottom:26px}
+.tabs button{font-family:'Montserrat','Montserrat Fallback';font-weight:700;font-size:15px;color:#806b75;background:none;border:none;
+     padding:12px 18px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s}
+.tabs button.active{color:var(--wine);border-bottom-color:var(--gold)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.tab-panel h3{color:var(--wine);font-size:18px;margin:18px 0 8px}
+.tab-panel ul{margin:8px 0 8px 20px}.tab-panel li{margin-bottom:6px}
+.info-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.info-table td{padding:7px 10px;border-bottom:1px solid #f0e6ea}
+.info-table td:last-child{text-align:right;white-space:nowrap;color:var(--wine)}
+
+/* Footer */
+.site-footer{background:var(--wine-dark);color:#e7d6dd;font-size:14px}
+.site-footer a:hover{color:var(--gold-light)}
+/* Footnotes: #caa9b6 was made for the dark footer; on white/cream pages it read 2.1:1 — same hue, darker there
+   (2026-11-15, same as CZ/SK); the footer keeps the light one. */
+.fnote{font-size:12px;color:#985e75;line-height:1.5}
+footer .fnote,.site-footer .fnote{color:#caa9b6}
+.disclaimer-bar{background:#efe3e8;color:#6b4a57;font-size:12px;text-align:center;padding:12px 20px;line-height:1.5}
+
+/* WhatsApp float */
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:50;width:56px;height:56px;border-radius:50%;background:#25D366;
+     display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:.18s}
+.wa-float:hover{transform:scale(1.06)}.wa-float svg{width:28px;height:28px;fill:#fff}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:820px){.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr;gap:28px}}
+
+/* nav dropdown */
+.nav-dd{position:relative}
+.nav-dd-menu{position:absolute;top:100%;left:0;background:#fff;border:1px solid #ecdfe4;border-radius:12px;box-shadow:0 8px 24px rgba(94,32,57,.14);padding:8px;display:none;flex-direction:column;min-width:230px;z-index:50}
+.nav-dd:hover .nav-dd-menu{display:flex}
+.nav-dd-menu a{padding:9px 14px;border-radius:8px;white-space:nowrap;color:var(--wine-dark)}
+.nav-dd-menu a:hover{background:var(--cream);color:var(--magenta)}
+
+/* product gallery */
+.gthumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.gthumb{width:70px;height:70px;border-radius:10px;border:2px solid #ecdfe4;object-fit:contain;background:var(--cream);cursor:pointer}
+#gmain{cursor:zoom-in}
+/* Breadcrumb links — visibly clickable */
+.crumb a{color:var(--magenta);font-weight:600}
+.crumb a:hover{text-decoration:underline;text-underline-offset:2px}
+.gthumb:hover{border-color:var(--gold)}
+
+/* mobile menu */
+.burger{display:none;background:none;border:none;cursor:pointer;font-size:24px;color:var(--wine);line-height:1;padding:10px;margin:-10px;-webkit-tap-highlight-color:transparent}
+@media(max-width:900px){
+ .burger{display:block}
+ .nav{display:none;position:fixed;top:72px;left:0;right:0;background:#fff;flex-direction:column;align-items:flex-start;padding:16px 22px;box-shadow:0 10px 24px rgba(0,0,0,.15);gap:10px;z-index:45;max-height:80vh;overflow:auto}
+ .nav.open{display:flex}
+ .nav-dd{width:100%}.nav-dd-menu{position:static;display:flex;box-shadow:none;border:none;padding:4px 0 4px 14px;min-width:0}
+ .nav-dd:hover .nav-dd-menu{display:flex}
+}
+/* mobile header / topbar fit (phones) */
+@media(max-width:600px){
+ .topbar{font-size:11.5px}
+ .topbar .container{height:auto;min-height:32px;padding:5px 16px;justify-content:center;text-align:center}
+ .topbar span:nth-child(2){display:none}           /* hide email here; it's in footer/Kontakt */
+ .brand{font-size:13.5px;gap:8px;line-height:1.1}
+ .brand img.logo{width:42px;height:42px}
+ .header-actions{gap:8px}
+ .header-actions .wa-ic{display:none}              /* redundant with floating WhatsApp button */
+ .header-actions .btn{padding:11px 16px;font-size:12px;letter-spacing:.5px}
+}
+/* ===== Cart ===== */
+.cart-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+  background:var(--wine-dark);color:#fff;font-family:'Montserrat','Montserrat Fallback';font-weight:700;font-size:14px;
+  padding:13px 22px;border-radius:40px;box-shadow:0 10px 30px rgba(94,32,57,.35);z-index:200;
+  opacity:0;pointer-events:none;transition:.25s;max-width:90vw;text-align:center}
+.cart-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.cart-row{display:grid;grid-template-columns:96px 1fr auto auto 32px;gap:16px;align-items:center;
+  padding:16px 0;border-bottom:1px solid #efe5e9}
+.cart-row .cart-thumb{width:96px;height:96px;border-radius:12px;object-fit:contain;background:var(--cream);padding:6px}
+.cart-row .cart-thumb.ph{display:grid;place-items:center;color:var(--gold);font-family:'Montserrat','Montserrat Fallback';font-weight:800;font-size:22px}
+.cart-name{font-weight:700;color:var(--wine-dark)}
+.cart-unit{font-size:13px;color:#6b5b62;margin-top:3px}
+.cart-contents{font-size:12.5px;color:#6b5b62;margin-top:3px;line-height:1.4}
+/* Set upsell plate (product pages) */
+.set-upsell{display:block;margin-top:16px;background:linear-gradient(90deg,#fff,var(--sage));border:1px solid var(--gold);border-radius:12px;padding:12px 16px;font-size:14px;color:var(--wine-dark);line-height:1.5;transition:.18s}
+.set-upsell:hover{box-shadow:0 6px 18px rgba(94,32,57,.12)}
+.set-upsell .ss-go{color:var(--magenta);font-weight:700;white-space:nowrap}
+
+/* Closing call-to-action band (info / dead-end pages) */
+.cta-band{background:var(--wine)}
+.cta-band .title{color:#fff}
+.cta-band .lead{color:#f0dfe6}
+
+/* Trust strip under the add-to-cart button (product & set pages) */
+.buy-trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:13px;color:#6b5b62}
+.buy-trust span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+
+/* Discreet promo-code entry */
+.promo-toggle{background:none;border:none;color:var(--wine);font-family:'Montserrat','Montserrat Fallback',sans-serif;font-weight:700;font-size:14px;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
+.promo-toggle:hover{color:var(--magenta)}
+.promo-collapse{margin-top:10px}
+.promo-link{border:none;background:none;color:var(--magenta);cursor:pointer;text-decoration:underline;font-size:13px;font-family:inherit}
+.qty{display:inline-flex;align-items:center;border:1px solid #e0d3d9;border-radius:40px;overflow:hidden}
+.qty button{width:34px;height:34px;border:none;background:#fff;color:var(--wine);font-size:18px;cursor:pointer;line-height:1}
+.qty button:hover{background:var(--cream)}
+.qty span{min-width:34px;text-align:center;font-weight:700;font-family:'Montserrat','Montserrat Fallback'}
+.cart-line{font-family:'Montserrat','Montserrat Fallback';font-weight:800;color:var(--wine);white-space:nowrap}
+.cart-del{background:none;border:none;color:#b08;cursor:pointer;font-size:20px;line-height:1;opacity:.6}
+.cart-del:hover{opacity:1}
+.sum-row{display:flex;justify-content:space-between;padding:7px 0;font-size:15px}
+.sum-row.total{border-top:1px solid #e0d3d9;margin-top:8px;padding-top:14px;font-family:'Montserrat','Montserrat Fallback';font-weight:800;font-size:20px;color:var(--wine)}
+@media(max-width:600px){
+  .cart-row{grid-template-columns:80px 1fr 28px;grid-template-areas:"img name del" "img qty line";row-gap:10px}
+  .cart-row .cart-thumb{grid-area:img;width:92px;height:92px;padding:0}
+  .cart-row .cart-info{grid-area:name}
+  .cart-row .qty{grid-area:qty}
+  .cart-row .cart-line{grid-area:line;text-align:right}
+  .cart-row .cart-del{grid-area:del}
+}
+
+/* Cart on a phone (2026-10-29, the same pass as the CZ/SK shop): a chat buyer lands here first, so the form has to
+   start on the first screen — less air above the basket, a smaller title, «Złóż zamówienie» closer. */
+.cart-was{font-weight:600;font-size:.85em;color:#9a8a90;margin-right:4px}
+@media(max-width:600px){
+  .cart-section{padding-top:18px}
+  .cart-section .cart-title{font-size:22px}
+  .cart-section .cart-name{font-size:15px;line-height:1.3}
+  /* a set's contents: two lines, a tap opens the rest (the Christmas sets run long) */
+  .cart-section .cart-contents{font-size:12.5px;line-height:1.35;color:#9a8a90;margin-top:3px;cursor:pointer;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .cart-section .cart-contents.open{display:block;-webkit-line-clamp:unset}
+  .cart-section .cart-hint{font-size:12px;line-height:1.35;padding:5px 9px;margin-top:5px}
+  .cart-section .cart-save{font-size:12.5px;margin-top:3px}
+  .cart-section #cart-items{margin-top:12px !important}
+  .cart-section .order-title{margin-top:22px !important;font-size:21px !important}
+  /* «Balzam Bolotova 500 ml» on one line: the × leaves the grid for the top-right corner, the card loses some side padding */
+  .cart-section #cart-items{padding:4px 10px !important}
+  .cart-row{position:relative;padding:12px 0;grid-template-columns:92px 1fr auto;column-gap:12px;grid-template-areas:"img name name" "img qty line"}
+  .cart-row .cart-info{padding-right:26px}
+  .cart-row .cart-del{position:absolute;top:10px;right:0}
+  .cart-row .cart-line{text-align:right;align-self:center;line-height:1.2}
+  .cart-row .cart-line .cart-was{display:block;margin:0}
+  .cart-section #promo-box{margin-top:10px !important}
+  .cart-section #promo-msg{font-size:12.5px !important;margin-top:4px !important}
+  .cart-section #order-form{margin-top:12px !important;gap:16px !important}
+  .cart-section #order-form > .card{padding:16px !important}
+}
+
+/* ===== Reviews grid (customer screenshots) ===== */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.reviews-grid img{width:100%;border-radius:14px;box-shadow:0 4px 14px rgba(94,32,57,.08);border:1px solid #efe5e9;background:#fff}
+.benefit-ico{height:54px;width:auto;margin-bottom:12px}
+
+/* Cart discount visibility */
+.cart-old{color:#9a8a90;text-decoration:line-through;font-size:13px;margin-right:4px}
+.cart-save{font-size:12.5px;color:var(--magenta);font-weight:700;margin-top:3px}
+.cart-omnibus{font-size:11.5px;color:#9a8a90;margin-top:2px}
+.cart-hint{font-size:12.5px;color:var(--wine);background:var(--sage);border-radius:8px;padding:5px 9px;margin-top:6px;display:inline-block}
+
+/* Active discount code on a product / set card (filled by cart.js → paintCards) */
+.card-promo{margin:-6px 0 18px;background:var(--sage);border-left:4px solid var(--magenta);border-radius:10px;padding:10px 14px;font-size:14px;line-height:1.45;color:var(--wine-dark)}
+.card-promo[hidden]{display:none}
+.card-omnibus{font-size:12px;color:#7d6c73;margin-top:4px}
+.card-promo-add{display:block;margin-top:10px}
+
+/* Quantity stepper on product/set pages */
+.qsel{display:inline-flex;align-items:center;border:1px solid #e0d3d9;border-radius:40px;overflow:hidden;vertical-align:middle;background:#fff}
+.qsel button{width:40px;height:48px;border:none;background:#fff;color:var(--wine);font-size:20px;cursor:pointer;line-height:1}
+.qsel button:hover{background:var(--cream)}
+.qsel input{width:46px;height:48px;text-align:center;border:none;font-family:'Montserrat','Montserrat Fallback';font-weight:700;font-size:16px;color:var(--wine-dark);-moz-appearance:textfield}
+.qsel input::-webkit-outer-spin-button,.qsel input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+/* Catalog Produkty/Komplety toggle */
+.catalog-toggle{display:inline-flex;gap:6px;background:#fff;border:1px solid #ecdfe4;border-radius:40px;padding:5px;margin:0 auto 8px}
+.catalog-toggle button{border:none;background:none;font-family:'Montserrat','Montserrat Fallback';font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:13px;color:var(--wine);padding:10px 24px;border-radius:40px;cursor:pointer;transition:.18s}
+.catalog-toggle button.active{background:var(--wine);color:#fff}
+
+/* Certificates grid */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+.cert-grid img{width:100%;height:200px;object-fit:contain;background:#fff;border:1px solid #efe5e9;border-radius:12px;padding:8px;box-shadow:0 4px 14px rgba(94,32,57,.07);transition:.18s}
+.cert-grid a:hover img{box-shadow:0 8px 22px rgba(94,32,57,.16);transform:translateY(-2px)}
+
+/* Reviews carousel (balzam landing) */
+.rev-carousel{position:relative;margin-top:34px}
+.rev-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.rev-track::-webkit-scrollbar{height:8px}
+.rev-track::-webkit-scrollbar-thumb{background:#e0d3d9;border-radius:8px}
+.rev-track img{flex:0 0 280px;width:280px;scroll-snap-align:center;border-radius:14px;border:1px solid #efe5e9;background:#fff;box-shadow:0 4px 14px rgba(94,32,57,.08)}
+.rev-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:none;background:var(--wine);color:#fff;font-size:22px;cursor:pointer;box-shadow:0 6px 18px rgba(94,32,57,.3);z-index:2;display:grid;place-items:center}
+.rev-nav:hover{background:var(--wine-dark)}
+.rev-nav.prev{left:-10px}.rev-nav.next{right:-10px}
+@media(max-width:600px){.rev-track img{flex-basis:230px;width:230px}.rev-nav{display:none}}
+
+/* Add-to-cart popup */
+.cart-pop{position:fixed;inset:0;background:rgba(43,12,28,.45);display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
+.cart-pop.show{display:flex}
+.cart-pop-box{background:#fff;border-radius:18px;max-width:420px;width:100%;padding:26px;position:relative;box-shadow:0 24px 60px rgba(43,12,28,.4);animation:cartpop .22s ease}
+@keyframes cartpop{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
+.cart-pop-x{position:absolute;top:12px;right:14px;border:none;background:none;font-size:26px;line-height:1;color:#9a8a90;cursor:pointer}
+.cart-pop-head{display:flex;align-items:center;gap:10px;font-family:'Montserrat','Montserrat Fallback';font-weight:800;color:var(--wine);font-size:18px}
+.cart-pop-tick{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#3aaf5d;color:#fff;font-size:15px}
+.cart-pop-prod{display:flex;align-items:center;gap:14px;margin:16px 0 20px}
+.cart-pop-prod img{width:60px;height:60px;object-fit:contain;background:var(--cream);border-radius:12px;padding:5px}
+.cart-pop-prod strong{color:var(--wine-dark)}
+.cart-pop-actions{display:grid;gap:10px}
+.cart-pop-actions .btn{justify-content:center;text-align:center}
+.cart-pop-sum{font-size:13px;font-weight:700;color:var(--wine);margin-top:2px}
+.cart-pop-go:focus-visible,.cart-pop-cont:focus-visible,.cart-pop-x:focus-visible{outline:3px solid var(--wine);outline-offset:2px}
+
+/* Footer social icons */
+.foot-social{display:flex;gap:10px;margin-top:14px}
+.foot-social a{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);transition:.18s}
+.foot-social a:hover{background:var(--gold)}
+.foot-social svg{width:18px;height:18px;fill:#fff}
+
+/* Unified footer columns (responsive) */
+.foot-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px;padding:54px 20px}
+@media(max-width:780px){.foot-cols{grid-template-columns:1fr 1fr;gap:24px}}
+@media(max-width:480px){.foot-cols{grid-template-columns:1fr}}
+
+/* Catalog card image — uniform size (no layout jump) */
+.cat-card-img{height:240px;width:100%;object-fit:contain;background:var(--cream);padding:16px;display:block}
+.card h3 a{color:inherit}
+.card h3 a:hover{color:var(--magenta)}
+
+/* Certificate thumbnail zoom hint + lightbox */
+.cert-grid a{position:relative;display:block;cursor:zoom-in}
+.cert-grid a::after{content:'🔍';position:absolute;right:10px;bottom:10px;background:var(--wine);color:#fff;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;opacity:.85}
+.lightbox{position:fixed;inset:0;background:rgba(43,12,28,.85);display:none;align-items:center;justify-content:center;z-index:400;padding:30px}
+.lightbox.show{display:flex}
+.lightbox img{max-width:95%;max-height:92vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);background:#fff}
+.lightbox .lb-x{position:absolute;top:18px;right:24px;font-size:38px;color:#fff;cursor:pointer;line-height:1;background:none;border:none}
+
+/* Footer visual separation from preceding section */
+.site-footer{border-top:4px solid var(--gold)}
+
+/* Experts carousel (balzam landing) */
+.exp-carousel{position:relative}
+.exp-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;scroll-behavior:smooth;padding:4px 2px 8px}
+.exp-track::-webkit-scrollbar{height:8px}
+.exp-track::-webkit-scrollbar-thumb{background:#e0d3d9;border-radius:8px}
+.exp-card{flex:0 0 330px;max-width:330px;scroll-snap-align:center;padding:14px;font-size:13px}
+@media(max-width:600px){.exp-card{flex-basis:280px}.exp-carousel .rev-nav{display:none}}
+
+/* Back-to-top button */
+.to-top{position:fixed;right:20px;bottom:84px;width:46px;height:46px;border-radius:50%;border:none;background:var(--wine);color:#fff;font-size:22px;line-height:1;cursor:pointer;box-shadow:0 8px 22px rgba(94,32,57,.35);opacity:0;pointer-events:none;transition:.22s;z-index:120;display:grid;place-items:center}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{background:var(--wine-dark)}
+
+/* Review images are zoomable */
+.rev-track img, .reviews-grid img{cursor:zoom-in}
+
+/* Certificates carousel (balzam landing) */
+.cert-carousel{position:relative}
+.cert-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;scroll-behavior:smooth;padding:4px 2px 8px}
+.cert-track::-webkit-scrollbar{height:8px}
+.cert-track::-webkit-scrollbar-thumb{background:#e0d3d9;border-radius:8px}
+.cert-track a{flex:0 0 118px;scroll-snap-align:center;position:relative;display:block;cursor:zoom-in}
+.cert-track img{width:100%;height:148px;object-fit:contain;background:#fff;border:1px solid #efe5e9;border-radius:12px;padding:6px}
+@media(max-width:600px){.cert-track a{flex-basis:140px}.cert-carousel .rev-nav{display:none}}
+
+/* Artykuły accordion (kolagen) */
+.art-acc{border:1px solid #efe5e9;border-radius:12px;margin-bottom:12px;background:#fff;overflow:hidden}
+.art-acc>summary{cursor:pointer;list-style:none;padding:16px 20px;font-family:var(--font-head,'Montserrat','Montserrat Fallback',sans-serif);font-weight:700;color:var(--wine);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.art-acc>summary::-webkit-details-marker{display:none}
+.art-acc>summary::after{content:'+';font-size:22px;color:var(--gold,#b8893b);line-height:1;flex:0 0 auto}
+.art-acc[open]>summary::after{content:'–'}
+.art-acc[open]>summary{border-bottom:1px solid #efe5e9}
+.art-acc>p{padding:0 20px;margin:12px 0}
+.art-acc>p:first-of-type{margin-top:16px}
+.art-acc>p:last-child{margin-bottom:18px}
+
+/* Product cards in 3-col grids: equal height + ZOBACZ button bottom-aligned */
+.grid3 article.card{display:flex;flex-direction:column}
+.grid3 article.card>div{display:flex;flex-direction:column;flex:1 1 auto}
+.grid3 article.card .btn{margin-top:auto;align-self:flex-start}
+
+/* Article author byline */
+.art-acc>p.art-by{margin:16px 20px 4px;font-style:italic;font-size:13.5px;color:#8a7a80}
+
+/* Cart set cross-sell banner */
+.set-suggest-box{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,#fff,var(--sage));border:1px solid var(--gold);border-radius:14px;padding:14px 40px 14px 18px;position:relative;box-shadow:0 4px 16px rgba(94,32,57,.08)}
+.set-suggest-box .ss-ico{font-size:24px;flex:0 0 auto;line-height:1}
+.set-suggest-box .ss-txt{font-size:14.5px;color:var(--wine-dark);flex:1 1 auto;line-height:1.5}
+.set-suggest-box .ss-act{flex:0 0 auto}
+.set-suggest-box .ss-x{position:absolute;top:6px;right:12px;border:none;background:none;font-size:20px;line-height:1;color:#9a8a90;cursor:pointer}
+.set-suggest-box .ss-x:hover{color:var(--wine)}
+@media(max-width:600px){
+  .set-suggest-box{flex-wrap:wrap;gap:10px}
+  .set-suggest-box .ss-act{width:100%}
+  .set-suggest-box .ss-act .btn{width:100%;justify-content:center}
+}
+
+/* Recently viewed row */
+.recent-sec{background:#fff;border-top:1px solid #efe5e9}
+.recent-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.recent-row::-webkit-scrollbar{height:8px}
+.recent-row::-webkit-scrollbar-thumb{background:#e0d3d9;border-radius:8px}
+.recent-card{flex:0 0 180px;scroll-snap-align:start;background:#fff;border:1px solid #efe5e9;border-radius:14px;overflow:hidden;transition:.18s;display:flex;flex-direction:column}
+.recent-card:hover{box-shadow:0 8px 22px rgba(94,32,57,.14);transform:translateY(-2px)}
+.recent-img{height:150px;background:var(--cream);display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden}
+.recent-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.recent-name{font-family:'Montserrat','Montserrat Fallback';font-weight:700;font-size:13.5px;color:var(--wine-dark);padding:10px 12px 2px;line-height:1.3;flex:1 1 auto}
+.recent-price{padding:4px 12px 12px;color:var(--wine);font-size:14px}
+.recent-old{color:#9a8a90;text-decoration:line-through;font-size:12.5px;margin-right:5px}
+@media(max-width:600px){.recent-card{flex-basis:150px}.recent-img{height:120px}}
+
+/* Exit-intent popup */
+.exit-pop{position:fixed;inset:0;background:rgba(43,12,28,.55);display:none;align-items:center;justify-content:center;z-index:350;padding:20px;opacity:0;transition:opacity .22s}
+.exit-pop.show{display:flex;opacity:1}
+.exit-box{background:#fff;border-radius:18px;max-width:440px;width:100%;padding:30px 26px 26px;position:relative;box-shadow:0 24px 60px rgba(43,12,28,.45);animation:cartpop .25s ease}
+.exit-box-guide{max-width:640px;padding:0;display:flex;overflow:hidden}
+.exit-cover{flex:0 0 42%;background:var(--wine-dark);display:grid;place-items:center;padding:22px}
+.exit-cover img{max-width:100%;max-height:320px;width:auto;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.exit-body{flex:1 1 auto;padding:30px 26px 26px}
+.exit-x{position:absolute;top:10px;right:14px;border:none;background:none;font-size:28px;line-height:1;color:#9a8a90;cursor:pointer;z-index:2}
+.exit-x:hover{color:var(--wine)}
+.exit-h{font-family:'Montserrat','Montserrat Fallback';font-weight:800;color:var(--wine);font-size:21px;line-height:1.2}
+.exit-p{margin-top:10px;color:var(--ink);font-size:14.5px;line-height:1.55}
+.exit-form{margin-top:16px;display:grid;gap:10px}
+.exit-form input[type=email]{border:1px solid #e0d3d9;border-radius:40px;padding:13px 18px;font-size:16px}
+.exit-consent{display:flex;gap:8px;font-size:12px;color:#6b5b62;line-height:1.4}
+.exit-form .btn{justify-content:center}
+.exit-mini{margin-top:10px;font-size:11.5px;color:#9a8a90}
+.exit-actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.exit-actions .btn{flex:1 1 auto;justify-content:center}
+@media(max-width:600px){
+  .exit-box-guide{flex-direction:column;max-width:420px}
+  .exit-cover{flex-basis:auto;padding:18px}
+  .exit-cover img{max-width:150px}
+  .exit-body{padding:22px 20px}
+  .exit-box-guide .exit-x{color:#fff}
+}
+
+/* ===== Mobile reading & layout pass (phones ≤600px) =====
+   Goal: comfortable reading, less scrolling, bigger tap targets, no horizontal overflow.
+   Use class="mobile-hide" on bulky/decorative images or icons to drop them on phones. */
+@media(max-width:600px){
+  .mobile-hide{display:none!important}
+  .container{padding:0 16px}
+  .section{padding:40px 0}
+  /* hero: shorter and readable, CTAs stack full-width */
+  .hero .inner{padding:54px 0;max-width:none}
+  .hero .inner .btn{width:100%;justify-content:center}
+  h1{font-size:clamp(25px,7.4vw,31px)}
+  h2.title{font-size:clamp(21px,6.2vw,26px)}
+  /* readability */
+  body{line-height:1.7}
+  .lead{font-size:16.5px;line-height:1.7}
+  p,li{line-height:1.72}
+  /* product tabs: scroll on one line instead of wrapping into many rows */
+  .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative}
+  .tabs::-webkit-scrollbar{display:none}
+  /* right-edge fade hinting there are more tabs to scroll to (sticky pseudo
+     pins to the visible right edge; negative margin keeps it out of layout) */
+  .tabs::after{content:'';position:sticky;right:0;flex:0 0 30px;align-self:stretch;
+   margin-left:-30px;background:linear-gradient(to right,rgba(255,255,255,0),#fff);pointer-events:none}
+  .tabs button{white-space:nowrap;font-size:14px}
+  /* comfortable tap targets + tidy trust strip */
+  .btn{padding:13px 22px}
+  .buy-trust{font-size:12.5px;gap:6px 14px}
+  /* prevent flex/grid children from forcing the page wider than the screen */
+  .grid2>*,.grid3>*{min-width:0}
+  .gthumbs{max-width:100%}
+  /* price row: keep numbers intact, drop the description to its own line */
+  .price-row{flex-wrap:wrap;column-gap:12px}
+  .price-row .muted{flex-basis:100%;margin-top:2px}
+  /* founder card: stack photo over text (no narrow text column) */
+  .founder-card{grid-template-columns:1fr!important;gap:16px;padding:24px!important}
+  .founder-card>img{justify-self:center}
+}
+/* price numbers never split "281" / "zł" (any width) */
+.price-row .cart-old,.price-row .mont{white-space:nowrap}
+
+/* ── Form validation (lead / inquiry / review; koszyk keeps its own inline copy) ────── */
+/* Red highlight overrides the pill inputs' inline border:none, so !important is needed. */
+.cb-invalid{border:1px solid #d23b5e !important;background:#fdf2f5 !important;color:var(--wine-dark)}
+/* Hint is a solid red chip → readable on ANY section background (dark hero or white page). */
+.cb-field-err{display:inline-block;align-self:start;margin-top:-2px;padding:3px 9px;border-radius:7px;
+  background:#d23b5e;color:#fff;font-size:12px;font-weight:600;line-height:1.35;text-align:left}
+.cb-consent-invalid input{outline:2px solid #d23b5e;outline-offset:2px}
+
+/* ── Form thank-you card — self-contained colours so it reads on any background ─────── */
+.form-thanks{max-width:420px;margin:6px 0;padding:22px 24px;border-radius:16px;background:#fff;
+  border:1px solid #eadfe4;box-shadow:0 12px 34px rgba(0,0,0,.18);color:var(--wine-dark);text-align:left}
+.form-thanks h3{margin:0 0 6px;font-size:20px;font-weight:800;color:var(--wine)}
+.form-thanks p{margin:0;font-size:15px;line-height:1.5;color:#5a4650}
+
+/* intl-tel-input dial code ("+48"): force dark text so it stays visible on the light phone
+   input even inside dark sections — the hero sets color:#fff, which made it invisible. 2026-07-23 */
+.iti__selected-dial-code,.iti__selected-flag{color:var(--wine-dark)}
+
+/* Product photo magnifier (as on the HataVia landing, 2026-10-27): with a mouse the photo zooms under the
+   cursor inside its card, a magnifier badge in the corner fades out while zooming. JS: cart.js «magnifier». */
+@media (hover:hover) and (pointer:fine){
+  .gzoom{position:relative;overflow:hidden}
+  .gzoom #gmain{transition:transform .3s ease}
+  .gzoom.hz #gmain{transform:scale(2.2)}
+  .gzoom:after{content:"";position:absolute;top:14px;right:14px;z-index:2;width:40px;height:40px;border-radius:50%;pointer-events:none;
+    background:rgba(255,255,255,.88) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='1.7' stroke-linecap='round'%3E%3Ccircle cx='10.8' cy='10.8' r='6.8'/%3E%3Cpath d='M20 20l-4.4-4.4M10.8 8v5.6M8 10.8h5.6'/%3E%3C/svg%3E") center/20px no-repeat;
+    box-shadow:0 4px 14px rgba(0,0,0,.1);opacity:.9;transition:opacity .2s}
+  .gzoom.hz:after{opacity:0}
+}
+
+/* Product and set pages on a phone, 2026-11-01 (owner: «сверху маленькую фотку… внизу большие фотки… 4 самые
+   прикольные», the three shops alike): a compact photo, then name — variants — price — button, then the quantity
+   offer, four big photos that swipe sideways (the first one is already on top) and the long description last.
+   The columns dissolve (display:contents) so their children can be ordered; desktop is untouched. The bar with
+   price + button at the bottom is each page's own .buybar. */
+@media (max-width:767px){
+  .grid2:has(#gmain){display:flex !important;flex-direction:column;gap:0;align-items:stretch !important}
+  .grid2:has(#gmain)>div{display:contents}
+  .grid2:has(#gmain)>div>*{order:5;min-width:0;max-width:100%}
+  .grid2:has(#gmain)>div:first-child>.card:has(#gmain){order:0;margin:0 0 14px;min-height:0 !important;padding:10px !important}
+  .grid2:has(#gmain) #gmain{max-height:230px;width:auto !important;max-width:100% !important;margin:0 auto;display:block}
+  .grid2:has(#gmain)>div>.set-upsell{order:8}
+  .grid2:has(#gmain)>div>.tag{align-self:flex-start}
+  .grid2:has(#gmain) #oferta500{order:9;margin-top:16px !important}
+  .grid2:has(#gmain)>div>.gthumbs{order:10;flex-wrap:nowrap !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-top:18px;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+  .grid2:has(#gmain) .gthumbs img{flex:0 0 84%;width:84% !important;height:auto !important;max-width:none !important;aspect-ratio:1/1;object-fit:cover;scroll-snap-align:center;border-radius:14px;border:1px solid #efe5e9;background:#fff}
+  .grid2:has(#gmain) .gthumbs img:first-child,.grid2:has(#gmain) .gthumbs img:nth-child(n+6){display:none}
+  .grid2:has(#gmain)>div:last-child>p:not(.accent){order:11;margin-top:16px !important}
+}
+
+/* The 2026-11-01 catalog photos (one style, cream backdrop) fill their card edge to edge; the old cut-outs kept padding. */
+.cat-card-img[src*="img/cat/"],.cat-card-img[src*="kniha-cat"]{padding:0 !important;object-fit:cover !important;aspect-ratio:1/1;width:100% !important;height:auto !important;max-height:none !important;background:#f7f1e6}
+
+/* …the same page tidied, as on CZ/SK (owner 2026-11-01: «разбросано»): the photo edge to edge, the subtitle under the
+   name, the claim as one quiet line, the sizes as one segmented switch. */
+@media (max-width:767px){
+  section:has(>.grid2 #gmain){padding-top:0 !important}
+  .grid2:has(#gmain)>div:first-child>.card:has(#gmain){margin:0 calc(50% - 50vw) 18px !important;width:100vw;max-width:none !important;padding:0 !important;border-radius:0 !important;box-shadow:none !important;background:#f7f1e6 !important}
+  .grid2:has(#gmain) #gmain{width:100% !important;max-width:100% !important;max-height:none !important;aspect-ratio:1/1;object-fit:cover;border-radius:0 !important}
+  .grid2:has(#gmain) h1{font-size:24px !important;letter-spacing:.3px;margin:0 0 2px !important}
+  .grid2:has(#gmain)>div>.accent{order:5;margin:0 0 14px !important;font-size:16px !important;color:#4d7a4a !important}
+  .grid2:has(#gmain)>div>div:has(>span[style*="--sage"]){display:none !important}
+  .grid2:has(#gmain) #variants{display:grid !important;width:100%;grid-template-columns:1fr 1fr;gap:0 !important;background:#f1e7ec;border-radius:12px;padding:4px;margin:0 0 14px !important}
+  .grid2:has(#gmain) #variants .btn{border:0 !important;box-shadow:none !important;padding:11px 6px !important;font-size:13px !important;border-radius:9px !important;justify-content:center}
+  .grid2:has(#gmain) #variants .btn-ghost{background:transparent !important;color:var(--wine) !important}
+}
+
+/* Phone product page — the final word on spacing and type, as on CZ/SK (owner 2026-11-01: «почему так тесно и какие-то
+   другие шрифты? делай везде одинаково красиво»): no tag pill, the subtitle in the site's own font, air between rows. */
+@media (max-width:767px){
+  .grid2:has(#gmain)>div>.tag{display:none !important}
+  .grid2:has(#gmain) h1{margin:0 0 8px !important;line-height:1.15 !important}
+  .grid2:has(#gmain)>div>.accent{font-family:'Open Sans','Open Sans Fallback',system-ui,sans-serif !important;font-weight:600 !important;font-size:15px !important;line-height:1.45 !important;color:#4d7a4a !important;margin:0 0 20px !important}
+  .grid2:has(#gmain) #variants{margin:0 0 20px !important}
+  .grid2:has(#gmain) .price-row{margin:0 0 16px !important}
+}
+/* The catalog on a phone in two columns, as on CZ/SK (owner 2026-11-01: «мне нравится больше, как в Словакии»):
+   picture, name, price, button — the description stays on the product page. */
+@media (max-width:640px){
+  .cb-cat{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .cb-cat .cat-card-img{height:150px;padding:10px}
+  .cb-cat article.card>div{padding:12px!important;display:flex;flex-direction:column;flex:1}
+  .cb-cat article.card{display:flex;flex-direction:column}
+  .cb-cat h3{font-size:15px!important;line-height:1.25}
+  .cb-cat p.muted{display:none}
+  .cb-cat article.card>div>div:last-child{flex-direction:column;align-items:stretch!important;gap:8px;margin-top:auto;padding-top:8px}
+  .cb-cat article.card>div>div:last-child .btn{width:100%;justify-content:center;padding:10px 8px;font-size:12px}
+  .cb-cat .badge,.cb-cat .card-promo{font-size:11px}
+}
+
+/* Phone: less beige (owner 2026-11-01: «на телефоне ощущение, что сайт весь бежево-жёлтый… может, где-то убрать бежевый»).
+   The page, the header and the delivery strip go white / near-white; the cream stays only inside the product photos,
+   where it belongs to the picture. Desktop keeps its cream. */
+@media (max-width:767px){
+  body{background:#fff !important}
+  .site-header{background:rgba(255,255,255,.97) !important}
+  .hol-note{background:#fbf6f8 !important;border-bottom-color:#f0e4ea !important}
+  .card{box-shadow:0 4px 16px rgba(94,32,57,.07)}
+  .cat-head{background:#fff !important;border-bottom-color:#f0e4ea !important}
+}
+
+/* Set cards: the saving drawn in code over a photo with no text (2026-11-01) — cart.js decorateSetCards(). */
+.set-ph{position:relative;display:block}
+.set-pct{position:absolute;top:10px;left:10px;background:var(--magenta);color:#fff;font-family:'Montserrat','Montserrat Fallback',sans-serif;font-weight:800;border-radius:40px;padding:5px 11px;font-size:13px;line-height:1.2}
+/* The tag as the green ribbon of the old set banners (owner 2026-11-01: «плашечка, как у меня была, зелёненькая»):
+   bright green, white italic capitals, an arrow notch on the left, flush with the right edge. */
+.set-tag{position:absolute;top:12px;right:0;background:linear-gradient(90deg,#00b956,#14d672);color:#fff;font-family:'Montserrat','Montserrat Fallback',sans-serif;font-weight:800;font-style:italic;font-size:11.5px;line-height:1.15;text-transform:uppercase;letter-spacing:.3px;padding:7px 12px 7px 20px;clip-path:polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%);text-shadow:0 1px 1px rgba(0,0,0,.18);max-width:62%}
+.set-prices{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
+.set-old{color:#8a7a82;font-size:14px;font-weight:400}
+.set-save{flex-basis:100%;color:var(--magenta);font-weight:700;font-size:13px}
+.cat-card-img[src$="-cat.webp"]{padding:0 !important;object-fit:cover !important;aspect-ratio:1/1;width:100% !important;height:auto !important;max-height:none !important;background:#f7f1e6}
+@media (max-width:640px){.set-tag{font-size:9.5px;padding:5px 8px 5px 15px;top:9px;clip-path:polygon(9px 0,100% 0,100% 100%,9px 100%,0 50%)}.set-pct{font-size:12px;top:8px;left:8px}.set-old{font-size:12px}.set-save{font-size:12px}}
+
+/* intl-tel-input's flag sprite on high-density screens: its own CSS swaps in flags@2x.png — 184 KB on every page with a
+   phone field (home guide form, cart; audit 2026-11-10 item 19b). The 1x sprite (70 KB, the same 5762×15 layout, so the
+   library's background-size still fits) serves those screens too; a 20×15 flag is a touch softer, nothing else changes.
+   «html» in front wins over the library's rule whatever the load order (its CSS is added later by forms.js). */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  html .iti__flag { background-image: url("https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/img/flags.png?1"); }
+}
+
+/* Review cards — the screenshot beside the buyer's words as text (owner 2026-11-10; cards written by
+   shops/reviews/gen-reviews.py from shops/reviews/*.json). Inside .rev-track = the home / balm carousels (a swipe row on
+   phones, long texts folded to ~7 lines with a CSS-only «read more»); inside .reviews-grid.rv-grid = the reviews page
+   (columns, full text). The thumbnail is the same picture as before and still opens full size in the lightbox. */
+.rv-card{position:relative;display:flex;flex-direction:column;gap:12px;margin:0;padding:16px 16px 14px;background:#fff;border:1px solid #efe5e9;border-radius:16px;box-shadow:0 4px 14px rgba(94,32,57,.08);min-width:0}
+.rv-head{display:flex;align-items:center;gap:12px;min-width:0}
+.rv-shot{position:relative;flex:0 0 auto;width:84px;height:84px;border-radius:12px;overflow:hidden;background:#f5eef1;border:1px solid #efe5e9}
+.rv-shot img,.rev-track .rv-shot img,.reviews-grid .rv-shot img{display:block;flex:none;width:100%;height:100%;object-fit:cover;object-position:50% 0;border:0;border-radius:0;box-shadow:none;background:none;cursor:zoom-in}
+.rv-shot::after{content:"";position:absolute;right:5px;bottom:5px;width:22px;height:22px;border-radius:50%;pointer-events:none;
+  background:rgba(123,45,78,.9) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6'/%3E%3Cpath d='M15.2 15.2 20 20'/%3E%3C/svg%3E") center/12px no-repeat}
+.rv-who{display:flex;flex-direction:column;gap:3px;min-width:0;font-family:'Montserrat','Montserrat Fallback',sans-serif;line-height:1.3}
+.rv-who strong{font-size:14px;font-weight:700;color:var(--wine)}
+.rv-src{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a6b78}
+.rv-cut,.rv-tr{font-family:'Open Sans','Open Sans Fallback',sans-serif;font-size:12px;font-style:italic;color:#6b5b62}
+.rv-text{font-family:'PT Serif','PT Serif Fallback',serif;font-size:15px;line-height:1.55;color:var(--ink);overflow-wrap:anywhere}
+.rv-text blockquote{margin:0}
+.rv-text blockquote+blockquote,.rv-text .rv-by+blockquote{margin-top:10px}
+.rv-by{margin-top:3px;font:700 12px/1.3 'Montserrat','Montserrat Fallback',sans-serif;color:var(--wine)}
+.rv-cb{position:absolute;left:16px;bottom:16px;width:1px;height:1px;margin:0;opacity:0;pointer-events:none}
+.rv-more{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;margin:-10px 0 -12px;font:700 13px/1 'Montserrat','Montserrat Fallback',sans-serif;color:var(--magenta);cursor:pointer}
+.rv-more span+span,.rv-cb:checked~.rv-more span:first-child{display:none}
+.rv-cb:checked~.rv-more span+span{display:inline}
+.rv-cb:focus-visible~.rv-more{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.rev-track>.rv-card{flex:0 0 340px;width:340px;scroll-snap-align:start}
+.rev-track .rv-long{max-height:10.9em;overflow:hidden;position:relative}
+.rev-track .rv-long::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.4em;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.rv-cb:checked+.rv-long{max-height:none}
+.rv-cb:checked+.rv-long::after{display:none}
+.reviews-grid.rv-grid{display:block;column-count:3;column-gap:18px}
+.rv-grid>.rv-card{break-inside:avoid;margin-bottom:18px}
+.rv-grid .rv-shot{width:104px;height:104px}
+@media(max-width:960px){.reviews-grid.rv-grid{column-count:2}}
+@media(max-width:640px){.reviews-grid.rv-grid{column-count:1}.rv-grid .rv-shot{width:88px;height:88px}}
+@media(min-width:601px){.rev-carousel:has(>.rev-nav):has(.rv-card){padding:0 40px}}
+@media(max-width:600px){.rev-track>.rv-card{flex-basis:84vw;width:84vw;max-width:330px}.rv-text{font-size:14.5px}}
+
+/* WhatsApp review stories — vertical cards in a sideways strip (index / opinie, 2026-11-10; same as the CZ/SK shop). */
+/* scroll-padding-inline:2px on the snap tracks with a 2px side padding (.story-strip, .exp-track, .cert-track): without
+   it the track snaps itself by 2px on the first layout, and Chrome may take that scroll as input (2026-11-15, PageSpeed;
+   found on bolotovmerkezi.com). Nothing moves on screen. */
+.story-strip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;padding:18px 2px 10px;margin-top:6px}
+.story-strip img{flex:0 0 auto;width:min(230px,62vw);height:auto;border-radius:16px;scroll-snap-align:start;box-shadow:0 6px 18px rgba(94,32,57,.12)}
+/* Story cards — the WhatsApp story with the buyer's words under it (shops/reviews/, owner 2026-11-10). */
+.story-strip>.rv-story{flex:0 0 auto;width:min(230px,62vw);padding:0 0 12px;gap:0;overflow:hidden;scroll-snap-align:start}
+.rv-story>.rv-shot{width:100%;height:auto;aspect-ratio:9/16;border:0;border-radius:0}
+.story-strip .rv-story .rv-shot img{width:100%;height:100%;border-radius:0;box-shadow:none;cursor:zoom-in}
+.rv-story>.rv-shot::after{display:none}
+.rv-story>.rv-who,.rv-story>.rv-text,.rv-story>.rv-more{margin-left:14px;margin-right:14px}
+.rv-story>.rv-who{margin-top:12px}
+.rv-story>.rv-text{margin-top:6px;font-size:14px;line-height:1.5}
+.story-strip .rv-story .rv-long{max-height:9em;overflow:hidden;position:relative}
+.story-strip .rv-story .rv-long::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.2em;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.story-strip .rv-cb:checked+.rv-long{max-height:none}
+.story-strip .rv-cb:checked+.rv-long::after{display:none}
+.rv-story>.rv-more{margin-top:2px;margin-bottom:-10px}
+
+/* Card trust + short reviews (plan items 2–3, 2026-11-19): the two payment/delivery promises as pills next to the buy button,
+   three short real quotes under it (generated by shops/reviews/gen-reviews.py, layout «mini»), and the empty slot for the
+   «Oryginał — tylko u nas» block. Own block at the end so it merges apart from the redesign of the home page and cart. */
+.buy-trust .bt-key{padding:5px 12px;border-radius:999px;background:var(--sage);color:var(--wine-dark);font-weight:700}
+.orig-slot:empty{display:none}
+.rv-mini{flex:1 0 100%;width:100%;margin-top:18px}
+.rv-mini-title{margin:0 0 8px;font:700 14px/1.3 'Montserrat','Montserrat Fallback',sans-serif;color:var(--wine)}
+.rv-mini-card{margin:0 0 8px;padding:10px 14px;background:#fff;border:1px solid #efe5e9;border-left:3px solid var(--gold);border-radius:12px}
+.rv-mini-card blockquote{margin:0}
+.rv-mini-card blockquote p{margin:0;font-family:'PT Serif','PT Serif Fallback',serif;font-size:14.5px;line-height:1.5;color:var(--ink)}
+.rv-mini-card .rv-who{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin-top:6px}
+.rv-mini-all{display:inline-block;margin-top:2px;font:700 13.5px/1.4 'Montserrat','Montserrat Fallback',sans-serif;color:var(--magenta)}
+@media(max-width:600px){.buy-trust .bt-key{white-space:normal}}
