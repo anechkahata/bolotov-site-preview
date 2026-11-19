@@ -1146,8 +1146,8 @@ try{ if(/koszyk/.test(location.pathname) && !JSON.parse(localStorage.getItem('bo
   }, true);
 })();
 </script>
-<style>#oryginal .trust-slot{outline:3px dashed #C9A86A;outline-offset:6px;position:relative}
-#oryginal .trust-slot::after{content:'Место для блока «Оригинал — только у нас» (текст пишет другая сессия)';position:absolute;
+<style>[data-slot="oryginal-trust"] .orig-long{outline:3px dashed #C9A86A;outline-offset:6px;position:relative}
+[data-slot="oryginal-trust"] .orig-long::after{content:'Блок «Оригинал» — текст ещё не окончательный (партнёр, «tylko u nas»)';position:absolute;
 left:12px;top:-14px;background:#C9A86A;color:#262224;font:700 12px/1 system-ui,sans-serif;padding:5px 8px;border-radius:6px}</style>
 </body>
 </html>
