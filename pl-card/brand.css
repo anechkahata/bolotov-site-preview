@@ -647,6 +647,7 @@ footer .fnote,.site-footer .fnote{color:#caa9b6}
    «Oryginał — tylko u nas» block. Own block at the end so it merges apart from the redesign of the home page and cart. */
 .buy-trust .bt-key{padding:5px 12px;border-radius:999px;background:var(--sage);color:var(--wine-dark);font-weight:700}
 .orig-slot:empty{display:none}
+.orig-slot:not(:empty){flex:1 0 100%;width:100%;margin-top:16px}
 .rv-mini{flex:1 0 100%;width:100%;margin-top:18px}
 .rv-mini-title{margin:0 0 8px;font:700 14px/1.3 'Montserrat','Montserrat Fallback',sans-serif;color:var(--wine)}
 .rv-mini-card{margin:0 0 8px;padding:10px 14px;background:#fff;border:1px solid #efe5e9;border-left:3px solid var(--gold);border-radius:12px}
