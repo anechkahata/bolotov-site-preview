@@ -1,0 +1,19 @@
+/* Product / set card: long blocks of the right column fold open with an arrow (owner 2026-11-20: «куча пустого места»).
+   Markup: a container with `data-acc data-open="false"`, parts that hide while folded carry `.acc-more`, a paragraph that
+   shows two lines while folded carries `.acc-clamp`, the toggle is `button.acc-btn[aria-expanded]` (card-acc.js). The page
+   ships folded, so nothing jumps when the script runs; with scripts off a <noscript> rule in the page shows everything.
+   Also the bottle photo of the «Dlaczego 193 zł?» block (.orig-left / .orig-photo). */
+[data-acc][data-open="false"] .acc-more{display:none}
+[data-acc][data-open="false"] .acc-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.acc-btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 4px;margin:2px 0 0;background:none;border:0;font:700 13.5px/1 'Montserrat','Montserrat Fallback',sans-serif;color:var(--magenta);cursor:pointer}
+.acc-btn:hover .acc-lbl{text-decoration:underline}
+.acc-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+.acc-arr{display:inline-block;transition:transform .15s}
+[data-acc][data-open="true"] .acc-arr{transform:rotate(180deg)}
+.orig-short .acc-btn{margin-top:4px}
+.rv-mini .acc-btn{margin:0 12px 0 0}
+/* the bottle photo under the per-day table (desktop only: on a phone the block is one column and the photo would just add scrolling) */
+.orig-left{display:flex;flex-direction:column;gap:16px;align-self:stretch}
+.orig-photo{margin:0;flex:1 1 auto;min-height:180px;border-radius:18px;overflow:hidden;background:#3c1427}
+.orig-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+@media (max-width:760px){.orig-photo{display:none}}

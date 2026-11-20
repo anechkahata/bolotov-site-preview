@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<script>/* preview only: a sample basket for an empty cart, set before the cart renders */
+try{ if(/koszyk/.test(location.pathname) && !JSON.parse(localStorage.getItem('bolotov_cart_v1')||'[]').length)
+  localStorage.setItem('bolotov_cart_v1', JSON.stringify([{id:'balzam-500',qty:1},{id:'set-refluks-zgaga',qty:1}])); }catch(e){}
+</script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Consent Mode v2 defaults (RODO: analityka wyłączona do zgody) -->
+  <script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'denied',personalization_storage:'denied',security_storage:'granted',wait_for_update:500});
+  try{var c=localStorage.getItem('cb-consent');if(c){c=c==='all'?{functional:1,analytics:1,marketing:1}:c==='essential'?{}:JSON.parse(c);var g=function(v){return v?'granted':'denied'};gtag('consent','update',{ad_storage:g(c.marketing),ad_user_data:g(c.marketing),ad_personalization:g(c.marketing),analytics_storage:g(c.analytics),functionality_storage:g(c.functional),personalization_storage:g(c.functional)});}}catch(e){}
+  </script>
+  
+  <title>Koszyk | Centrum Bolotova</title>
+  <meta name="description" content="Koszyk i finalizacja zamówienia — Centrum Bolotova.">
+  <meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="brand.css?v=2026112003"><link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png"><link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+  <style>.field{display:grid;gap:5px}.field label{font-size:13.5px;font-weight:600;color:var(--ink)}.field input,.field select{border:1px solid #e0d3d9;border-radius:12px;padding:12px 14px;font-size:16px}
+  .field input.invalid,.field select.invalid{border-color:#d23b5e;background-color:#fdf2f5}
+  /* Own arrow on every select (2026-10-29, as on the CZ/SK shop): the browser's arrow sat flush against the right edge
+     and at a different spot in each box. Same chevron, same 16 px from the edge, everywhere. */
+  .field select{-webkit-appearance:none;appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%237a2e4d' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 16px center/12px 8px;padding-right:44px;color:var(--wine-dark);cursor:pointer}
+  /* Carrier logos next to each delivery option (2026-10-29, as on the CZ/SK shop); the name stays next to the logo. */
+  .carrier-logo{display:inline-block;width:72px;height:24px;object-fit:contain;object-position:left center;vertical-align:middle;margin:0 12px 0 6px}
+  /* the option's text wraps in its own column next to the logo, the price never breaks («DPD — kurier do drzwi» on a phone) */
+  .carrier-opt{display:flex;align-items:center;gap:8px}.carrier-opt .carrier-logo{margin:0 4px 0 0;flex:none}
+  .carrier-opt + strong{white-space:nowrap;padding-left:10px;align-self:center}
+  @media(max-width:600px){.carrier-opt .carrier-logo{width:56px;height:20px}}
+  .field-err{color:#c0264a;font-size:12px;font-weight:600;margin-top:3px}
+  .field input::placeholder{color:#bca9b0}
+  .field .iti{width:100%}.field .iti input{width:100%}
+  .iti__country-list{text-align:left}
+  #consent-label.consent-invalid{color:#c0264a}#consent-label.consent-invalid input{outline:2px solid #d23b5e;outline-offset:2px}
+  /* Paczkomat map (pickup-map.js) */
+  #pickup-map{height:380px;border:1px solid #e0d3d9;border-radius:12px;margin-top:10px;z-index:0;background:#f7f1e6}
+  #pickup-near{max-height:260px;overflow:auto;border:1px solid #e0d3d9;border-radius:12px;margin-top:8px}
+  .pm-item{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid #f0e6ea;padding:10px 14px;font-size:14px;line-height:1.45;cursor:pointer;color:#3d2b33}.pm-item:first-child{border-top:0}.pm-item:hover,.pm-item.pm-on{background:#f7eef2}
+  .pm-item b,.leaflet-popup-content b{color:var(--wine)}.pm-muted{color:#8a7d83;font-size:12px}.pm-hint{padding:12px 14px;margin:0;font-size:14px;color:#8a7d83}
+  .pm-tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:10px;background:#DCE6C8;margin-left:4px;color:#3d2b33}.pm-tag-p{background:#E6D4A8}
+  .pm-pin{width:24px;height:24px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--wine);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}.pm-pin-p{background:#C9A86A}.pm-pin-sel{background:#9C2A6E;transform:rotate(-45deg) scale(1.3)}
+  .marker-cluster-small,.marker-cluster-medium,.marker-cluster-large{background:rgba(123,45,78,.25)!important}.marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div{background:var(--wine)!important;color:#fff;font-weight:700}
+  @media(max-width:640px){#pickup-map{height:320px}#pickup-near{max-height:220px}}
+  /* Phones: the order form comes right after the basket; the set offer and the free-delivery hint
+     move under it, so a chat-funnel visitor does not scroll past three upsells to reach the form. */
+  @media(max-width:820px){.cart-wrap{display:flex;flex-direction:column}.cart-wrap>#order-block{order:1}.cart-wrap>#set-suggest,.cart-wrap>#free-deliv{order:2}}</style>
+</head>
+<body data-recent-show data-exit="cart">
+<div style="position:relative;z-index:100;background:#262224;color:#fff;font:600 13px/1.4 system-ui,sans-serif;text-align:center;padding:7px 12px">Предпросмотр нового дизайна (19.11.2026) — не живой сайт, заказы не отправляются</div>
+
+  <div class="topbar"><div class="container"><span>🚚 Darmowa dostawa od 150 zł · 💵 Płatność przy odbiorze<span class="tb-more"> — bez dopłat · 📦 Paczkomat InPost</span></span><span>info@centerbolotova.eu</span></div></div>
+  <header class="site-header"><div class="container">
+    <a href="index.html" class="brand"><img class="logo" src="assets/img/logo.webp" alt="Centrum Bolotova">Centrum Bolotova</a>
+    <nav class="nav"><a href="https://centrumbolotova.pl/katalog.html">Katalog</a><a href="https://centrumbolotova.pl/katalog.html#zestawy">Zestawy</a><a href="https://centrumbolotova.pl/balzam-bolotova.html">Balzam</a><div class="nav-dd"><a href="#" onclick="return false">Informacje ▾</a><div class="nav-dd-menu"><a href="https://centrumbolotova.pl/sposob-uzycia.html">Sposób użycia</a><a href="https://centrumbolotova.pl/faq.html">Pytania i odpowiedzi</a><a href="https://centrumbolotova.pl/certyfikaty.html">Certyfikaty</a><a href="https://centrumbolotova.pl/artykuly.html">Artykuły</a><a href="https://centrumbolotova.pl/zostan-partnerem.html">Zostań partnerem</a></div></div><a href="https://centrumbolotova.pl/opinie.html">Opinie</a><a href="https://centrumbolotova.pl/o-centrum.html">O Centrum</a><a href="https://centrumbolotova.pl/kontakt.html">Kontakt</a></nav>
+    <div class="header-actions"><button class="burger" aria-label="Menu" onclick="document.querySelector('.nav').classList.toggle('open')">☰</button><a class="wa-ic" href="https://wa.me/421944623644?text=Dzie%C5%84%20dobry" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg></a></div>
+  </div></header>
+
+  <section class="section cart-section"><div class="container cart-wrap" style="max-width:1100px">
+    <h2 class="title cart-title" style="text-align:left">Koszyk</h2>
+    <div id="pay-cancel" style="display:none;margin-top:16px;background:#f6e3e8;border:1px solid #e3b9c6;border-radius:12px;padding:14px 18px;color:#7a2540;font-size:14.5px">⚠️ Płatność nie została dokończona. Twój koszyk jest zachowany — możesz spróbować ponownie.</div>
+
+    <div id="cart-empty" class="card" style="padding:24px;margin-top:20px;text-align:center;background:var(--cream)">
+      <p style="font-size:17px;color:var(--wine-dark);font-weight:600">Twój koszyk czeka 🛒</p>
+      <p class="muted" style="margin-top:6px">Zacznij od naszego bestsellera — <strong>Balzamu Bolotova</strong> — albo przejrzyj cały katalog.</p>
+      <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-gold" href="produkt-balzam.html">Zobacz Balzam</a>
+        <a class="btn btn-ghost" href="https://centrumbolotova.pl/katalog.html">Przejdź do katalogu</a>
+      </div>
+    </div>
+
+    <div id="cart-items" class="card ck-items" style="display:none"></div>
+    <!-- Delivery and payment facts right under the basket, so they are on the first phone screen (2026-11-06): the chat
+         said «164 zł + dostawa», the carrier list said «21 zł», and «Masz darmową dostawę» sat below the order button. -->
+    <div id="cart-facts" class="ck-facts" style="display:none"></div>
+    <div id="set-suggest" style="margin-top:14px;display:none"></div>
+    <div id="free-deliv" class="ck-free" style="display:none"></div>
+
+    <div id="promo-box" style="margin-top:14px;display:none">
+      <button type="button" id="promo-toggle" class="promo-toggle">Masz kod rabatowy?</button>
+      <div id="promo-collapse" class="promo-collapse" style="display:none">
+        <form id="promo-form" onsubmit="return false" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <input id="promo-input" placeholder="np. BALSAM15" autocomplete="off" style="flex:1 1 200px;min-width:140px;border:1px solid #e0d3d9;border-radius:40px;padding:11px 18px;font-size:16px;text-transform:uppercase">
+          <button class="btn btn-ghost" type="submit" style="padding:11px 22px">Zastosuj</button>
+        </form>
+      </div>
+      <div id="promo-msg" style="margin-top:10px;font-size:13.5px;color:var(--wine-dark)"></div>
+    </div>
+
+    <div id="order-block" style="display:none">
+    <h2 class="title order-title" style="text-align:left;margin-top:40px;font-size:24px">Złóż zamówienie</h2>
+
+    <form id="order-form" novalidate style="margin-top:22px;display:grid;gap:26px">
+      <!-- Honeypot: invisible to people, filled by form-stuffing bots. api/order.php never drops the order for it: the
+           deal goes to «⚠️ Проверить данные» (the CZ/SK cart's field since 2026-11-10). Until 2026-11-16 this cart sent no
+           such field at all, so the server's check never fired. The name means nothing to autofill on purpose. -->
+      <input type="text" name="cb_hp" id="cb-hp" tabindex="-1" autocomplete="off" data-lpignore="true" data-1p-ignore aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <!-- Redesign 2026-11: two groups — .ck-main (what the buyer fills in) and .ck-side (summary + button), side by side
+           from 1000 px, one column on phones. Nothing is sticky (CHECKOUT-MOBILE rule 76). Every id is unchanged. -->
+      <div class="ck-main">
+      <div class="card ck-card">
+        <h3 class="ck-h"><span class="ck-n">1</span>Twoje dane</h3>
+        <div class="grid2" style="gap:16px">
+          <div class="field"><label>Imię i nazwisko *</label><input id="f-name" autocomplete="name" placeholder="np. Jan Kowalski" required></div>
+          <div class="field"><label>Telefon *</label><input id="f-phone" type="tel" autocomplete="tel" required></div>
+          <div class="field"><label>E-mail *</label><input id="f-email" type="email" autocomplete="email" placeholder="np. jan@example.com" required></div>
+        </div>
+        <!-- Birthday folded behind a link (2026-10-29): optional, and four fewer things to look at on a phone. -->
+        <button type="button" class="promo-link" id="bday-toggle" style="margin-top:12px;padding:0;font-size:13.5px" onclick="this.style.display='none';document.getElementById('bday-box').style.display='block'">🎁 Rabat urodzinowy — podaj datę urodzin (opcjonalnie)</button>
+        <div id="bday-box" style="display:none;margin-top:12px">
+          <div class="field"><label>Data urodzenia (opcjonalnie)</label>
+            <div style="display:flex;gap:8px">
+              <select id="f-bday-d" style="flex:1"><option value="">Dzień</option></select>
+              <select id="f-bday-m" style="flex:1.6"><option value="">Miesiąc</option></select>
+            </div>
+          </div>
+          <p class="muted" style="font-size:12px;margin-top:8px">Podaj dzień i miesiąc urodzin (bez roku) — wyślemy Ci rabat urodzinowy w dniu urodzin oraz przez 7 dni po nich.</p>
+        </div>
+      </div>
+
+      <div class="card ck-card">
+        <h3 class="ck-h"><span class="ck-n">2</span>Dostawa</h3>
+        <div class="ck-opts" style="margin-bottom:14px">
+<!-- Paczkomat first and chosen (2026-10-29): of 89 people in the cart in a week one searched a point, while the courier
+     was the default and a paczkomat order still asked for a home address. -->
+          <label class="ck-opt"><span class="carrier-opt"><input type="radio" name="dost" data-cost="21" data-kind="Paczkomaty" data-cod="1" data-pickup="1" checked> Paczkomat InPost / punkt odbioru</span><strong>21 zł</strong></label>
+          <label class="ck-opt"><span class="carrier-opt"><input type="radio" name="dost" data-cost="21" data-kind="GLS"> <img class="carrier-logo" src="assets/img/carrier-gls.svg" alt="" width="72" height="24">GLS</span><strong>21 zł</strong></label>
+          <label class="ck-opt"><span class="carrier-opt"><input type="radio" name="dost" data-cost="31" data-kind="PPL"> <img class="carrier-logo" src="assets/img/carrier-ppl.svg" alt="" width="72" height="24">PPL</span><strong>31 zł</strong></label>
+          <label class="ck-opt"><span class="carrier-opt"><input type="radio" name="dost" data-cost="21" data-kind="DPD" data-cod="1"> <img class="carrier-logo" src="assets/img/carrier-dpd.svg" alt="" width="72" height="24">DPD — kurier do drzwi</span><strong>21 zł</strong></label>
+        </div>
+        <!-- Paczkomat picker: shown only for a pickup-point carrier. The id we store is the
+             carrier's own point id, which is what the warehouse ships to. -->
+        <div id="pickup-box" style="display:none;margin-bottom:14px">
+          <div class="field">
+            <label>Wybierz paczkomat lub punkt odbioru *</label>
+            <input id="f-pickup-q" autocomplete="off" placeholder="Miasto, kod pocztowy lub kod punktu — albo wybierz na mapie">
+          </div>
+          <!-- «Pokaż najbliższe» (2026-10-29): one tap instead of typing a town — the map centres on the buyer and the
+               list under it is the nearest points. Hidden where the browser has no geolocation. -->
+          <button type="button" id="pickup-locate" class="btn btn-ghost" style="display:none;margin-top:10px;padding:10px 18px;font-size:14px;max-width:100%;white-space:normal;text-align:center;line-height:1.3">📍 Pokaż najbliższe paczkomaty</button>
+          <p id="pickup-locate-msg" class="muted" style="display:none;font-size:12.5px;margin-top:6px"></p>
+          <div id="pickup-results" style="display:none;max-height:240px;overflow:auto;border:1px solid #e0d3d9;border-radius:12px;margin-top:8px"></div>
+          <!-- Our own map of the same points (pickup-map.js); it hides itself if it cannot load. -->
+          <div id="pickup-map" role="application" aria-label="Mapa paczkomatów i punktów odbioru"></div>
+          <div id="pickup-near"></div>
+          <p id="pickup-chosen" style="display:none;margin-top:10px;font-size:14px;color:var(--wine)"></p>
+          <input type="hidden" id="f-pickup-id">
+        </div>
+        <!-- Home address — courier orders only; hidden for a paczkomat, whose point is the address (as on the CZ/SK shop). -->
+        <div class="grid2" id="addr-fields" style="gap:16px">
+          <div class="field"><label>Kod pocztowy *</label><input id="f-zip" autocomplete="postal-code" inputmode="numeric" placeholder="np. 00-001" required></div>
+          <div class="field"><label>Miasto *</label><input id="f-city" autocomplete="address-level2" placeholder="np. Warszawa" required></div>
+          <div class="field"><label>Ulica *</label><input id="f-street" autocomplete="address-line1" placeholder="np. Marszałkowska" required></div>
+          <div class="field"><label>Nr domu / mieszkania *</label><input id="f-house" placeholder="np. 12/34" required></div>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:10px">Wysyłka na terenie Polski (paczkomat InPost, punkt odbioru lub kurier GLS, PPL, DPD). Wysyłka do innych krajów Europy — <a href="https://wa.me/421944623644?text=Dzie%C5%84%20dobry%2C%20chc%C4%99%20zam%C3%B3wi%C4%87%20z%20dostaw%C4%85%20poza%20Polsk%C4%99" style="color:var(--magenta);font-weight:600">napisz na WhatsApp</a>.</p>
+        <label style="display:flex;gap:8px;font-size:14px;color:#6b5b62;margin-top:16px;cursor:pointer"><input type="checkbox" id="f-diff-recipient"><span>Odbiorca przesyłki jest inną osobą</span></label>
+        <div id="recipient-fields" style="display:none;margin-top:14px">
+          <div class="grid2" style="gap:16px">
+            <div class="field"><label>Imię i nazwisko odbiorcy *</label><input id="f-rec-name" placeholder="np. Anna Nowak"></div>
+            <div class="field"><label>Telefon odbiorcy *</label><input id="f-rec-phone" type="tel"></div>
+          </div>
+          <p class="muted" style="font-size:12px;margin-top:10px">Dane odbiorcy przekażemy kurierowi. Potwierdzenie zamówienia wyślemy na Twój e-mail.</p>
+        </div>
+      </div>
+
+      <div class="card ck-card">
+        <h3 class="ck-h"><span class="ck-n">3</span>Płatność</h3>
+        <div class="ck-opts ck-pay">
+          <label class="ck-opt"><span class="carrier-opt"><input type="radio" name="pay" value="card"> BLIK lub karta — online</span><strong>0 zł</strong></label>
+          <!-- Cash on delivery works only with a carrier that collects the money for us: DPD and the
+               paczkomaty. On GLS / PPL this radio is disabled, with the reason next to it. -->
+          <label id="pay-cod-label" class="ck-opt ck-opt-cod"><span class="carrier-opt"><input type="radio" name="pay" value="cod" checked> Za pobraniem (przy odbiorze)<em class="ck-badge">bez dopłat</em></span><strong>0 zł</strong></label>
+        </div>
+        <p class="muted" id="pay-note-card" style="font-size:13px;margin-top:10px">Zapłacisz BLIK-iem, kartą (Visa, Mastercard), Apple Pay lub Google Pay na bezpiecznej stronie płatności Stripe. Nie przechowujemy danych kart płatniczych.</p>
+        <p class="muted" id="pay-note-cod" style="display:none;font-size:13px;margin-top:10px">Zapłacisz przy odbiorze paczki — gotówką lub kartą, zależnie od kuriera. Bez dopłaty za pobranie.</p>
+        <p class="muted" id="pay-cod-blocked" style="display:none;font-size:13px;margin-top:10px">Płatność za pobraniem jest dostępna przy wysyłce <strong>DPD</strong> oraz do <strong>paczkomatu</strong>. Wybierz jedną z nich powyżej, aby zapłacić przy odbiorze.</p>
+      </div>
+
+      </div>
+      <div class="ck-side">
+      <div class="card ck-card ck-sum">
+        <h3 class="ck-h">Podsumowanie zamówienia</h3>
+        <div class="sum-row"><span>Wartość produktów</span><span id="sum-products">0 zł</span></div>
+        <div class="sum-row" id="sum-save-row" style="display:none;color:var(--magenta)"><span>Oszczędzasz</span><span id="sum-save">0 zł</span></div>
+        <div class="sum-row" id="sum-promo-row" style="display:none;color:var(--magenta)"><span id="sum-promo-label">Kod rabatowy</span><span id="sum-promo">0 zł</span></div>
+        <div class="sum-row"><span>Dostawa</span><span id="sum-delivery">21 zł</span></div>
+        <div class="sum-row" id="sum-cod-row" style="display:none"><span>Za pobraniem</span><span id="sum-cod">7 zł</span></div>
+        <div class="sum-row total"><span>Razem</span><span id="sum-total">0 zł</span></div>
+        <p class="fnote" style="margin-top:10px">Ceny zawierają podatek VAT 23%.</p>
+      </div>
+
+      <!-- A statement, not a tick box (2026-10-29, as on the CZ/SK shop): the data is processed to deliver the order,
+           which needs no consent; the buyer is told where the terms and the privacy policy are. -->
+      <p id="consent-label" style="font-size:13px;color:#6b5b62">Składając zamówienie, potwierdzasz zapoznanie się z <a href="https://centrumbolotova.pl/regulamin.html" style="color:var(--magenta)">Regulaminem</a>, w tym z <a href="https://centrumbolotova.pl/odstapienie-od-umowy.html" style="color:var(--magenta)">informacją o prawie odstąpienia od umowy</a>. Zasady przetwarzania danych osobowych opisuje <a href="https://centrumbolotova.pl/polityka-prywatnosci.html" style="color:var(--magenta)">Polityka prywatności</a>.</p>
+      <div id="order-error" style="display:none;background:#f6e3e8;border:1px solid #e3b9c6;border-radius:12px;padding:14px 18px;color:#7a2540;font-size:14.5px">⚠️ Coś poszło nie tak przy składaniu zamówienia. Spróbuj ponownie lub napisz do nas na <a href="https://wa.me/421944623644" style="color:#7a2540;font-weight:600">WhatsApp</a>.</div>
+      <!-- The button names the obligation to pay (Dir. 2011/83 art. 8(2); PL ustawa o prawach konsumenta art. 17 ust. 3;
+           site-build/CHECKOUT-MOBILE.md rule 46). It said «Złóż zamówienie» until 2026-11-06. -->
+      <button id="order-submit" class="btn btn-buy">Zamawiam z obowiązkiem zapłaty</button>
+      <div class="buy-trust" style="margin-top:0"><span>🔒 Bezpieczna płatność (Stripe)</span><span>🚚 Darmowa dostawa od 150 zł</span><span>⏱ Wysyłka w 1 dzień roboczy, dostawa zwykle 2–4 dni robocze</span><span>↩ 14 dni na zwrot</span></div>
+      </div>
+    </form>
+    </div>
+  </div></section>
+
+  <footer class="site-footer"><div class="container foot-cols"><div><a href="index.html" class="brand" style="color:#fff;margin-bottom:14px"><img class="logo" src="assets/img/logo.webp" alt="">Centrum Bolotova</a><p style="color:#e0cad3;margin-top:8px">Operator sklepu internetowego: <strong>HataVia s.r.o.</strong></p><p style="margin-top:6px;color:#e0cad3">Tel.: +421 944 623 644<br>E-mail: <a href="mailto:info@centerbolotova.eu">info@centerbolotova.eu</a></p><a class="btn btn-wa" style="margin-top:12px" href="https://wa.me/421944623644">Napisz na WhatsApp</a><div class="foot-social"><a href="https://www.facebook.com/profile.php?id=61579556840604" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15.12 22v-8.16h2.74l.41-3.18h-3.15V8.63c0-.92.26-1.55 1.58-1.55h1.68V4.23c-.29-.04-1.29-.13-2.45-.13-2.42 0-4.08 1.48-4.08 4.2v2.34H9.1v3.18h2.75V22h3.27z"/></svg></a><a href="https://www.instagram.com/centrum.bolotowa.pl/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 002.12-1.38c.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 00-1.38-2.12A5.86 5.86 0 0019.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zM12 16a4 4 0 114-4 4 4 0 01-4 4zm6.41-10.85a1.44 1.44 0 11-1.44-1.44 1.44 1.44 0 011.44 1.44z"/></svg></a><a href="https://www.youtube.com/@ZdrowiePo40Bolotow" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a><a href="https://wa.me/421944623644" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg></a><a href="https://www.tiktok.com/@centrumbolotowa.p" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 01-1.01-2.82h-3.3v13.1a2.59 2.59 0 01-2.59 2.5 2.59 2.59 0 01-2.59-2.59 2.59 2.59 0 013.39-2.46V10.2a5.92 5.92 0 00-.8-.05A5.93 5.93 0 004 16.08a5.93 5.93 0 0010.13 4.19 5.93 5.93 0 001.74-4.19V9.01a7.56 7.56 0 004.42 1.42V7.13a4.28 4.28 0 01-3.69-1.31z"/></svg></a></div></div><div><h3 style="color:var(--gold-light);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Centrum Bolotova</h3><p style="margin-bottom:6px"><a href="https://centrumbolotova.pl/o-centrum.html">O Centrum</a></p><p style="margin-bottom:6px"><a href="https://centrumbolotova.pl/katalog.html">Katalog produktów</a></p><p style="margin-bottom:6px"><a href="https://centrumbolotova.pl/certyfikaty.html">Certyfikaty</a></p><p style="margin-bottom:6px"><a href="https://centrumbolotova.pl/artykuly.html">Artykuły</a></p><p><a href="https://centrumbolotova.pl/opinie.html">Opinie</a></p></div><div><h3 style="color:var(--gold-light);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Dla klienta</h3><p style="margin-bottom:6px"><a href="https://centrumbolotova.pl/platnosci.html">Metody płatności</a></p><p style="margin-bottom:6px"><a href="https://centrumbolotova.pl/dostawa.html">Dostawa</a></p><p style="margin-bottom:6px"><a href="https://centrumbolotova.pl/zwroty.html">Zwrot towaru</a></p><p style="margin-bottom:6px"><a href="https://centrumbolotova.pl/faq.html">Pytania i odpowiedzi</a></p><p><a href="https://centrumbolotova.pl/kontakt.html">Kontakt</a></p></div><div><h3 style="color:var(--gold-light);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Dla partnerów</h3><p><a href="https://centrumbolotova.pl/zostan-partnerem.html">Zostań partnerem</a></p></div></div><div style="border-top:1px solid rgba(255,255,255,.12)"><div class="container" style="padding:22px 20px"><p class="fnote">HataVia s.r.o. | IČO: 23490551 | DIČ: CZ23490551 | Kaprova 42/14, 110 00 Praha 1 – Staré Město, Česká republika</p><p class="fnote" style="margin-top:10px">© 2010–2026 Bolotov Center. Wszelkie prawa zastrzeżone. · <a href="https://centrumbolotova.pl/regulamin.html">Regulamin</a> · <a href="https://centrumbolotova.pl/odstapienie-od-umowy.html">Odstąp od umowy</a> · <a href="https://centrumbolotova.pl/polityka-prywatnosci.html">Polityka prywatności</a> · <a href="https://centrumbolotova.pl/polityka-cookies.html">Polityka cookies</a> · <a href="#" class="cookie-settings">Ustawienia cookies</a></p></div></div></footer>
+  <div class="disclaimer-bar">Suplementy diety nie są lekami i nie są przeznaczone do diagnozowania, leczenia ani zapobiegania chorobom. Przed zastosowaniem skonsultuj się z lekarzem.</div>
+  <a class="wa-float" href="https://wa.me/421944623644?text=Dzie%C5%84%20dobry" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg></a>
+  <script src="cart.js"></script>
+  <script src="pickup-map.js?v=20261116"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+  <script>
+  (function(){
+    var fmt = function(n){ return (Math.round(n * 100) / 100).toString().replace('.', ',') + ' zł'; };
+    var deliveryCost = function(){
+      var r = document.querySelector('input[name="dost"]:checked');
+      return r ? parseInt(r.dataset.cost, 10) : 0;
+    };
+    /* Cash on delivery (2026-09-22). No surcharge since 2026-10-29 (owner, as on the CZ/SK shop); the
+       machinery stays, so a fee is one canon number away. Keep this number equal to the canon's
+       delivery.PL.cod_surcharge_shop; backend/tools/verify-pricing.php fails if the two drift apart. */
+    var COD_FEE = 0;
+    var carrierRadio = function(){ return document.querySelector('input[name="dost"]:checked'); };
+    var carrierTakesCod = function(){ var r = carrierRadio(); return !!(r && r.dataset.cod === '1'); };
+    var carrierIsPickup = function(){ var r = carrierRadio(); return !!(r && r.dataset.pickup === '1'); };
+    var payRadio = function(){ return document.querySelector('input[name="pay"]:checked'); };
+    var isCod = function(){ var r = payRadio(); return !!(r && r.value === 'cod' && carrierTakesCod()); };
+    var codFee = function(){ return isCod() ? COD_FEE : 0; };
+    function render(){
+      var items = Cart.items();
+      var box = document.getElementById('cart-items');
+      var empty = document.getElementById('cart-empty');
+      var order = document.getElementById('order-block');
+      if(!items.length){
+        box.style.display = 'none';
+        order.style.display = 'none';
+        var cfE = document.getElementById('cart-facts'); if(cfE) cfE.style.display = 'none';
+        var fdE = document.getElementById('free-deliv'); if(fdE) fdE.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      box.style.display = 'block';
+      order.style.display = 'block';
+      var html = '';
+      items.forEach(function(it){
+        var p = Cart.CATALOG[it.id];
+        if(!p) return;
+        var unit = Cart.unitPrice(it.id, it.qty);
+        var reg = Cart.showsSaving(it.id) ? Cart.regularUnit(it.id) : unit;   // no struck price for a set that claims no saving
+        var thumb = p.img
+          ? '<img class="cart-thumb" src="'+p.img+'" alt="">'
+          : '<div class="cart-thumb ph">B</div>';
+        // unit price line — show struck regular price when discounted
+        var unitLine = unit < reg
+          ? '<span class="cart-old">'+fmt(reg)+'</span> <strong style="color:var(--magenta)">'+fmt(unit)+'</strong> / szt.'
+          : fmt(unit)+' / szt.';
+        /* Quantity-tier hint ("add more to save"). Suppressed when an active discount code
+           already gives that price or better, otherwise the line would tell the customer to buy
+           two more bottles to reach a price they are already paying. */
+        var nt = Cart.nextTier(it.id, it.qty);
+        if (nt && Cart.promoUnit(it.id, it.qty) <= nt.price) { nt = null; }
+        // A code already discounts this line: no «buy more» upsell on top (owner 2026-10-29 — with BALSAM15 at 164 zł
+        // the ladder offered three bottles «to get 163 zł», one złoty less).
+        if (nt && Cart.promoLineDiscount(it.id, it.qty) > 0) { nt = null; }
+        var hint = nt
+          ? '<div class="cart-hint">+ Dodaj jeszcze '+nt.need+' szt. (od '+nt.min+' szt.), aby obniżyć cenę do '+fmt(nt.price)+' / szt.</div>'
+          : '';
+        // per-line savings
+        var sav = Cart.lineSavings(it.id, it.qty);
+        var savLine = sav > 0 ? '<div class="cart-save">Oszczędzasz '+fmt(sav)+'</div>' : '';
+        // promo-code discount on this line (e.g. Balzam only)
+        var pd = Cart.promoLineDiscount(it.id, it.qty);
+        /* Owner 2026-10-29 (as on the CZ/SK shop): the buyer came to buy at a discount — the line just shows the old
+           price struck and the new one; no «Kod …», no 30-day-low note (the struck price IS the regular one, the 30-day low). */
+        // short composition for sets, so the customer sees what a bundle contains
+        var contents = Cart.setContents(it.id);
+        var contentsLine = contents ? '<div class="cart-contents" onclick="this.classList.toggle(\'open\')">Zawiera: '+contents+'</div>' : '';
+        html += '<div class="cart-row">'
+          + thumb
+          + '<div class="cart-info"><div class="cart-name"><a href="'+p.url+'" style="color:var(--wine-dark)">'+p.name+'</a></div>'
+          + contentsLine
+          + (it.qty > 1 ? '<div class="cart-unit">'+unitLine+'</div>' : '')+savLine+hint+'</div>'
+          + '<div class="qty"><button data-act="dec" data-id="'+it.id+'" aria-label="Mniej">−</button>'
+          + '<span>'+it.qty+'</span>'
+          + '<button data-act="inc" data-id="'+it.id+'" aria-label="Więcej">+</button></div>'
+          // with a code on this line, the line shows what it costs NOW, the price before the code struck through
+          + '<div class="cart-line">'+(pd > 0 ? '<s class="cart-was">'+fmt(unit*it.qty)+'</s> ' : '')+fmt(unit*it.qty - pd)+'</div>'
+          + '<button class="cart-del" data-act="del" data-id="'+it.id+'" aria-label="Usuń">×</button>'
+          + '</div>';
+      });
+      box.innerHTML = html;
+      box.querySelectorAll('button[data-act]').forEach(function(b){
+        b.addEventListener('click', function(){
+          var id = b.dataset.id, act = b.dataset.act;
+          var cur = (Cart.items().filter(function(i){return i.id===id;})[0]||{}).qty || 0;
+          if(act==='inc') Cart.setQty(id, cur+1);
+          else if(act==='dec') Cart.setQty(id, cur-1);
+          else if(act==='del') Cart.remove(id);
+        });
+      });
+      renderSuggest();
+      renderPromo();
+      updateTotals();
+    }
+
+    /* Promo code: enter in the cart or arrive via ?promo=CODE link. Discount is scoped (Balzam only). */
+    function renderPromo(){
+      var box = document.getElementById('promo-box');
+      if(!box) return;
+      box.style.display = Cart.items().length ? 'block' : 'none';
+      var msg = document.getElementById('promo-msg');
+      var toggle = document.getElementById('promo-toggle');
+      var collapse = document.getElementById('promo-collapse');
+      var input = document.getElementById('promo-input');
+      var active = Cart.activePromo();
+      if(active){
+        // a code is applied -> hide the entry UI, show a compact confirmation
+        toggle.style.display = 'none';
+        collapse.style.display = 'none';
+        var def = Cart.promoDef(active) || {};
+        var label = def.label || '';
+        var code = (def.code || active).toUpperCase();
+        var sav = Cart.promoSavings();
+        /* A live code that takes nothing off is not a broken code — say WHY, or the customer
+           reads «− 0» as a shop that cheated them. Cart.promoNote() names the reason; the wording
+           follows the canon's rule that a code never stacks with a quantity ladder or a komplet
+           (knowledge-base/finance/promos.json). */
+        var note = Cart.promoNote();
+        var clearBtn = '<button type="button" id="promo-clear" class="promo-link">Usuń</button>';
+        if(sav > 0){
+          // the code works — nothing to read (owner 2026-10-29); the price already shows it
+          msg.innerHTML = ''; box.style.display = 'none';
+        } else if(note === 'maxqty'){
+          msg.innerHTML = 'ℹ️ Kod <strong>'+code+'</strong> obowiązuje na 1–2 szt. Przy 3 szt. i więcej cena ilościowa jest jeszcze niższa, więc kod już nic nie dodaje. ' + clearBtn;
+        } else if(note === 'bundle'){
+          msg.innerHTML = 'ℹ️ Kod <strong>'+code+'</strong> działa, gdy w koszyku są wszystkie produkty zestawu: '
+                        + (def.ids || []).map(function(id){ return (Cart.CATALOG[id] || {}).name || id; }).join(', ') + '. ' + clearBtn;
+        } else if(note === 'ladder'){
+          msg.innerHTML = 'ℹ️ Kod <strong>'+code+'</strong> jest aktywny, ale na te produkty masz już korzystniejszą cenę (ilościową lub w zestawie) — rabaty się nie sumują, płacisz niższą. ' + clearBtn;
+        } else if(def.scope === 'products'){
+          // a whole-order code that keeps out the komplety (canon `excludes_sets`), with only sets in the cart
+          msg.innerHTML = 'ℹ️ Kod <strong>'+code+'</strong> jest aktywny, ale nie obejmuje zestawów — działa na pojedyncze produkty. Dodaj produkt do koszyka, aby zobaczyć rabat. ' + clearBtn;
+        } else {
+          msg.innerHTML = 'ℹ️ Kod <strong>'+code+'</strong> jest aktywny, ale obejmuje tylko Balzam 500 ml — dodaj go do koszyka, aby zobaczyć rabat. ' + clearBtn;
+        }
+        if(input) input.value = '';
+        var clr = document.getElementById('promo-clear');
+        if(clr) clr.addEventListener('click', function(){ Cart.clearPromo(); });
+      } else {
+        // no code -> show only the discreet "Masz kod rabatowy?" link (keeps the user's expand state)
+        toggle.style.display = 'inline-block';
+        msg.innerHTML = '';
+      }
+    }
+
+    /* Cross-sell: when cart products form (or nearly form) a set, suggest the cheaper bundle. */
+    var dismissed = null;
+    function renderSuggest(){
+      var el = document.getElementById('set-suggest');
+      if(!el) return;
+      // Don't cross-sell a set while a promo code is active — mixing offers confuses the customer.
+      var s = Cart.activePromo() ? null : Cart.suggestSet();
+      if(!s || dismissed === s.setId){ el.style.display = 'none'; el.innerHTML = ''; return; }
+      var msg, btn;
+      if(s.complete){
+        msg = 'Te produkty tworzą zestaw <strong>'+s.name+'</strong>. Zamień je na zestaw i zapłać '
+            + '<strong>'+fmt(s.setPrice)+'</strong> zamiast <span style="text-decoration:line-through">'+fmt(s.partsPrice)+'</span> '
+            + '— oszczędzasz <strong>'+fmt(s.saving)+'</strong>.';
+        btn = 'Zamień na zestaw';
+      } else {
+        var names = s.missing.map(function(m){
+          var p = Cart.CATALOG[m.id]; return p.name + (m.qty > 1 ? ' (×'+m.qty+')' : '');
+        }).join(', ');
+        msg = 'Dodaj jeszcze <strong>'+names+'</strong>, aby skompletować zestaw <strong>'+s.name+'</strong> '
+            + '— zapłacisz <strong>'+fmt(s.setPrice)+'</strong> zamiast <span style="text-decoration:line-through">'+fmt(s.partsPrice)+'</span> '
+            + '(oszczędzasz <strong>'+fmt(s.saving)+'</strong>).';
+        btn = 'Weź cały zestaw';
+      }
+      el.style.display = 'block';
+      el.innerHTML = '<div class="set-suggest-box">'
+        + '<div class="ss-ico">💡</div>'
+        + '<div class="ss-txt">'+msg+'</div>'
+        + '<div class="ss-act"><button type="button" class="btn btn-gold" data-ss-go>'+btn+'</button></div>'
+        + '<button type="button" class="ss-x" aria-label="Zamknij">×</button>'
+        + '</div>';
+      el.querySelector('[data-ss-go]').addEventListener('click', function(){ Cart.convertToSet(s.setId); });
+      el.querySelector('.ss-x').addEventListener('click', function(){ dismissed = s.setId; el.style.display = 'none'; });
+    }
+    var FREE_DELIVERY = 500;   // the standing threshold (canon free_from); today's one — lower in a promo window — is Cart.freeFrom()
+    function updateTotals(){
+      var sub = Cart.subtotal();
+      var promo = Cart.promoSavings();
+      var payable = sub - promo;                 // products value after the promo code
+      var freeAt = Cart.freeFrom ? Cart.freeFrom() : FREE_DELIVERY;
+      var free = payable >= freeAt;
+      var del = free ? 0 : deliveryCost();
+      var cod = codFee();
+      document.getElementById('sum-products').textContent = fmt(sub);
+      document.getElementById('sum-delivery').textContent = free ? 'Gratis' : fmt(del);
+      var cr = document.getElementById('sum-cod-row');
+      if(cr){
+        document.getElementById('sum-cod').textContent = fmt(cod);
+        cr.style.display = cod > 0 ? 'flex' : 'none';
+      }
+      document.getElementById('sum-total').textContent = fmt(payable + del + cod);
+      /* Each carrier's own price follows the threshold too (2026-11-06): with 164 zł in the basket the list said
+         «21 zł» on every carrier while the total said «Gratis». */
+      document.querySelectorAll('input[name="dost"]').forEach(function(r){
+        var s = r.closest('label') && r.closest('label').querySelector('strong');
+        if(s) s.textContent = free ? 'Gratis' : fmt(parseInt(r.dataset.cost, 10));
+      });
+      /* The two facts a Polish buyer looks for first, on the first phone screen, under the basket. */
+      var cf = document.getElementById('cart-facts');
+      if(cf){
+        cf.style.display = 'flex';
+        // chips since the 2026-11 redesign; the same two facts, the payment one first (what a Polish buyer asks first)
+        cf.innerHTML = '<span class="is-cod">💵 Płatność przy odbiorze, bez dopłat</span>'
+                     + '<span>' + (free ? '🚚 Dostawa gratis' : '🚚 Darmowa dostawa od ' + freeAt + ' zł') + '</span>'
+                     + '<span>📦 Paczkomat InPost lub kurier</span>';
+      }
+      var fd = document.getElementById('free-deliv');
+      if(fd){
+        // free already: the facts line above says it; the green box stays only for «brakuje … do darmowej dostawy»
+        fd.style.display = free ? 'none' : 'block';
+        fd.innerHTML = free
+          ? '✓ Masz <strong>darmową dostawę</strong>!'
+          : '🚚 Brakuje <strong>'+fmt(freeAt - payable)+'</strong> do <strong>darmowej dostawy</strong> (od '+freeAt+' zł). <a href="https://centrumbolotova.pl/katalog.html" style="color:var(--magenta);font-weight:700;white-space:nowrap">Przejdź do katalogu →</a>';
+      }
+      var sr = document.getElementById('sum-save-row');
+      /* No «Oszczędzasz» row here (owner 2026-10-29, as on the CZ/SK shop): it was not subtracted — the products value
+         already holds the set prices — so the sum read as one that did not add up. The saving stays on the set's own line. */
+      sr.style.display = 'none';
+      var pr = document.getElementById('sum-promo-row');
+      if(promo > 0){
+        document.getElementById('sum-promo-label').textContent = 'Rabat';
+        document.getElementById('sum-promo').textContent = '− ' + fmt(promo);
+        pr.style.display = 'flex';
+      } else { pr.style.display = 'none'; }
+    }
+    /* ---- Paczkomat picker ---------------------------------------------------------------------
+       Searches OUR OWN generated catalogue (backend/src/pickup-points.PL.json, 32 500 points) through
+       /api/pickup-points, so the picker needs no carrier widget, no account and no key, and keeps
+       working when somebody else's API is down. What we store is the point's carrier id — the value
+       the warehouse ships to (`delivery.place_ext_id`). */
+    var pickupTimer = null, pickupSeq = 0, lastPoint = null;   // lastPoint: the chosen point, kept by Keep below
+    function clearPickup(){
+      var id = document.getElementById('f-pickup-id');
+      var ch = document.getElementById('pickup-chosen');
+      var rs = document.getElementById('pickup-results');
+      var q  = document.getElementById('f-pickup-q');
+      if(id) id.value = '';
+      if(ch){ ch.style.display = 'none'; ch.textContent = ''; }
+      if(rs){ rs.style.display = 'none'; rs.innerHTML = ''; }
+      if(q)  q.value = '';
+      if(window.CBPickupMap) CBPickupMap.clear();
+      lastPoint = null;
+    }
+    function choosePickup(point, fromMap){
+      var id = document.getElementById('f-pickup-id');
+      var ch = document.getElementById('pickup-chosen');
+      var rs = document.getElementById('pickup-results');
+      var q  = document.getElementById('f-pickup-q');
+      if(id) id.value = point.id;
+      /* The code goes in the confirmation: two lockers often share a street (Komitetu Obrony
+         Robotników 43 and 45 are WAW02B and WAW55AP), and the code is what is printed on the box. */
+      if(ch){ ch.textContent = '✓ ' + point.id + ' — ' + pickupLabel(point); ch.style.display = 'block'; }
+      if(rs){ rs.style.display = 'none'; rs.innerHTML = ''; }
+      if(q){ q.value = pickupLabel(point); q.classList.remove('invalid'); }
+      /* Chosen from the list → mark it on the map too; chosen on the map → it is already marked. */
+      if(!fromMap && window.CBPickupMap) CBPickupMap.show(point.id);
+      lastPoint = { id: point.id, name: point.name || '', street: point.street || '', zip: point.zip || '', city: point.city || '' };
+      if (window.CBKeep) CBKeep.save();
+    }
+    function pickupLabel(p){
+      var tail = [p.street, ((p.zip || '') + ' ' + (p.city || '')).trim()].filter(Boolean).join(', ');
+      return p.name ? (tail ? p.name + ', ' + tail : p.name) : tail;
+    }
+    var pickupQ = document.getElementById('f-pickup-q');
+    if(pickupQ){
+      pickupQ.addEventListener('input', function(){
+        /* Typing after a choice means the customer is choosing again — the stored id must not
+           survive it, or the parcel would go to the point they just replaced. */
+        var id = document.getElementById('f-pickup-id');
+        if(id && id.value){ id.value = ''; var ch = document.getElementById('pickup-chosen'); if(ch) ch.style.display = 'none'; }
+        var q = pickupQ.value.trim();
+        var rs = document.getElementById('pickup-results');
+        if(pickupTimer) clearTimeout(pickupTimer);
+        if(q.length < 3 && !/^\d/.test(q)){ if(rs){ rs.style.display='none'; rs.innerHTML=''; } return; }
+        /* One request per pause in typing, and answers are matched to the request that asked for
+           them — a slow reply must not overwrite the list for a newer query. */
+        var seq = ++pickupSeq;
+        pickupTimer = setTimeout(function(){
+          fetch('/api/pickup-points?q=' + encodeURIComponent(q))
+            .then(function(r){ return r.json(); })
+            .then(function(res){
+              if(seq !== pickupSeq || !rs) return;
+              var pts = (res && res.points) || [];
+              if(!pts.length){
+                rs.innerHTML = '<p class="muted" style="padding:12px 14px;margin:0;font-size:14px">Nie znaleziono punktu. Spróbuj wpisać miasto lub kod pocztowy.</p>';
+                rs.style.display = 'block';
+                return;
+              }
+              rs.innerHTML = pts.map(function(p, i){
+                return '<button type="button" data-i="' + i + '" style="display:block;width:100%;text-align:left;background:none;border:0;'
+                     + 'border-top:' + (i ? '1px solid #f0e6ea' : '0') + ';padding:10px 14px;font-size:14px;cursor:pointer;color:#3d2b33">'
+                     + escapeHtml(pickupLabel(p)) + '</button>';
+              }).join('');
+              rs.style.display = 'block';
+              if(window.CBPickupMap) CBPickupMap.focus(pts.map(function(p){ return p.id; }));
+              rs.querySelectorAll('button[data-i]').forEach(function(b){
+                b.addEventListener('click', function(){ choosePickup(pts[parseInt(b.dataset.i, 10)]); });
+              });
+            })
+            .catch(function(){ if(rs){ rs.style.display='none'; } });
+        }, 250);
+      });
+    }
+    function escapeHtml(t){
+      return String(t).replace(/[&<>"']/g, function(c){
+        return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+      });
+    }
+
+    /* Keep the payment choice honest about the carrier: only DPD and the paczkomaty collect money
+       for us, so on GLS / PPL the «za pobraniem» radio is disabled — and if it was already chosen,
+       the choice falls back to the card instead of silently costing 7 zł for nothing. */
+    function syncPayment(){
+      var codInput = document.querySelector('input[name="pay"][value="cod"]');
+      var label    = document.getElementById('pay-cod-label');
+      var blocked  = document.getElementById('pay-cod-blocked');
+      var allowed  = carrierTakesCod();
+      if(codInput){
+        codInput.disabled = !allowed;
+        if(!allowed && codInput.checked){
+          var card = document.querySelector('input[name="pay"][value="card"]');
+          if(card) card.checked = true;
+        }
+      }
+      if(label){ label.style.opacity = allowed ? '1' : '.45'; label.style.cursor = allowed ? 'pointer' : 'not-allowed'; }
+      if(blocked) blocked.style.display = allowed ? 'none' : 'block';
+      var onCod = isCod();
+      var nc = document.getElementById('pay-note-card'); if(nc) nc.style.display = onCod ? 'none' : 'block';
+      var nd = document.getElementById('pay-note-cod');  if(nd) nd.style.display = onCod ? 'block' : 'none';
+    }
+    /* The paczkomat picker belongs to one carrier. Switching away clears the chosen point: an order
+       to an address must not carry a point id, and the backend drops it anyway. */
+    function syncPickup(){
+      var box = document.getElementById('pickup-box');
+      if(!box) return;
+      var on = carrierIsPickup();
+      box.style.display = on ? 'block' : 'none';
+      var af = document.getElementById('addr-fields'); if (af) af.style.display = on ? 'none' : '';
+      if(!on) clearPickup();
+      else if(window.CBPickupMap) CBPickupMap.open({ onChoose: function(p){ choosePickup(p, true); } });
+    }
+    /* «Pokaż najbliższe»: the map centres on the buyer; a refusal or no map says to type the town instead. */
+    var locBtn = document.getElementById('pickup-locate');
+    if (locBtn && navigator.geolocation) {
+      locBtn.style.display = 'inline-block';
+      locBtn.addEventListener('click', function(){
+        var msg = document.getElementById('pickup-locate-msg');
+        locBtn.disabled = true; locBtn.textContent = '📍 Szukam…'; msg.style.display = 'none';
+        if (!window.CBPickupMap) { done(false); return; }
+        CBPickupMap.locate(done);
+        function done(ok){
+          locBtn.disabled = false; locBtn.textContent = '📍 Pokaż najbliższe paczkomaty';
+          if (ok) { var n = document.getElementById('pickup-near'); if (n) try { n.scrollIntoView({behavior:'smooth', block:'nearest'}); } catch(e){} }
+          else { msg.textContent = 'Nie udało się ustalić Twojej lokalizacji — wpisz miasto lub kod pocztowy powyżej.'; msg.style.display = 'block'; }
+        }
+      });
+    }
+    document.addEventListener('cart:change', render);
+    document.querySelectorAll('input[name="dost"]').forEach(function(r){
+      r.addEventListener('change', function(){ syncPayment(); syncPickup(); updateTotals(); });
+    });
+    document.querySelectorAll('input[name="pay"]').forEach(function(r){
+      r.addEventListener('change', function(){ syncPayment(); updateTotals(); });
+    });
+    syncPayment(); syncPickup();
+
+    /* Ship-to-another-person: reveal recipient fields on demand. */
+    var diffRec = document.getElementById('f-diff-recipient');
+    if(diffRec) diffRec.addEventListener('change', function(){
+      var box = document.getElementById('recipient-fields');
+      if(box) box.style.display = diffRec.checked ? 'block' : 'none';
+    });
+    var pt = document.getElementById('promo-toggle');
+    if(pt) pt.addEventListener('click', function(){
+      var c = document.getElementById('promo-collapse');
+      var open = c.style.display !== 'none';
+      c.style.display = open ? 'none' : 'block';
+      if(!open){ var i = document.getElementById('promo-input'); if(i) i.focus(); }
+    });
+    var pf = document.getElementById('promo-form');
+    if(pf) pf.addEventListener('submit', function(){
+      var code = document.getElementById('promo-input').value;
+      if(Cart.applyPromo(code)){ /* cart:change -> render() repaints everything */ }
+      else { document.getElementById('promo-msg').innerHTML = '✕ Nieprawidłowy kod rabatowy.'; }
+    });
+
+    /* ── E-mail typo hint («gmial.com» → «gmail.com»), from the CZ/SK cart (site-build/email-check). A hint
+       only, one tap to accept; it never blocks the order. The SERVER refuses what no letter can reach
+       (gmal.com, seznan.cz) and the 422 handler below reuses this hint to offer the server's fix. */
+    var MAIL_DOMAINS = [ // = EmailCheck::KNOWN (site-build/email-check)
+      'gmail.com','googlemail.com','seznam.cz','email.cz','post.cz','centrum.cz','atlas.cz','volny.cz',
+      'tiscali.cz','quick.cz','o2active.cz','seznam.sk','hotmail.cz','outlook.cz','live.cz','azet.sk',
+      'zoznam.sk','post.sk','centrum.sk','atlas.sk','pobox.sk','inmail.sk','orangemail.sk','stonline.sk',
+      'outlook.sk','hotmail.sk','live.sk','wp.pl','onet.pl','onet.eu','op.pl','vp.pl','o2.pl','go2.pl',
+      'tlen.pl','interia.pl','interia.eu','poczta.fm','gazeta.pl','poczta.onet.pl','buziaczek.pl','yahoo.com',
+      'ymail.com','yahoo.de','yahoo.co.uk','hotmail.com','hotmail.de','hotmail.co.uk','hotmail.it',
+      'outlook.com','outlook.de','outlook.it','live.com','live.de','live.co.uk','live.it','msn.com',
+      'icloud.com','me.com','mac.com','aol.com','gmx.com','gmx.net','gmx.de','gmx.at','web.de','email.de',
+      't-online.de','freenet.de','mail.com','email.com','proton.me','protonmail.com','pm.me','ukr.net','i.ua',
+      'meta.ua'];
+    function editDistance(a, b){
+      var d = [], i, j;
+      for (i = 0; i <= a.length; i++) d[i] = [i];
+      for (j = 0; j <= b.length; j++) d[0][j] = j;
+      for (i = 1; i <= a.length; i++) for (j = 1; j <= b.length; j++) {
+        var c = a.charAt(i-1) === b.charAt(j-1) ? 0 : 1;
+        d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+c);
+        if (i > 1 && j > 1 && a.charAt(i-1) === b.charAt(j-2) && a.charAt(i-2) === b.charAt(j-1)) d[i][j] = Math.min(d[i][j], d[i-2][j-2]+1);
+      }
+      return d[a.length][b.length];
+    }
+    function suggestEmail(address){
+      var at = address.lastIndexOf('@'); if (at < 1) return '';
+      var domain = address.slice(at+1).toLowerCase();
+      if (domain.length < 4 || MAIL_DOMAINS.indexOf(domain) !== -1) return '';
+      var name = domain.slice(0, domain.lastIndexOf('.') + 1);
+      var same = MAIL_DOMAINS.filter(function(k){ return name && k.indexOf(name) === 0; })[0];
+      if (same) return address.slice(0, at+1) + same;
+      var best = '', bestD = 99;
+      MAIL_DOMAINS.forEach(function(k){ var lim = k.length >= 8 ? 2 : 1, dd = editDistance(domain, k); if (dd <= lim && dd < bestD) { best = k; bestD = dd; } });
+      return best ? address.slice(0, at+1) + best : '';
+    }
+    var emailHint = function(){};   // set below; the server's e-mail refusal reuses it to offer its fix
+    (function(){
+      var input = document.getElementById('f-email'); if (!input) return;
+      var hint = document.createElement('div'); hint.className = 'muted'; hint.style.cssText = 'font-size:13px;margin-top:6px'; hint.hidden = true;
+      (input.closest('.field') || input.parentNode).appendChild(hint);
+      var check = function(fromServer){
+        var fix = (typeof fromServer === 'string' && fromServer) || suggestEmail(String(input.value || '').trim());
+        hint.textContent = ''; hint.hidden = !fix; if (!fix) return;
+        (input.closest('.field') || input.parentNode).appendChild(hint);   // below a server refusal, not above it
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = fix;
+        b.style.cssText = 'background:none;border:0;padding:0;color:var(--magenta);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer';
+        b.addEventListener('click', function(){ input.value = fix; hint.hidden = true; try { input.dispatchEvent(new Event('input', { bubbles: true })); } catch (er) {} input.classList.remove('invalid'); });
+        hint.appendChild(document.createTextNode('Czy chodziło o ')); hint.appendChild(b); hint.appendChild(document.createTextNode('?'));
+      };
+      input.addEventListener('blur', check); input.addEventListener('change', check);
+      input.addEventListener('input', function(){ hint.hidden = true; });
+      emailHint = check;
+    })();
+
+    /* A server 422 marks the field it names (CHECKOUT-MOBILE rule 24); anything else it names falls back to the
+       general error box. */
+    var SERVER_FIELD = { name:'f-name', phone:'f-phone', email:'f-email', pickup_point_id:'f-pickup-q',
+      street:'f-street', street_number:'f-house', city:'f-city', zipcode:'f-zip' };
+
+    /* ── Client-side validation ───────────────────────────────────────────────
+       We use novalidate and drive validation ourselves so we can: highlight the
+       exact field in red, show a Polish hint under it, and scroll/focus the first
+       problem. Errors clear as soon as the customer edits the field. */
+    var of = document.getElementById('order-form');
+
+    /* Birthday: day + month only (no year — people are shy about the year). */
+    (function(){
+      var dSel = document.getElementById('f-bday-d'), mSel = document.getElementById('f-bday-m');
+      if(dSel) for(var d=1; d<=31; d++){ var o=document.createElement('option'); o.value=d; o.textContent=d; dSel.appendChild(o); }
+      var months = ['styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień'];
+      if(mSel) months.forEach(function(name,i){ var o=document.createElement('option'); o.value=i+1; o.textContent=name; mSel.appendChild(o); });
+    })();
+
+    /* Phone: international input with flag + per-country validation (intl-tel-input).
+       Default Poland, popular EU countries pinned on top; the full list is searchable. */
+    // Country list limited to our sales markets + main diaspora (owner decision 2026-07-23); PL default.
+    var ITI_ONLY = ['pl','ua','cz','sk','de','at','it','si','gb','ie','nl','be'];
+    var itiOpts = { initialCountry:'pl', onlyCountries:ITI_ONLY, preferredCountries:['pl','ua','cz','sk','de'],
+                    separateDialCode:true, autoPlaceholder:'aggressive',
+                    utilsScript:'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js' };
+    var itiPhone = null, itiRec = null;
+    if(window.intlTelInput){
+      var pEl = document.getElementById('f-phone'); if(pEl) itiPhone = window.intlTelInput(pEl, itiOpts);
+      var rEl = document.getElementById('f-rec-phone'); if(rEl) itiRec = window.intlTelInput(rEl, itiOpts);
+    }
+    /* valid only when utils loaded; otherwise fall back to a loose digit check. */
+    function phoneValid(iti, raw){
+      if(iti && window.intlTelInputUtils && typeof iti.isValidNumber==='function'){
+        var r = iti.isValidNumber(); if(r===true) return true; if(r===false) return false;
+      }
+      return raw.replace(/\D/g,'').length >= 8;
+    }
+    function phoneE164(iti, raw){
+      try{ if(iti && window.intlTelInputUtils){ var n = iti.getNumber(); if(n) return n; } }catch(e){}
+      return raw;
+    }
+
+    function clearErrors(){
+      of.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+      of.querySelectorAll('.field-err').forEach(function(el){ el.remove(); });
+      var cl = document.getElementById('consent-label'); if(cl) cl.classList.remove('consent-invalid');
+    }
+    function showError(el, msg, isConsent){
+      if(isConsent){
+        var lab = document.getElementById('consent-label');
+        if(lab){ lab.classList.add('consent-invalid'); var h=document.createElement('div'); h.className='field-err'; h.textContent=msg; lab.parentNode.insertBefore(h, lab.nextSibling); }
+        return;
+      }
+      el.classList.add('invalid');
+      var box = el.closest('.field') || el.parentNode;
+      var hint = document.createElement('div'); hint.className='field-err'; hint.textContent = msg;
+      box.appendChild(hint);
+    }
+    function validateOrderForm(){
+      var errs = [];
+      var g = function(id){ var e=document.getElementById(id); return { el:e, v: e ? e.value.trim() : '' }; };
+      var n=g('f-name');
+        // any non-empty name (site-build/REGULATION.md §6 «any name»; audit 2026-11-10 item 9) — a one-word name is not refused
+        if(!n.v) errs.push({el:n.el,msg:'Podaj imię i nazwisko.'});
+      var ph=g('f-phone');
+        if(!ph.v) errs.push({el:ph.el,msg:'Podaj numer telefonu.'});
+        else if(!phoneValid(itiPhone, ph.v)) errs.push({el:ph.el,msg:'Nieprawidłowy numer telefonu dla wybranego kraju.'});
+      var em=g('f-email');
+        if(!em.v) errs.push({el:em.el,msg:'Podaj adres e-mail.'});
+        else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.v)) errs.push({el:em.el,msg:'Nieprawidłowy adres e-mail (np. jan@example.com).'});
+      // the home address is asked only for a courier; a paczkomat order ships to the point (the server fills its address)
+      if(!carrierIsPickup()){
+      var zip=g('f-zip');
+        if(!zip.v) errs.push({el:zip.el,msg:'Podaj kod pocztowy.'});
+        else if(!/^\d{2}-\d{3}$/.test(zip.v)) errs.push({el:zip.el,msg:'Polski kod pocztowy w formacie 00-000 (z myślnikiem). Wysyłka tylko na terenie Polski.'});
+      var city=g('f-city');   if(!city.v) errs.push({el:city.el,msg:'Podaj miasto.'});
+      var st=g('f-street');   if(!st.v) errs.push({el:st.el,msg:'Podaj adres dostawy.'});
+      var ho=g('f-house');    if(!ho.v) errs.push({el:ho.el,msg:'Podaj numer domu.'});
+      }
+      var diffR = document.getElementById('f-diff-recipient');
+      if(diffR && diffR.checked){
+        var rn=g('f-rec-name'); if(!rn.v) errs.push({el:rn.el,msg:'Podaj imię i nazwisko odbiorcy.'});
+        var rp=g('f-rec-phone');
+          if(!rp.v) errs.push({el:rp.el,msg:'Podaj telefon odbiorcy.'});
+          else if(!phoneValid(itiRec, rp.v)) errs.push({el:rp.el,msg:'Nieprawidłowy numer telefonu odbiorcy.'});
+      }
+      /* A paczkomat parcel with no point cannot be delivered — the warehouse needs the point's own
+         id, and the backend refuses the order without it. Catch it here, while the customer is still
+         looking at the picker. */
+      if(carrierIsPickup()){
+        var pu = g('f-pickup-id');
+        if(!pu.v){
+          var qEl = document.getElementById('f-pickup-q');
+          errs.push({el: qEl || pu.el, msg:'Wybierz paczkomat lub punkt odbioru z listy.'});
+        }
+      }
+      return errs;
+    }
+    /* Clear a field's error as soon as it's edited / consent ticked. */
+    if(of){
+      of.addEventListener('input', function(e){
+        var t=e.target; if(t && t.classList && t.classList.contains('invalid')){
+          t.classList.remove('invalid'); var box=t.closest('.field'); if(box){ var h=box.querySelector('.field-err'); if(h) h.remove(); }
+        }
+      });
+      of.addEventListener('change', function(e){
+        if(e.target && e.target.id==='f-consent' && e.target.checked){
+          var lab=document.getElementById('consent-label');
+          if(lab){ lab.classList.remove('consent-invalid'); var h=lab.nextSibling; if(h && h.className==='field-err') h.remove(); }
+        }
+      });
+    }
+
+    /* checkout_form_start — the first touch of any order field, once per page (owner 2026-10-29, as on the CZ/SK shop):
+       with begin_checkout it tells «left before the form» from «left in the form». A custom name, not GA4's own
+       form_start, so enhanced measurement cannot double it. GTM has to forward it to GA4 (container GTM-5ZP5LLR4). */
+    if (of) of.addEventListener('focusin', function f(e){
+      var el = e.target; if (!el || !/^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName) || el.name === 'cb_hp') return;
+      of.removeEventListener('focusin', f);
+      try { (window.dataLayer = window.dataLayer || []).push({ event: 'checkout_form_start', form_field: el.id || el.name || '' }); } catch (err) {}
+    });
+
+    /* Place order: validate → snapshot → POST to backend → redirect to Stripe / thank-you. */
+    if(of) of.addEventListener('submit', function(e){
+      e.preventDefault();
+      /* Validate first: on any problem, highlight + hint + jump to the first field. */
+      clearErrors();
+      var problems = validateOrderForm();
+      if(problems.length){
+        problems.forEach(function(p){ showError(p.el, p.msg, p.consent); });
+        var first = problems[0].el;
+        try { first.scrollIntoView({behavior:'smooth', block:'center'}); } catch(err){ first.scrollIntoView(); }
+        setTimeout(function(){ try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); } }, 250);
+        return;
+      }
+      var sub = Cart.subtotal(), promo = Cart.promoSavings(), payable = sub - promo;
+      var del = payable >= (Cart.freeFrom ? Cart.freeFrom() : FREE_DELIVERY) ? 0 : deliveryCost();
+      var cod = codFee();
+      var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+      var d = new Date();
+      var order = {
+        no: 'CB-' + (''+d.getFullYear()).slice(2) + pad(d.getMonth()+1) + pad(d.getDate()) + '-' + Math.floor(1000 + Math.random()*9000),
+        /* Line price includes a unit_price code (BALSAM15) or a bundle_prices code (JESIEN), so the
+           lines add up to what is actually charged. A percentage code discounts the whole order, not the line — it stays
+           in `promo` and the backend prints it separately. */
+        items: Cart.items().map(function(i){ var p = Cart.CATALOG[i.id]; return { id: i.id, name: p.name, qty: i.qty, line: Cart.unitPrice(i.id, i.qty) * i.qty - Cart.promoLineDiscount(i.id, i.qty) }; }),
+        /* `delivery` is the carrier's price and `cod` the collection surcharge, kept apart so the
+           thank-you page can print them as two rows — «Dostawa: Gratis» next to «Za pobraniem: 7 zł»
+           is the truth; one merged 7 zł under «Dostawa» is not. */
+        promo: promo, promoCode: Cart.activePromo(), delivery: del, cod: cod, total: payable + del + cod
+      };
+      /* A test order (+cbtest e-mail) is no sale: the server keeps it out of GA4 / Meta (api/order.php), the thank-you
+         page must too — the same rule and words as the CZ/SK cart (audit 2026-11-10 item 17: `CB-261110-EE8C6` pushed
+         purchase = 399 from dziekujemy). */
+      order.test = /\+cbtest/i.test((document.getElementById('f-email') || {}).value || '');
+      try { sessionStorage.setItem('bolotov_last_order', JSON.stringify(order)); } catch(err){}
+      /* begin_checkout — fires when the customer submits the order to proceed to payment. */
+      try {
+        var ckItems = Cart.items().map(function(i){ var p = Cart.CATALOG[i.id]; return { item_id:i.id, item_name:p.name, price:Cart.unitPrice(i.id,i.qty), quantity:i.qty }; });
+        (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
+        window.dataLayer.push({ event:'begin_checkout', ecommerce:{ currency:'PLN', value: payable, coupon: Cart.activePromo() || undefined, items: ckItems } });
+      } catch(err){}
+      /* Send the order to our backend → creates the amoCRM deal (Paid=No).
+         Direct API POST (no iframe) so it works in in-app browsers (IG/FB).
+         Stripe payment will be inserted before the thank-you redirect in the next phase. */
+      var val = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+      var radio = document.querySelector('input[name="dost"]:checked');
+      var pick = carrierIsPickup();
+      var street = pick ? '' : val('f-street'), house = pick ? '' : val('f-house'), zip = pick ? '' : val('f-zip'), city = pick ? '' : val('f-city');
+      /* Recipient values (already validated above); empty unless "different person" is ticked. */
+      var diffR = document.getElementById('f-diff-recipient');
+      var recName = (diffR && diffR.checked) ? val('f-rec-name') : '';
+      var recPhone = (diffR && diffR.checked) ? phoneE164(itiRec, val('f-rec-phone')) : '';
+      /* Birthday as "DD.MM" (day+month, no year), or '' if not filled. */
+      var bd = (document.getElementById('f-bday-d')||{}).value, bm = (document.getElementById('f-bday-m')||{}).value;
+      var birthday = (bd && bm) ? (pad(parseInt(bd,10)) + '.' + pad(parseInt(bm,10))) : '';
+      /* The buyer's cookie choice (cookies.js → localStorage 'cb-consent': JSON categories, or the old 'all' / 'essential'):
+         the server sends Meta a Purchase only with «marketingowe», GA4 only with «analityczne» (owner 2026-11-10, the
+         privacy policy's «tylko za Twoją zgodą»). */
+      var consentNow = (function(){ try { var c = localStorage.getItem('cb-consent'); if (!c) return {};
+        return c === 'all' ? { analytics: true, marketing: true } : c === 'essential' ? {} : (JSON.parse(c) || {}); } catch(e){ return {}; } })();
+      var payload = {
+        consent_marketing: consentNow.marketing === true, consent_analytics: consentNow.analytics === true,
+        name: val('f-name'), phone: phoneE164(itiPhone, val('f-phone')), email: val('f-email'),
+        birthday: birthday,
+        recipient_name: recName, recipient_phone: recPhone,
+        /* send item ids — the backend expands sets (discounted component prices)
+           and builds the order description + SKU list for the warehouse. */
+        items: order.items.map(function(i){ return { id:i.id, title:i.name, qty:i.qty, price:i.line }; }),
+        order_total: order.total,
+        /* Discount code as the canon spells it (BALSAM15, not the localStorage key), plus what it
+           took off — the backend re-checks the word and prints both on the deal. */
+        promo_code: (Cart.promoDef(Cart.activePromo()) || {}).code || '',
+        promo_discount: promo,
+        delivery_kind: radio ? (radio.getAttribute('data-kind') || '') : '',
+        delivery_cost: String(del + cod),
+        delivery_addr: pick ? '' : 'ul. ' + street + ' ' + house + ', ' + zip + ' ' + city + ', Polska',   // a paczkomat's: filled by the server
+        street: street, street_number: house, zipcode: zip, city: city, country: 'Polska',
+        /* How it is paid. The server re-decides everything about the money from `paymode` — the
+           surcharge, whether a Stripe session is created at all, and whether the deal is left ready
+           for the warehouse — so this is the one field that matters, not `payment_type`. */
+        /* The CHOSEN radio, never the fee: the fee is 0 since 2026-10-29, and «cod > 0» sent every
+           cash-on-delivery order to the card page that evening. */
+        paymode: isCod() ? 'cod' : 'card',
+        pickup_point_id: val('f-pickup-id'),
+        payment_type: isCod() ? 'COD' : 'Stripe',
+        /* Honeypot (the hidden field at the top of the form). Empty for every person. */
+        cb_hp: (of.querySelector('input[name="cb_hp"]') || {}).value || ''
+      };
+      /* Ad attribution → forward the captured UTM / click ids (first-touch, from
+         sessionStorage via cart.js) so the amoCRM lead carries the channel/campaign.
+         Never overwrite a real order field. */
+      try {
+        var _attr = (typeof window.cbAttribution === 'function') ? window.cbAttribution() : {};
+        Object.keys(_attr).forEach(function (k) { if (_attr[k] && !payload[k]) payload[k] = _attr[k]; });
+      } catch (_e) {}
+      /* One key per ORDER AS SENT, reused when the buyer presses again: if the answer to the first submit never
+         reached the browser, the server replays that order instead of creating a second deal and e-mail
+         (backend/src/Idempotency.php, since 2026-11-10 — the CZ/SK cart's rule). A new key the moment anything in
+         the order changes, so a fixed typo after a failed submit is never dropped for the first order's replay. */
+      var _idem = window.__cbIdem || (window.__cbIdem = {});
+      var _orderPrint = JSON.stringify(payload);
+      if (_idem.forPrint !== _orderPrint || !_idem.key) {
+        _idem.forPrint = _orderPrint;
+        _idem.key = (window.crypto && window.crypto.randomUUID)
+          ? window.crypto.randomUUID()
+          : String(Date.now()) + '-' + Math.random().toString(16).slice(2);
+      }
+      payload.idempotency_key = _idem.key;
+      /* An unpaid card order from this browser (Keep below): the same order again never makes a second one — cash on
+         delivery switches THAT order, a card goes back to THAT order's payment page; a changed order replaces it. */
+      var _pend = Keep.pending();
+      if (_pend) {
+        if (Keep.print(payload) === _pend.print) {
+          if (isCod()) { Keep.toCod(); return; }
+          if (_pend.pay_url) { window.location.href = _pend.pay_url; return; }
+        } else {
+          payload.replaces_order = { order_no: _pend.no, key: _pend.key };
+        }
+      }
+      /* The submit button itself, not the first <button> in the form: with a paczkomat chosen, the list of nearby
+         points (pickup-map.js) puts buttons ahead of it, so «Złóż zamówienie» stayed live while waiting, and a second
+         tap made a second order and a second Stripe session (CB-261027-638E1 + -DB56F, 4 s apart, 2026-10-27). */
+      var btn = document.getElementById('order-submit');
+      if (btn && btn.disabled) return;
+      if (btn) { btn.disabled = true; btn.textContent = 'Przetwarzanie…'; }
+      document.getElementById('order-error').style.display = 'none';
+      fetch('/api/order', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+        .then(function(r){ return r.json().catch(function(){ return { ok:false }; }); })
+        .then(function(res){
+          if (res && res.ok) {
+            /* Use the server's authoritative order number so the thank-you page
+               and the CRM deal show the same number. */
+            try { if (res.order_no) { order.no = res.order_no; sessionStorage.setItem('bolotov_last_order', JSON.stringify(order)); } } catch(e){}
+            /* A card order is remembered until it is paid (the buyer may come back from Stripe); a cash one is done. */
+            if (res.checkout_url) Keep.setPending({ no: res.order_no, key: payload.idempotency_key, print: Keep.print(payload),
+                                                    pay_url: res.pay_url || res.checkout_url, total: res.total, snap: order });
+            else Keep.clear();
+            /* If Stripe is configured, the backend returns a hosted-checkout URL
+               → full-page redirect to pay (no iframe; in-app browser safe).
+               Stripe then redirects to dziekujemy.html on success / koszyk.html on cancel.
+               If no URL (Stripe not wired yet), fall back to the thank-you page. */
+            /* A cash-on-delivery order never gets a checkout URL — there is nothing to pay online,
+               so it goes straight to the thank-you page, which says so (status=cod). */
+            if (res.checkout_url) { window.location.href = res.checkout_url; }
+            else if (res.paymode === 'cod') { window.location.href = 'dziekujemy.html?status=cod'; }
+            else { window.location.href = 'dziekujemy.html?status=success'; }
+          } else if (res && res.error === 'validation' && res.fields && res.fields.some(function(f){ return document.getElementById(SERVER_FIELD[f] || ''); })) {
+            if (btn) { btn.disabled = false; btn.textContent = 'Zamawiam z obowiązkiem zapłaty'; }
+            var firstEl = null;
+            res.fields.forEach(function(f){ var el = document.getElementById(SERVER_FIELD[f] || ''); if (!el) return;
+              /* The server refuses an address no letter can reach — gmal.com, seznan.cz (site-build/email-check). */
+              var m = f === 'email' && res.email_reason === 'no_mail' ? 'Na ten adres nie dotrze żaden e-mail — sprawdź go, proszę.'
+                    : f === 'email' && res.email_reason === 'typo' ? 'Na ten adres nie dotrze żaden e-mail — domena wygląda na literówkę.'
+                    : f === 'email' ? 'Nieprawidłowy adres e-mail (np. jan@example.com).'
+                    : f === 'pickup_point_id' ? 'Wybierz paczkomat lub punkt odbioru z listy.'
+                    /* the server's copy of the checks above (api/order.php), for a page whose own checks did not run */
+                    : f === 'zipcode' ? 'Polski kod pocztowy w formacie 00-000 (z myślnikiem). Wysyłka tylko na terenie Polski.'
+                    : f === 'phone' ? 'Nieprawidłowy numer telefonu dla wybranego kraju.' : 'Sprawdź, proszę, to pole.';
+              showError(el, m); firstEl = firstEl || el;
+              if (f === 'email' && res.email_suggest) emailHint(res.email_suggest); });
+            /* Scroll only, no focus: a focused e-mail field would blur on the tap at the suggested address and
+               rebuild the hint under the finger, swallowing that tap. */
+            try { firstEl.scrollIntoView({behavior:'smooth', block:'center'}); } catch(err){ firstEl.scrollIntoView(); }
+          } else { throw new Error('order_failed'); }
+        })
+        .catch(function(){
+          if (btn) { btn.disabled = false; btn.textContent = 'Zamawiam z obowiązkiem zapłaty'; }
+          document.getElementById('order-error').style.display = 'block';
+        });
+    });
+
+    /* ── Keep: what the buyer typed never disappears, and one order stays one order (owner 2026-11-12) ─────────────
+       «вообще было бы хорошо сделать чтобы на сайтах не пропадало то что ввел клиент». On 11.11 a buyer chose BLIK,
+       left the Stripe page without paying, came back to an empty form, typed everything again and made three orders
+       (CB-261111-D32EC, -AC4BA, -C291E) — three deals, then a cancellation call.
+       • The form's fields (name, phone + country, e-mail, address, recipient, birthday, carrier, payment, the chosen
+         paczkomat) are saved in THIS browser as they are typed (localStorage `cb_checkout_v1`, 7 days) and put back
+         on every visit; they go when an order is done (here for cash on delivery, dziekujemy.html for a paid card).
+       • A card order not paid yet is remembered (`cb_pending_order_v1`: its number and the form fill's key, 7 days).
+         Back on this page the server is asked about it (api/order-pending); while it waits for the money, a box offers
+         «Zapłać przy odbiorze — bez dopłat» — the SAME order becomes cash on delivery — and «pay again», which opens
+         that order's own payment page. Pressing the order button with the same order does the same; a changed order
+         is sent as new and the server closes the old one (`replaces_order`). Nothing here can make a second deal. */
+    var Keep = window.CBKeep = (function(){
+      var FORM = 'cb_checkout_v1', PEND = 'cb_pending_order_v1';
+      var TEXT = ['f-name','f-phone','f-email','f-street','f-house','f-zip','f-city','f-rec-name','f-rec-phone','f-bday-d','f-bday-m'];
+      var get = function(k){ try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch(e){ return null; } };
+      var put = function(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} };
+      var del = function(k){ try { localStorage.removeItem(k); } catch(e){} };
+      var restoring = false, timer = null;
+      function iso(iti){ try { return (iti && iti.getSelectedCountryData().iso2) || ''; } catch(e){ return ''; } }
+      function snapshot(){
+        var f = { at: Date.now(), v: {} };
+        TEXT.forEach(function(id){ var el = document.getElementById(id); if (el && el.value) f.v[id] = el.value; });
+        var dr = document.getElementById('f-diff-recipient'); if (dr && dr.checked) f.diff = true;
+        var d = document.querySelector('input[name="dost"]:checked'); if (d) f.dost = d.getAttribute('data-kind') || '';
+        var p = document.querySelector('input[name="pay"]:checked'); if (p) f.pay = p.value;
+        f.ccPhone = iso(itiPhone); f.ccRec = iso(itiRec);
+        if (lastPoint && carrierIsPickup()) f.point = lastPoint;
+        return f;
+      }
+      function save(){
+        if (restoring) return;
+        var f = snapshot();
+        if (!Object.keys(f.v).length && !f.point) return;   // nothing typed yet — do not store an empty form
+        put(FORM, f);
+      }
+      function restore(){
+        var f = get(FORM);
+        if (!f || !f.v || Date.now() - (f.at || 0) > 7 * 86400000) { del(FORM); return; }
+        restoring = true;
+        try {
+          var fire = function(el, ev){ try { el.dispatchEvent(new Event(ev, { bubbles: true })); } catch(e){} };
+          if (f.dost) { var d = document.querySelector('input[name="dost"][data-kind="' + f.dost + '"]'); if (d && !d.checked) { d.checked = true; fire(d, 'change'); } }
+          if (f.pay)  { var p = document.querySelector('input[name="pay"][value="' + f.pay + '"]'); if (p && !p.disabled && !p.checked) { p.checked = true; fire(p, 'change'); } }
+          try { if (f.ccPhone && itiPhone) itiPhone.setCountry(f.ccPhone); if (f.ccRec && itiRec) itiRec.setCountry(f.ccRec); } catch(e){}
+          TEXT.forEach(function(id){ var el = document.getElementById(id); if (el && f.v[id] != null && !el.value) el.value = f.v[id]; });
+          var dr = document.getElementById('f-diff-recipient');
+          if (dr && f.diff && !dr.checked) { dr.checked = true; fire(dr, 'change'); }
+          if (f.v['f-bday-d'] || f.v['f-bday-m']) { var bb = document.getElementById('bday-box'), bt = document.getElementById('bday-toggle'); if (bb) bb.style.display = 'block'; if (bt) bt.style.display = 'none'; }
+          if (f.point && f.point.id && carrierIsPickup()) choosePickup(f.point);
+        } finally { restoring = false; }
+      }
+      function pending(){
+        var p = get(PEND);
+        if (!p || !p.no || !p.key || Date.now() - (p.at || 0) > 7 * 86400000) { if (p) del(PEND); return null; }
+        return p;
+      }
+      function setPending(p){ p.at = Date.now(); put(PEND, p); }
+      function clear(){ del(FORM); del(PEND); }
+      /* The fields that make an order THE SAME order — not how it is paid. */
+      function print(pl){
+        /* Normalised, so the same order typed again (or put back by restore(), where the phone library may format the
+           number differently) is recognised: digits of the phones, trimmed lower-case text. */
+        var t = function(v){ return String(v == null ? '' : v).trim().toLowerCase().replace(/\s+/g, ' '); };
+        var dg = function(v){ return String(v == null ? '' : v).replace(/\D+/g, '').slice(-9); };
+        return JSON.stringify([t(pl.name), dg(pl.phone), t(pl.email), (pl.items || []).map(function(i){ return i.id + '×' + i.qty; }).join(','),
+          t(pl.promo_code), t(pl.delivery_kind), t(pl.pickup_point_id), t(pl.street), t(pl.street_number), dg(pl.zipcode), t(pl.city),
+          t(pl.recipient_name), dg(pl.recipient_phone), t(pl.birthday)]);
+      }
+      function ask(action){
+        var p = pending(); if (!p) return Promise.resolve({ state: 'not_found' });
+        return fetch('/api/order-pending', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order_no: p.no, key: p.key, action: action }) }).then(function(r){ return r.json(); });
+      }
+      function box(){ return document.getElementById('pay-cancel'); }
+      function toCod(){
+        var p = pending(); if (!p) return;
+        var b = document.getElementById('pend-cod'), mb = document.getElementById('order-submit'), bar = document.getElementById('m-paybar-btn');
+        [b, mb, bar].forEach(function(x){ if (x) { x.disabled = true; } });
+        if (b) b.textContent = 'Przetwarzanie…';
+        var restore = function(){ [b, mb, bar].forEach(function(x){ if (x) x.disabled = false; }); if (b) b.textContent = 'Zapłać przy odbiorze — bez dopłat'; };
+        ask('cod').then(function(res){
+          if (res && res.ok) {
+            try { var snap = p.snap || {}; snap.no = res.order_no; snap.cod = 0; sessionStorage.setItem('bolotov_last_order', JSON.stringify(snap)); } catch(e){}
+            clear();
+            window.location.href = 'dziekujemy.html?status=cod&order=' + encodeURIComponent(res.order_no);
+            return;
+          }
+          var err = res && res.error;
+          if (err === 'paid') { clear(); window.location.href = 'dziekujemy.html?status=success&order=' + encodeURIComponent(p.no); return; }
+          restore();
+          var x = box();
+          if (err === 'closed' || err === 'not_found') {
+            del(PEND);
+            if (x) { x.innerHTML = 'Poprzednie zamówienie nie jest już aktywne. Twoje dane są zachowane — złóż zamówienie poniżej.'; x.style.display = 'block'; }
+          } else if (err === 'carrier') {
+            if (x) { x.innerHTML = 'Płatność przy odbiorze jest możliwa z paczkomatem InPost lub kurierem DPD. Wybierz jeden z nich poniżej i złóż zamówienie — poprzednie zamkniemy.'; x.style.display = 'block'; }
+          } else {
+            var oe = document.getElementById('order-error'); if (oe) oe.style.display = 'block';
+          }
+        }).catch(function(){ restore(); var oe = document.getElementById('order-error'); if (oe) oe.style.display = 'block'; });
+      }
+      function offer(st, p){
+        var x = box(); if (!x) return;
+        var fmtZl = function(n){ return (Math.round(n * 100) / 100).toString().replace('.', ',') + ' zł'; };
+        var back = /[?&]status=(cancel|failed)/.test(location.search);
+        var html = '<strong>' + (back ? '⚠️ Płatność nie została dokończona.' : '⚠️ Masz zamówienie, które czeka na płatność.') + '</strong> '
+          + 'Zamówienie nr <strong>' + p.no + '</strong>' + (st.total ? ' (' + fmtZl(st.total) + ')' : '') + ' jest zapisane — nie musisz składać go ponownie.'
+          + '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center">'
+          + (st.cod_ok ? '<button type="button" id="pend-cod" class="btn btn-gold" style="padding:12px 20px;white-space:normal;max-width:100%;text-align:center;line-height:1.3">Zapłać przy odbiorze — bez dopłat</button>' : '')
+          + (st.pay_url ? '<a id="pend-pay" href="' + st.pay_url + '" style="color:var(--magenta);font-weight:600">Zapłać BLIK-iem lub kartą</a>' : '')
+          + '</div>'
+          + (st.cod_ok ? '' : '<p style="margin-top:8px;font-size:13.5px">Płatność przy odbiorze jest możliwa z paczkomatem InPost lub kurierem DPD — możesz zmienić dostawę poniżej i złożyć zamówienie ponownie (poprzednie zamkniemy).</p>')
+          + '<p style="margin-top:8px;font-size:13px;color:#6b5b62">Twoje dane w formularzu poniżej są zachowane.</p>';
+        x.innerHTML = html; x.style.display = 'block';
+        var b = document.getElementById('pend-cod'); if (b) b.addEventListener('click', toCod);
+        /* «Za pobraniem» already chosen below, so the order button does the same as the box's button. */
+        if (st.cod_ok) { var cod = document.querySelector('input[name="pay"][value="cod"]'); if (cod && !cod.disabled && !cod.checked) { cod.checked = true; try { cod.dispatchEvent(new Event('change', { bubbles: true })); } catch(e){} } }
+      }
+      function check(){
+        var p = pending();
+        if (!p) {
+          if (/[?&]status=(cancel|failed)/.test(location.search)) { var x = box(); if (x) x.style.display = 'block'; }
+          return;
+        }
+        ask('status').then(function(st){
+          if (st && st.state === 'pending') offer(st, p);
+          else if (st && (st.state === 'paid' || st.state === 'cod')) clear();     // done elsewhere — nothing to offer
+          else if (st && (st.state === 'closed' || st.state === 'not_found')) del(PEND);
+        }).catch(function(){
+          if (/[?&]status=(cancel|failed)/.test(location.search)) { var x = box(); if (x) x.style.display = 'block'; }
+        });
+      }
+      return { save: save, restore: restore, pending: pending, setPending: setPending, clear: clear, print: print, toCod: toCod, check: check,
+               schedule: function(){ if (timer) clearTimeout(timer); timer = setTimeout(save, 300); } };
+    })();
+    if (of) { of.addEventListener('input', Keep.schedule); of.addEventListener('change', Keep.schedule); }
+    ['f-phone','f-rec-phone'].forEach(function(id){ var el = document.getElementById(id); if (el) el.addEventListener('countrychange', Keep.schedule); });
+    window.addEventListener('pagehide', function(){ Keep.save(); });
+    Keep.restore();
+    Keep.check();
+    render();
+  })();
+  </script>
+  <!-- Phones: the order button sits ~3 screens down, under the paczkomat map, so a bar keeps the total and the button
+       in reach (site-build/CHECKOUT-MOBILE.md rule 74 — the PL cart was the listed gap; same idea as shops/czsk
+       kosik.html and our produkt-balzam.html). It presses the real button, so the same validation runs. Hidden while
+       the real button is on screen or already passed, while a text field has focus (keyboard), and while the cookie
+       bar is open (it sits at the same spot). 2026-11-06. -->
+  <div class="m-paybar" id="m-paybar" hidden><span><small>Razem</small> <strong id="m-paybar-total"></strong></span><button type="button" class="btn btn-buy" id="m-paybar-btn">Zamawiam z obowiązkiem zapłaty</button></div>
+  <style>
+    .m-paybar{display:none}
+    /* no «↑» on the cart page at any width: it sat over the paczkomat map / list and the fields (owner's phone 2026-11-19, rule 75) */
+    .to-top{display:none!important}
+    @media (max-width:820px){
+      .m-paybar:not([hidden]){display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:#fff;
+        box-shadow:0 -4px 16px rgba(94,32,57,.15);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:12px;align-items:center;justify-content:space-between}
+      .m-paybar small{display:block;font-size:12px;color:#6b5b62}
+      .m-paybar strong{font-family:'Montserrat','Montserrat Fallback';font-size:20px;font-weight:800;color:var(--wine);white-space:nowrap}
+      .m-paybar > span{flex:none}
+      .m-paybar .btn{flex:1;margin:0;padding:11px 12px;font-size:13px;line-height:1.25;white-space:normal;text-align:center}
+      body.has-paybar .wa-float{display:none}
+      /* the floating WhatsApp sat over the form fields and the paczkomat list (rule 75); the cart keeps its WhatsApp links in the text */
+      .wa-float{display:none!important}
+      body.has-paybar .to-top{bottom:84px}
+    }
+  </style>
+  <script>
+  (function(){
+    var bar = document.getElementById('m-paybar'), real = document.getElementById('order-submit'), sum = document.getElementById('sum-total');
+    if (!bar || !real || !sum || !window.IntersectionObserver) return;
+    var ahead = true, typing = false, atPickup = false, squeezed = false;
+    /* Owner's phone, 2026-11-19: the bar floated mid-screen over the paczkomat map. A fixed bar sits on the LAYOUT
+       viewport, so in iPhone Safari with the keyboard up or the page pinch-zoomed it shows in the middle of what the
+       buyer sees. So the bar also stays away (1) while the paczkomat search / map / point list is on screen — the buyer
+       is choosing there, the real button is further down anyway — and (2) while the visible area is zoomed or squeezed
+       by the keyboard (visualViewport). */
+    var pick = document.getElementById('pickup-box'), vv = window.visualViewport;
+    var sync = function(){
+      document.getElementById('m-paybar-total').textContent = sum.textContent;
+      var order = document.getElementById('order-block');
+      squeezed = !!vv && (vv.scale > 1.05 || vv.height < window.innerHeight * 0.8);
+      bar.hidden = !ahead || typing || atPickup || squeezed || !!document.getElementById('cb-banner')
+                 || !(window.Cart && Cart.count() > 0) || !order || order.style.display === 'none';
+      document.body.classList.toggle('has-paybar', !bar.hidden);
+    };
+    // «ahead» = the real button is below the visible part of the page (not yet reached)
+    new IntersectionObserver(function(e){ ahead = !e[0].isIntersecting && e[0].boundingClientRect.top > 0; sync(); }).observe(real);
+    // «under the bar» = the paczkomat box reaches the bottom strip where the bar sits (its height + a little air)
+    var underBar = function(){
+      if (!pick || pick.style.display === 'none') return false;
+      var r = pick.getBoundingClientRect(), h = window.innerHeight;
+      return r.height > 0 && r.top < h && r.bottom > h - 100;
+    };
+    window.addEventListener('scroll', function(){ var u = underBar(); if (u !== atPickup) { atPickup = u; sync(); } }, { passive: true });
+    document.addEventListener('change', function(){ atPickup = underBar(); sync(); });
+    if (vv) { vv.addEventListener('resize', sync); vv.addEventListener('scroll', sync); }
+    new MutationObserver(sync).observe(sum, { childList: true, characterData: true, subtree: true });
+    new MutationObserver(sync).observe(document.body, { childList: true });   // the cookie bar comes and goes
+    document.addEventListener('cart:change', sync);
+    document.getElementById('m-paybar-btn').addEventListener('click', function(){ real.click(); });
+    var isField = function(el){ return el && /^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName) && el.type !== 'radio' && el.type !== 'checkbox'; };
+    document.addEventListener('focusin', function(e){ if (isField(e.target)) { typing = true; sync(); } });
+    document.addEventListener('focusout', function(){ setTimeout(function(){ typing = isField(document.activeElement); sync(); }, 0); });
+    sync();
+  })();
+  </script>
+  <script src="cookies.js"></script>
+    <script src="ship-cutoff.js?v=20261120" defer></script>
+
+<script>
+/* preview only (tools/build-redesign-preview.py) */
+(function(){
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('#order-submit, #m-paybar-btn, form[data-cb-form] button');
+    if(!b) return; e.preventDefault(); e.stopImmediatePropagation();
+    alert('Это предпросмотр: заказ и формы здесь не отправляются.');
+  }, true);
+})();
+</script>
+<style>[data-slot="oryginal-trust"] .orig-long{outline:3px dashed #C9A86A;outline-offset:6px;position:relative}
+[data-slot="oryginal-trust"] .orig-long::after{content:'Блок «Оригинал» — текст ещё не окончательный (партнёр, «tylko u nas»)';position:absolute;
+left:12px;top:-14px;background:#C9A86A;color:#262224;font:700 12px/1 system-ui,sans-serif;padding:5px 8px;border-radius:6px}</style>
+</body>
+</html>
