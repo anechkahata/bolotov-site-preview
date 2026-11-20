@@ -951,21 +951,15 @@ html.wa-wait .wa-float{opacity:0;pointer-events:none;transform:scale(.6)}
 .rev-carousel{content-visibility:auto;contain-intrinsic-size:auto 390px}
 .story-strip{content-visibility:auto;contain-intrinsic-size:auto 700px}
 
-/* ---------- Product / set cards, desktop: one left-column pattern (owner 2026-11-20: «много пустого места») ----------
-   The main photo fills its column (it was capped at 340 px inside a ~526 px column), thumbnails under it, then one
-   useful block: the price table where there are pack options, the set's contents on a set, or «W zestawie taniej»
-   ([data-set-offer], painted by cart.js from CATALOG + SETS) on a single product. Phones keep their own order (above). */
-@media (min-width:768px){
-  .grid2:has(#gmain)>div:first-child>.card:has(#gmain){padding:0 !important;min-height:0 !important;overflow:hidden;background:#f7f1e6 !important}
-  .grid2:has(#gmain) #gmain{width:100% !important;max-width:none !important;max-height:none !important;height:auto !important;aspect-ratio:1/1;object-fit:cover;border-radius:0 !important;display:block}
-  .grid2:has(#gmain) .gthumbs .gthumb{width:72px;height:72px;object-fit:cover;border-radius:10px}
-}
-.pd-side{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;display:grid;gap:10px}
+/* ---------- Cream card only (owner 2026-11-20: «я просила только по крему поправить немного»): under its photo the
+   gallery thumbnails (as on the other cards) and a compact «W zestawie taniej» ([data-set-offer], painted by cart.js from
+   CATALOG + SETS). Every other card keeps its look. ---------- */
+.pd-side{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;gap:8px}
 .pd-side[hidden]{display:none}
 .pd-side-h{font-family:'Montserrat','Montserrat Fallback',sans-serif;font-size:15px;color:var(--ink)}
-.pd-set{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;padding:8px;border-radius:12px;border:1px solid var(--line);color:var(--ink);text-decoration:none;transition:border-color .15s}
+.pd-set{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:center;padding:6px;border-radius:12px;border:1px solid var(--line);color:var(--ink);text-decoration:none;transition:border-color .15s}
 .pd-set:hover{border-color:var(--wine)}
-.pd-set img{width:64px;height:64px;border-radius:10px;object-fit:cover;background:#f7f1e6}
+.pd-set img{width:48px;height:48px;border-radius:10px;object-fit:cover;background:#f7f1e6}
 .pd-set b{display:block;font-family:'Montserrat','Montserrat Fallback',sans-serif;font-size:14px;line-height:1.25}
 .pd-set-pr{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
 .pd-set-pr strong{color:var(--wine);font-family:'Montserrat','Montserrat Fallback',sans-serif;font-size:15px}

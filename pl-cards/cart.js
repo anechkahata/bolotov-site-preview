@@ -634,7 +634,7 @@ window.cbAttribution = function () {
       var esc = function (t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
       box.innerHTML = '<strong class="pd-side-h">W zestawie taniej</strong>' + list.map(function (x) {
         var img = (x.p.img || '').replace(/-cat\.webp$/, '-160-cat.webp');
-        return '<a class="pd-set" href="' + esc(x.p.url) + '"><img src="' + esc(img) + '" alt="" loading="lazy" width="64" height="64">'
+        return '<a class="pd-set" href="' + esc(x.p.url) + '"><img src="' + esc(img) + '" alt="" loading="lazy" width="48" height="48">'
           + '<span><b>' + esc(x.p.name) + '</b><span class="pd-set-pr"><strong>' + money(x.p.price) + '</strong> · osobno '
           + money(x.p.orig) + '</span><small>oszczędzasz ' + money(x.save) + '</small></span></a>';
       }).join('');
