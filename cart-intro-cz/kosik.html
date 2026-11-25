@@ -26,7 +26,7 @@
   <meta property="og:image:width" content="1170">
   <meta property="og:image:height" content="1117">
   <meta property="og:locale" content="cs_CZ">
-  <link rel="stylesheet" href="brand.css?v=2026112501">
+  <link rel="stylesheet" href="brand.css?v=2026112502">
   <!-- Date-window blocks (seasonal notices, the Christmas banner) decided BEFORE the first paint (speed pass 2026-11-15):
        cart.js used to unhide them after load, which pushed the hero down (CLS 0.26 desktop). Same rule as cart.js
        (Prague day, ?cb_today= preview, until exclusive); cart.js still runs it again afterwards. -->
@@ -65,11 +65,11 @@
   <section class="section cart-section"><div class="container" style="max-width:980px">
     <!-- Cart intro for chat-bot visitors (owner 2026-11-25, A/B test): shown only for a link with `intro=1` (or a menu-PDF
          label) while the cart holds the product a block is written for — every other cart is unchanged. Logic: the script after cart.js below; look: brand.css «Cart intro». -->
-    <section class="cart-intro" data-intro-for="balzam-500,balzam-250" data-days="30,15" hidden>
+    <section class="cart-intro" data-intro-for="balzam-500,balzam-250" data-days="30,15" data-when="bot" hidden>
       <p class="ci-eyebrow">Balzám Bolotova · 500 ml</p>
       <h2 class="ci-title">Každodenní trávicí komfort — pro ty, kdo po jídle cítí těžkost</h2>
       <p class="ci-lead">Ověřený tisíci lidí po celé Evropě — receptura rodiny Bolotových. Stačí jedna čajová lžička do sklenice vody k jídlu. Vyzkoušejte to a začněte o své zdraví pečovat každý den.</p>
-      <div class="ci-offer"><span class="ci-price"></span><span class="ci-day"><span class="ci-perday"></span> na den · láhev vydrží zhruba na měsíc</span></div>
+      <div class="ci-offer"><img class="ci-pic" alt="" width="64" height="64" hidden><span class="ci-price"></span><span class="ci-day"><span class="ci-perday"></span> na den · láhev vydrží zhruba na měsíc</span></div>
       <ul class="ci-facts">
         <li><b>Platíte až při převzetí</b> — na dobírku, bez příplatku</li>
         <li><b>Doprava od <span class="ci-del">88 CZK</span></b> — Zásilkovna, DPD, GLS nebo PPL; odesíláme do 1–2 pracovních dnů</li>
@@ -97,11 +97,11 @@
       <a class="btn btn-gold ci-cta" href="#cart-items">Pokračovat k objednávce ↓</a>
       <p class="ci-note">Doplněk stravy · nepřekračujte doporučenou denní dávku · není vhodný pro osoby do 18 let, těhotné a kojící ženy</p>
     </section>
-    <section class="cart-intro" data-intro-for="set-reflux-start" data-days="30" hidden>
+    <section class="cart-intro" data-intro-for="set-reflux-start" data-days="30" data-when="bot" hidden>
       <p class="ci-eyebrow">Program na reflux a pálení žáhy START</p>
       <h2 class="ci-title">14denní plán pro každodenní trávicí komfort — jasně, krok za krokem</h2>
       <p class="ci-lead">Balzám Bolotova a L-Glutamine s tištěným průvodcem v jednom schématu: přesně víte, co a kdy užívat a jak si srovnat jídelníček. Vyzkoušejte to a začněte o své zdraví pečovat každý den.</p>
-      <div class="ci-offer"><span class="ci-price"></span><span class="ci-day"><span class="ci-perday"></span> na den · balení vystačí až na 30 dní</span></div>
+      <div class="ci-offer"><img class="ci-pic" alt="" width="64" height="64" hidden><span class="ci-price"></span><span class="ci-day"><span class="ci-perday"></span> na den · balení vystačí až na 30 dní</span></div>
       <ul class="ci-facts">
         <li><b>V balíčku:</b> Balzám Bolotova 250 ml, L-Glutamine 90 kapslí a tištěný průvodce na 14 dní zdarma</li>
         <li><b>Platíte až při převzetí</b> — na dobírku, bez příplatku</li>
@@ -129,6 +129,39 @@
       </div>
       <a class="btn btn-gold ci-cta" href="#cart-items">Pokračovat k objednávce ↓</a>
       <p class="ci-note">Doplněk stravy · nepřekračujte doporučenou denní dávku · není náhradou pestré stravy · nejde o léčbu; při přetrvávajících obtížích se poraďte s lékařem</p>
+    </section>
+    <section class="cart-intro" data-intro-for="balzam-500,balzam-250" data-days="30,15" data-when="menu" hidden>
+      <p class="ci-eyebrow">K vašemu menu podle Bolotova</p>
+      <h2 class="ci-title">K objednávce Balzámu dostanete Velké menu na 4 týdny zdarma</h2>
+      <p class="ci-lead">Balzám Bolotova patří k jídlu každý den: jedna čajová lžička do sklenice vody. Ke každé objednávce Balzámu vám pošleme Velké menu podle Bolotova — ať máte vaření na celý měsíc vyřešené.</p>
+      <div class="ci-gift"><img src="assets/img/menu/big-menu-cz.webp" alt="" width="120" height="213" loading="lazy"><p><b>🎁 Dárek: Velké menu podle Bolotova na 4 týdny</b>28 dní menu, 4 nákupní seznamy a 16 jednoduchých receptů — přijde vám e-mailem s potvrzením objednávky.</p></div>
+      <div class="ci-offer"><img class="ci-pic" alt="" width="64" height="64" hidden><span class="ci-price"></span><span class="ci-day"><span class="ci-perday"></span> na den · láhev vydrží zhruba na měsíc</span></div>
+      <ul class="ci-facts">
+        <li><b>Platíte až při převzetí</b> — na dobírku, bez příplatku</li>
+        <li><b>Doprava od <span class="ci-del">88 CZK</span></b> — Zásilkovna, DPD, GLS nebo PPL; odesíláme do 1–2 pracovních dnů</li>
+        <li><b>14 dní na vrácení</b> — zboží můžete vrátit bez udání důvodu</li>
+        <li><b>Poradíme na <a href="https://wa.me/421944623644" target="_blank" rel="noopener noreferrer">WhatsApp</a></b> — odpovídáme osobně</li>
+      </ul>
+      <div class="ci-rv">
+        <p class="ci-rv-title">Co píšou zákazníci</p>
+        <!-- RV:START cart-intro-menu (generated by shops/reviews/gen-reviews.py — edit shops/reviews/czsk.json, not the cards) -->
+        <figure class="rv-mini-card">
+          <blockquote lang="cs"><p>„Dobrý den,<br>asi po měsíci užívání balzámu Bolotova jsem pocítila první účinky. Těžkosti po jídle vymizely, nadýmání a nafouklé břicho byly ty tam.<br>Dokonce jsem zhubla 2 kg.<br>Upravil se mi i spánek.<br>Účinky balzámu jsem sdělila své rodině.<br>Balzám mají chuť vyzkoušet 3 moji příbuzní.<br>Moc děkuji.<br>Danuše“</p></blockquote>
+          <figcaption class="rv-who"><strong>Danuše</strong><span class="rv-ver">Ověřený nákup</span></figcaption>
+        </figure>
+        <figure class="rv-mini-card acc-more">
+          <blockquote lang="cs"><p>„Dobrý den,balzám užívám 2.mesic..citim se skvěle,nadýmání zmizelo a pomalu jde dolu i váha,jsem.momwntslne v Lázní mam odlitou flasticku balzámu a beru si to k snídani  k obědu i k večeři a brčko k tomu...ještě budu brát listopad..prosinec pauza a pak znovu“</p></blockquote>
+          <figcaption class="rv-who"><strong>Květa</strong><span class="rv-ver">Ověřený nákup</span><span class="rv-src">WhatsApp</span></figcaption>
+        </figure>
+        <figure class="rv-mini-card acc-more">
+          <blockquote lang="cs"><p>„Dobrý den.<br>Nejdříve bych rád poděkoval za rychlé vyřízení a doručení. A za váš elixír, který mi moc pomohl, hned po pár použití jsem se cítil a cítím se stále mnohem lépe. Proto objednávám další elixír i pro manželku. Děkuji moc s pozdravem Jiří.“</p></blockquote>
+          <figcaption class="rv-who"><strong>Jiří</strong><span class="rv-ver">Ověřený nákup</span></figcaption>
+        </figure>
+        <!-- RV:END cart-intro-menu -->
+        <a class="ci-rv-all" href="hodnoceni.html">Přečíst všechna hodnocení →</a>
+      </div>
+      <a class="btn btn-gold ci-cta" href="#cart-items">Pokračovat k objednávce ↓</a>
+      <p class="ci-note">Doplněk stravy · nepřekračujte doporučenou denní dávku · není vhodný pro osoby do 18 let, těhotné a kojící ženy</p>
     </section>
     <h2 class="title cart-title" style="text-align:left">Košík</h2>
     <div id="pay-cancel" style="display:none;margin-top:16px;background:#f6e3e8;border:1px solid #e3b9c6;border-radius:12px;padding:14px 18px;color:#7a2540;font-size:14.5px">⚠️ Platba nebyla dokončena. Váš košík zůstal zachovaný — můžete to zkusit znovu.</div>
@@ -272,13 +305,14 @@
      block is written for (`data-intro-for`, first match wins). Each block shows the price per unit (with the link's code),
      the price per day (`data-days` per product) and the cheapest delivery. The flags stay in the address. */
   (function(){
-    var q = location.search;
-    if (!/[?&]intro=1(&|#|$)/.test(q) && !/[?&]utm_source=menu-pdf-/.test(q)) return;
+    var q = location.search, when = /[?&]utm_source=menu-pdf-/.test(q) ? 'menu' : /[?&]intro=1(&|#|$)/.test(q) ? 'bot' : '';
+    if (!when) return;
     function paint(){
       if (!window.Cart) return;
       var items = Cart.items(), shown = false, cz = Cart.market() === 'CZ';
       var round = function(n){ return cz ? Math.round(n) : Math.round(n * 100) / 100; };
       [].forEach.call(document.querySelectorAll('.cart-intro[data-intro-for]'), function(box){
+        if (box.getAttribute('data-when') !== when) { box.hidden = true; return; }
         var ids = box.getAttribute('data-intro-for').split(','), days = box.getAttribute('data-days').split(',').map(Number);
         var it = null, d = 0;
         ids.forEach(function(id, k){ items.forEach(function(i){ if (!it && i.id === id) { it = i; d = days[k]; } }); });
@@ -290,6 +324,8 @@
         box.querySelector('.ci-perday').textContent = '≈ ' + Cart.fmt(round(per / d));
         var minDel = Math.min.apply(null, Cart.deliveryOptions().map(function(o){ return o.price; }));
         var del = box.querySelector('.ci-del'); if (del) del.textContent = Cart.fmt(minDel);
+        var pic = box.querySelector('.ci-pic'), src = (Cart.CATALOG[it.id] || {}).img;
+        if (pic && src) { pic.src = src; pic.hidden = false; }
         box.hidden = false; shown = true;
       });
     }

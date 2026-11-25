@@ -1065,3 +1065,10 @@ h3.as-h4,h2.as-h3.as-h4{font-size:1em;font-family:inherit}
 .ci-cta{display:flex;width:100%;margin-top:16px;justify-content:center;text-align:center}
 .ci-note{margin:8px 0 0;font-size:12px;line-height:1.45;color:#8a7a81;text-align:center}
 @media (max-width:640px){.cart-intro{padding:16px 16px}.ci-title{font-size:21px}.ci-price{font-size:23px}}
+/* Cart intro, round 2 (owner 2026-11-25: «картиночкой разбавить», the menu block): the product photo beside the price and the
+   big-menu gift card with its cover in the block for menu-PDF visitors. */
+.ci-pic{flex:none;width:56px;height:56px;object-fit:contain;border-radius:10px;background:#fff}
+.ci-gift{display:flex;gap:14px;align-items:center;margin:14px 0 2px;padding:12px;background:#f3efe6;border-radius:14px}
+.ci-gift img{flex:none;width:92px;height:auto;border-radius:8px;box-shadow:0 4px 14px rgba(94,32,57,.18)}
+.ci-gift p{margin:0;font-size:14.5px;line-height:1.45;color:#3d3036}
+.ci-gift b{display:block;margin-bottom:4px;font:700 15px/1.3 'Montserrat',sans-serif;color:var(--wine-dark)}
