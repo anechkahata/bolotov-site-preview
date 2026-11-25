@@ -1076,3 +1076,9 @@ h3.as-h4,h2.as-h3.as-h4{font-size:1em;font-family:inherit}
 .ci-lead-row{display:flex;gap:14px;align-items:center}
 .ci-lead-row img{flex:none;width:96px;height:auto;border-radius:12px;object-fit:cover}
 .ci-lead-row .ci-lead{flex:1;min-width:0}
+/* Owner 2026-11-25 (screenshot): the photo starts at the first line of the text and the text flows around it, under it too. */
+.ci-lead-row{display:block}
+.ci-lead-row::after{content:"";display:block;clear:both}
+.ci-lead-row img{float:left;width:96px;margin:5px 14px 4px 0}
+/* Owner 2026-11-25: two lines of text under the photo — a smaller photo, three lines tall beside the text. */
+.ci-lead-row img{width:64px;margin:2px 12px 0 0}
